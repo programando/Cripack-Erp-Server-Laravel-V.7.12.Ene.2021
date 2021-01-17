@@ -21,8 +21,15 @@ class dashBoardModel extends Model
         $dtMonthToTodayOneYearAgoStart = Carbon::now()->startOfYear()->subYear(1)->format('Y-m-d H:m:s');
         $dtMonthToTodayOneYearAgoEnd   = Carbon::createFromDate( $dtEndToday)->subYear(1)->format('Y-m-d H:m:s');
 
-        return      DB::select(' call dashboard_ventas  (?,?,?,?,?,?,?,?)', 
-                    array($dtStarToday, $dtEndToday,$dtOneYearAgoStart  , $dtOneYearAgoEnd,$dtMonthToTodayStart, $dtMonthToTodayEnd , $dtMonthToTodayOneYearAgoStart , $dtMonthToTodayOneYearAgoEnd     ));
+        $dtStarTodayText       = Carbon::createFromDate( $dtStarToday)->format('d-m-Y');
+        $dtOneYearAgoStartText = Carbon::createFromDate( $dtOneYearAgoStart)->format('d-m-Y');
+        $dtMonthToTodayStartText = ucfirst( Carbon::createFromDate( $dtMonthToTodayStart)->formatLocalized('%B %Y'));
+        $dtMonthToTodayOneYearAgoStartText = ucfirst( Carbon::createFromDate( $dtMonthToTodayOneYearAgoStart)->formatLocalized('%B %Y'));
+        
+
+
+        return      DB::select(' call dashboard_ventas  (?,?,?,?,?,?,?,?,?,?,?,?)', 
+                    array($dtStarToday, $dtEndToday,$dtOneYearAgoStart  , $dtOneYearAgoEnd,$dtMonthToTodayStart, $dtMonthToTodayEnd , $dtMonthToTodayOneYearAgoStart , $dtMonthToTodayOneYearAgoEnd     , $dtStarTodayText, $dtOneYearAgoStartText, $dtMonthToTodayStartText,$dtMonthToTodayOneYearAgoStartText ));
             
         //return  Carbon::createFromDate( $dtStarToday)->format('Y-m-d');
         //return  Carbon::createFromDate( $dtEndToday)->subYear(1)->format('Y-m-d');
