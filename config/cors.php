@@ -17,7 +17,7 @@ return [
 
     'paths'                    => ['*','/login','/logout','/reset/password','/update/password','/sanctum/csrf-cookie'],
     'allowed_methods'          => ['*'],
-    'allowed_origins'          => ['http://localhost:3000','https://cripack.plusoft.co' ],
+    'allowed_origins'          => ['http://localhost:3000','https://cripack.plusoft.co', 'https://cripack.api.plusoft.co' ],
     'allowed_origins_patterns' => [],
     'allowed_headers'          => ['*'],
     'exposed_headers'          => false,
