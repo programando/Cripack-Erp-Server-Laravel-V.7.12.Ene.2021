@@ -12,5 +12,7 @@ class dashBoardController extends Controller
     public function ventas() {
         return dashBoard::ventas();
     }
-
+    public function comparativoVentasUltimosTresAnios() {
+        return dashBoard::comparativoVentasUltimosTresAnios();
+    }
 }

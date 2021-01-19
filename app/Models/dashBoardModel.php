@@ -8,6 +8,12 @@ use DB;
 class dashBoardModel extends Model
 {
     
+    public function scopecomparativoVentasUltimosTresAnios()  {
+        $yearFinalConsulta                   = date('Y');
+
+        return  DB::select(' call produccion_informe_ventas_ultimos_3_anios_mes_a_mes  (?,?,?,?)',    array($yearFinalConsulta , 0,0  , 0) ) ;
+    }
+
     public function scopeventas() {
         // Hoy   Hoy-365  ( Inicio y Final )
         $dtStarToday                   = date('Y-m-d 00:01:00');
