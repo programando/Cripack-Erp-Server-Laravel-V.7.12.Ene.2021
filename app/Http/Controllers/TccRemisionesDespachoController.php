@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TccRemisionesDespacho as RemisionesTcc;
-$DocumentoReferencia; $UnidadBoomerang; $ObjectToSend;
+$DocumentoReferencia; $UnidadBoomerang; $ObjectToSend; $RespuestaTcc; $NumeroRemesa;
 class TccRemisionesDespachoController extends Controller
 {
     public function getDocsToIntegration () {
         $Remisiones = RemisionesTcc::getDocsToIntegration() ;
         foreach ($Remisiones as $Remision) {
             $CodBarra           = 'CRIP'.intval( time());
-            $this->buildDocumentReference (  $Remision   );
-            $this->buildBoomerangUnit     (  $Remision ,$CodBarra );
-            $this->buildObjectToSend      ( $Remision );
-            $this->documentSendToTcc       () ;
+            $this->buildDocumentReference    (  $Remision   );
+            $this->buildBoomerangUnit        (  $Remision ,$CodBarra );
+            $this->buildObjectToSend         ( $Remision );
+            $this->documentSendToTcc         (  ) ;
+            $this->assingNroRemesaToRemision ( $Remision->idregistro, $CodBarra );
         }
+        print_r ( "Integración de remisiones con TCC ha finalizado!"."\n");
     }
 
     private function buildDocumentReference (  $Remisiones ) {
@@ -46,10 +48,11 @@ class TccRemisionesDespachoController extends Controller
                         'cantidadunidades' => '1',
                         'kilosreales'      => $Remisiones->kilos_reales,
                         'pesovolumen'      => $Remisiones->kilos_volumen,
-                        'valormercancia'   => '0',
-                        'codigobarras'     => $Remisiones->valor_mercancia
+                        'valormercancia'   => $Remisiones->valor_mercancia,
+                        'codigobarras'     => $CodBarra
                   )
                 );
+                
     }
 
     private function buildObjectToSend ( $Remisiones ) {
@@ -113,8 +116,8 @@ class TccRemisionesDespachoController extends Controller
     }
 
     private function documentSendToTcc () {
-
-           $client                             = new \SoapClient( env('TCC_SOAP_ENDPOINT' ));
+          
+          $client                             = new \SoapClient( env('TCC_SOAP_ENDPOINT' ));
           $remesa                             = new \StdClass;
           $remesa->remesa                     = '';
           $URLRelacionEnvio                   = new \StdClass;
@@ -134,9 +137,32 @@ class TccRemisionesDespachoController extends Controller
           $mensaje                            = new \StdClass;
           $mensaje->mensaje                   = '';
         
-          print_r ( $client->__getFunctions() );
-          print_r ( $client->__getTypes() ); 
+          //print_r ( $client->__getFunctions() );
+          //print_r ( $client->__getTypes() ); 
 
+          //print_r ( env('TCC_SOAP_PASSWORD') ); 
+            
+         try {
+            //Despues de realizar la configuración del xml a enviar, se realiza el consumo del servicio web
+            $resp = $client->GrabarDespacho4($this->ObjectToSend, $remesa,$URLRelacionEnvio,$URLRotulos,$URLRemesa,$IMGRelacionEnvio,$IMGRotulos,$IMGRemesa,$respuesta,$mensaje);
+            //Aqui se hace el manejo de la excepción del consumo
+            echo $client->__getLastRequest() ."\n";
+          }catch(Exception $e){
+            echo 'Excepción capturada: ',  $e->getMessage() , '<br>';
+          }
+          $this->RespuestaTcc='';
+          $this->NumeroRemesa = intval($resp->remesa);
+          if ( $this->NumeroRemesa > 0 ){
+                $this->RespuestaTcc = substr( $resp->mensaje,0,45);
+          };
+        
+        //print_r ( $NumeroRemesa );
+        print_r ( $resp->mensaje ."\n");
+
+    }
+    //$idregistro ,$respuesta ,$nro_rmsa_tcc, $codbarra
+    private function assingNroRemesaToRemision ( $IdRegistro, $CodBarra) {
+        RemisionesTcc::assingNroRemesaToRemision( $IdRegistro, $this->RespuestaTcc, $this->NumeroRemesa,$CodBarra );
     }
      
 }

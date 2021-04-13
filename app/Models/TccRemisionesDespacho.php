@@ -81,4 +81,8 @@ class TccRemisionesDespacho extends Model
 				return     DB::select('call remisiones_despachos_integrar_ws_tcc()');
 	}
 
+	public static function assingNroRemesaToRemision($idregistro ,$respuesta ,$nro_rmsa_tcc, $codbarra){
+       $Registro    =  DB::select('call remisiones_despachos_integrar_ws_upd_nro_remesa(?,?,?,? )', array($idregistro,"$respuesta", $nro_rmsa_tcc,"$codbarra"  ));			
+	}
+
 }
