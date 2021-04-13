@@ -113,9 +113,9 @@ class TccRemisionesDespachoController extends Controller
     }
 
     private function documentSendToTcc () {
-          print_r (  env('TCC_SOAP_ENDPOINT' ));
-          print_r (  'TCC_SOAP_ENDPOINT' );
-          print_r (  env('BROADCAST_DRIVER' ));
+          print_r (  env('DB_DATABASE' ) ."\n");
+          print_r (  'PRUEBA' )   ."\n";
+          print_r (  env('EMPRESA_NOMBRE' )   ."\n");
 /*           $client                             = new \SoapClient( env('TCC_SOAP_ENDPOINT' ));
           $remesa                             = new \StdClass;
           $remesa->remesa                     = '';
