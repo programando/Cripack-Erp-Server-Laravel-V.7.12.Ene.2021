@@ -21,3 +21,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/sales'            , 'dashBoardController@ventas')->name('ventas');
 Route::get('/sales/compare'            , 'dashBoardController@comparativoVentasUltimosTresAnios')->name('compare');
+
+
+Route::group(['prefix'=>'tcc'], function() {
+    $localController = 'TccRemisionesDespachoController@';
+    Route:: get('/integrar-guias'                          , $localController.'getDocsToIntegration');
+});

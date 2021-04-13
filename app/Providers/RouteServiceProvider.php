@@ -73,8 +73,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         // retiramos   prefix('api')   para no tener que anteponer /api  a las llamadas a mi api
-        Route::middleware('api')
-            ->namespace($this->namespace)
+        Route::namespace($this->namespace)
             ->group(base_path('routes/api.php'));
     }
 }
