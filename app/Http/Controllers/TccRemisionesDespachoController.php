@@ -114,7 +114,7 @@ class TccRemisionesDespachoController extends Controller
 
     private function documentSendToTcc () {
           print_r (  env('TCC_SOAP_ENDPOINT' ));
-          $client                             = new \SoapClient( env('TCC_SOAP_ENDPOINT' ));
+/*           $client                             = new \SoapClient( env('TCC_SOAP_ENDPOINT' ));
           $remesa                             = new \StdClass;
           $remesa->remesa                     = '';
           $URLRelacionEnvio                   = new \StdClass;
@@ -135,7 +135,7 @@ class TccRemisionesDespachoController extends Controller
           $mensaje->mensaje                   = '';
         
           print_r ( $client->__getFunctions() );
-          print_r ( $client->__getTypes() );
+          print_r ( $client->__getTypes() ); */
 
     }
      
