@@ -26,4 +26,5 @@ Route::get('/sales/compare'            , 'dashBoardController@comparativoVentasU
 Route::group(['prefix'=>'tcc'], function() {
     $localController = 'TccRemisionesDespachoController@';
     Route:: get('/integrar-guias'                          , $localController.'getDocsToIntegration');
+    Route:: get('/clientes/notificacion'                    , $localController.'sendCustomerNotification');
 });

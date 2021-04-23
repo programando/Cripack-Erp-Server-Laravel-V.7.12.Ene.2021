@@ -1,12 +1,58 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use App\Mail\RemissionTccToCustomer;
+use Illuminate\Support\Facades\Mail;
 use App\Models\TccRemisionesDespacho as RemisionesTcc;
+
+
 $DocumentoReferencia; $UnidadBoomerang; $ObjectToSend; $RespuestaTcc; $NumeroRemesa;
 class TccRemisionesDespachoController extends Controller
 {
+
+    public function sendCustomerNotification() {
+        $Remisiones = RemisionesTcc::sendCustomerNotification() ;
+        $Ids        = array_unique( Arr::pluck($Remisiones ,'idregistro' ) );
+        foreach( $Ids as $Row) {  
+                foreach ($Remisiones as $Remision) {
+                   if (  $Remision->idregistro == $Row) {
+                     $Empresa  = trim( $Remision->nom_destinatario) ;
+                     $Contacto = trim( $Remision->atencion) . ' ' . trim($Remision->contacto) ;
+                     //$Emails    = $this->getEmails( $Remisiones, $Row);  
+                     $Email = trim( $Remision->email) ;
+                     Mail::to($Email, trim($Remision->contacto) )->send( new RemissionTccToCustomer($Empresa  ,$Contacto, $Email, $Remision));
+                    
+                     //$this->remisionesTccUpdateEmalEnviado ($Row );
+                     break;
+                 }
+                
+            }   
+              
+        } 
+
+    }
+
+    private function remisionesTccUpdateEmalEnviado ( $IdRegistro ) {
+        $ModelRemisionesTcc = RemisionesTcc::where('idregistro', $IdRegistro)->first();
+        $ModelRemisionesTcc->email_enviado = 1;
+        $ModelRemisionesTcc->save();
+    }
+
+    private function getEmails ( $Remisiones, $IdRegistro ){
+           $Emails = [];
+            foreach ($Remisiones as $Remision) {
+                if (  $Remision->idregistro == $IdRegistro) {
+                   array_push ($Emails, $Remision->email );
+            }
+        } //foreach
+        array_push ($Emails, 'serviclientes@cripack.com' );
+        return  array_values( array_unique($Emails));
+    }
+    
+
+
     public function getDocsToIntegration () {
         $Remisiones = RemisionesTcc::getDocsToIntegration() ;
         foreach ($Remisiones as $Remision) {

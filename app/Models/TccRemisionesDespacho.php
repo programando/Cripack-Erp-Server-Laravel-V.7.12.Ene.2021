@@ -85,4 +85,8 @@ class TccRemisionesDespacho extends Model
        $Registro    =  DB::select('call remisiones_despachos_integrar_ws_upd_nro_remesa(?,?,?,? )', array($idregistro,"$respuesta", $nro_rmsa_tcc,"$codbarra"  ));			
 	}
 
+ public static function sendCustomerNotification() {
+	 	return     DB::select('call api_remisiones_informar_clientes()');
+ }
+
 }
