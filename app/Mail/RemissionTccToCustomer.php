@@ -12,11 +12,10 @@ class RemissionTccToCustomer extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $Empresa  ,$Contacto, $Email, $Ots;
-    public function __construct($_Empresa  ,$_Contacto, $_Email, $_Remision){
-         $this->Empresa  = $_Empresa;
-         $this->Contacto = $_Contacto;
-         $this->Email    = $_Email;
+    public $Empresa  ,$Contacto;
+    public function __construct( $_Remision){
+         $this->Empresa  = trim( $_Remision->nom_destinatario);
+         $this->Contacto = trim( $_Remision->atencion) . ' ' . trim($_Remision->contacto) ;
          $this->Ots      = $_Remision;
     }
 
@@ -24,7 +23,9 @@ class RemissionTccToCustomer extends Mailable
     {
         return $this->view('mails.RemissionTccToCustomer')
                     ->from(  config('company.EMAIL_USUARIO') )
-                    ->subject('Notificacioón despacho desde Cripack') ;
+                    ->subject('Notificación despacho desde Cripack') ;
 
     }
+
+ 
 }

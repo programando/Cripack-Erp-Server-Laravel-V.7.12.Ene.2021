@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use config;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Mail\RemissionTccToCustomer;
@@ -11,27 +12,19 @@ use App\Models\TccRemisionesDespacho as RemisionesTcc;
 $DocumentoReferencia; $UnidadBoomerang; $ObjectToSend; $RespuestaTcc; $NumeroRemesa;
 class TccRemisionesDespachoController extends Controller
 {
-
     public function sendCustomerNotification() {
         $Remisiones = RemisionesTcc::sendCustomerNotification() ;
         $Ids        = array_unique( Arr::pluck($Remisiones ,'idregistro' ) );
         foreach( $Ids as $Row) {  
                 foreach ($Remisiones as $Remision) {
                    if (  $Remision->idregistro == $Row) {
-                     $Empresa  = trim( $Remision->nom_destinatario) ;
-                     $Contacto = trim( $Remision->atencion) . ' ' . trim($Remision->contacto) ;
-                     //$Emails    = $this->getEmails( $Remisiones, $Row);  
-                     $Email = trim( $Remision->email) ;
-                     Mail::to($Email, trim($Remision->contacto) )->send( new RemissionTccToCustomer($Empresa  ,$Contacto, $Email, $Remision));
-                    
+                     $Emails    = $this->getEmails( $Remisiones, $Row);  
+                     Mail::to( $Emails, trim($Remision->contacto) )->send( new RemissionTccToCustomer( $Remision ));
                      //$this->remisionesTccUpdateEmalEnviado ($Row );
                      break;
                  }
-                
-            }   
-              
-        } 
-
+            } //foreach ($Remisiones  
+        } //foreach( $Ids
     }
 
     private function remisionesTccUpdateEmalEnviado ( $IdRegistro ) {
@@ -47,7 +40,8 @@ class TccRemisionesDespachoController extends Controller
                    array_push ($Emails, $Remision->email );
             }
         } //foreach
-        array_push ($Emails, 'serviclientes@cripack.com' );
+        //array_push ($Emails, config('company.EMAIL_SERVICIO_CLIENTES'));
+        array_push ($Emails, 'jhonjamesmg@gmail.com');
         return  array_values( array_unique($Emails));
     }
     
