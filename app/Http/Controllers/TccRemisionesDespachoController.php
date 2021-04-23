@@ -42,7 +42,7 @@ class TccRemisionesDespachoController extends Controller
             }
         } //foreach 
         array_push ($Emails, config('company.EMAIL_SERVICIO_CLIENTES'));
-        //array_push ($Emails, 'jhonjamesmg@hotmail.com');
+        array_push ($Emails, 'jhonjamesmg@hotmail.com');
         return  array_values( array_unique($Emails));
     }
     
