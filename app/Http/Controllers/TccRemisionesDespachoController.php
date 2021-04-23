@@ -99,24 +99,24 @@ class TccRemisionesDespachoController extends Controller
     private function buildObjectToSend ( $Remisiones ) {
         $this->ObjectToSend = array(
                 'objDespacho' => array(
-                      'clave'                          => env('TCC_SOAP_PASSWORD'),
+                      'clave'                          => config('company.TCC_SOAP_PASSWORD'),
                       'fechahoralote'                  => '',
                       'numeroremesa'                   => '',
                       'numeroDepacho'                  => '',
                       'unidadnegocio'                  => '1',
                       'fechadespacho'                  => $Remisiones->fecha_ws,
-                      'cuentaremitente'                => env('TCC_SOAP_CUENTA'),
+                      'cuentaremitente'                => config('company.TCC_SOAP_CUENTA'),
                       'sederemitente'                  => '',
                       'primernombreremitente'          => '',
                       'segundonombreremitente'         => '',
                       'primerapellidoremitente'        => '',
                       'segundoapellidoremitente'       => '',
-                      'razonsocialremitente'           => env('EMPRESA_NOMBRE'),
+                      'razonsocialremitente'           => config('company.EMPRESA'),
                       'naturalezaremitente'            => 'J',
                       'tipoidentificacionremitente'    => 'NIT',
-                      'identificacionremitente'        => env('EMPRESA_NIT'),
-                      'telefonoremitente'              => env('EMPRESA_TELEFONO'),
-                      'direccionremitente'             => env('EMPRESA_DIRECCION'),
+                      'identificacionremitente'        => config('company.NIT'),
+                      'telefonoremitente'              => config('company.TELEFONO'),
+                      'direccionremitente'             => config('company.DIRECCION'),
                       'ciudadorigen'                   => '76001000',
                       'tipoidentificaciondestinatario' => '',
                       'identificaciondestinatario'     => '',
@@ -158,7 +158,7 @@ class TccRemisionesDespachoController extends Controller
 
     private function documentSendToTcc () {
           
-          $client                             = new \SoapClient( env('TCC_SOAP_ENDPOINT' ));
+          $client                             = new \SoapClient( config('company.TCC_SOAP_ENDPOINT' ));
           $remesa                             = new \StdClass;
           $remesa->remesa                     = '';
           $URLRelacionEnvio                   = new \StdClass;
@@ -181,7 +181,7 @@ class TccRemisionesDespachoController extends Controller
           //print_r ( $client->__getFunctions() );
           //print_r ( $client->__getTypes() ); 
 
-          //print_r ( env('TCC_SOAP_PASSWORD') ); 
+         
             
          try {
             //Despues de realizar la configuración del xml a enviar, se realiza el consumo del servicio web
