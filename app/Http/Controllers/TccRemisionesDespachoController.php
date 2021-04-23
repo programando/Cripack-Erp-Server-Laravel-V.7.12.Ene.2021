@@ -23,9 +23,9 @@ class TccRemisionesDespachoController extends Controller
                      $this->remisionesTccUpdateEmalEnviado ($Row );
                      break;
                  }
-            } //foreach ($Remisiones  
+            } //foreach $Remisiones  
             echo $Row ."\n";
-        } //foreach( $Ids
+        } //foreach $Ids
     }
 
     private function remisionesTccUpdateEmalEnviado ( $IdRegistro ) {
@@ -36,13 +36,13 @@ class TccRemisionesDespachoController extends Controller
 
     private function getEmails ( $Remisiones, $IdRegistro ){
            $Emails = [];
-          /*   foreach ($Remisiones as $Remision) {
+            foreach ($Remisiones as $Remision) {
                 if (  $Remision->idregistro == $IdRegistro) {
                    array_push ($Emails, $Remision->email );
             }
-        } //foreach */
-        //array_push ($Emails, config('company.EMAIL_SERVICIO_CLIENTES'));
-        array_push ($Emails, 'jhonjamesmg@hotmail.com');
+        } //foreach 
+        array_push ($Emails, config('company.EMAIL_SERVICIO_CLIENTES'));
+        //array_push ($Emails, 'jhonjamesmg@hotmail.com');
         return  array_values( array_unique($Emails));
     }
     

@@ -30,7 +30,7 @@
       <div>
         <h3 style="font-weight: 500;">Apreciados Señores,</h3>
         <br><br><br>
-        <h3 style="font-weight: 500;">Con guia Número: 
+        <h3 style="font-weight: 500;">Con guía Número: 
         <span style="color: blue; font-weight: 900;">
             <a href="{{ $TccRastreo }}"><strong>{{ $TccNroGuia }} </strong></a> 
         </span> de TCC hemos despachado lo siguiente:</h3>
@@ -54,7 +54,7 @@
     </aside>
     <div style="margin: 0 40px; margin-top: 50px;">
       <h3 style="font-weight: 500;">Total: <span style="font-weight: 900;">
-      {{ $Unidades }} paquetes/unidades</span> con un peso aproximado de: <span style="font-weight: 900;">{{ $KilosReales }} kilos</span></h3>
+      {{ $Unidades }} paquetes/unidades</span> con un peso aproximado de: <span style="font-weight: 900;">{{ $KilosReales }} kilos.</span></h3>
     </div>
   </div>
   <footer>
