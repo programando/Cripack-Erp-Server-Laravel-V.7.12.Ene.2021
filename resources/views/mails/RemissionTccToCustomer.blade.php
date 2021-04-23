@@ -55,7 +55,8 @@
     </div>
   </div>
   <footer>
-    <img src="{{ asset('storage/images/serviclientes.png') }}" alt="Firma cripack serviclientes">
+     {{ asset('storage/images/firmas/serviclientes.png') }}
+    <img src="{{ asset('storage/images/firmas/serviclientes.png') }}" alt="Firma cripack serviclientes">
   </footer>
 </body>
 </html>
