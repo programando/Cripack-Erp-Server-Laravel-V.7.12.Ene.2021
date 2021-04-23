@@ -9,4 +9,6 @@ return [
   'EMAIL_USUARIO'           => env ('MAIL_USERNAME'),
   'EMAIL_SERVICIO_CLIENTES' => env ('MAIL_SERVICLIENTES'),
 
+  'TCC_RASTREO_GUIA'  => env ('TCC_RASTREO_GUIA' ),
+
 ];

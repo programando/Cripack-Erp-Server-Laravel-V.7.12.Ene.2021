@@ -19,11 +19,12 @@ class TccRemisionesDespachoController extends Controller
                 foreach ($Remisiones as $Remision) {
                    if (  $Remision->idregistro == $Row) {
                      $Emails    = $this->getEmails( $Remisiones, $Row);  
-                     Mail::to( $Emails, trim($Remision->contacto) )->send( new RemissionTccToCustomer( $Remision ));
+                     Mail::to( $Emails, trim($Remision->contacto) )->send( new RemissionTccToCustomer( $Remision, $Remisiones ));
                      //$this->remisionesTccUpdateEmalEnviado ($Row );
                      break;
                  }
             } //foreach ($Remisiones  
+            echo $Row ."\n";
         } //foreach( $Ids
     }
 
