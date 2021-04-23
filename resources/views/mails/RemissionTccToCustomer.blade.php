@@ -23,10 +23,13 @@
         <h3>Señores:</h3>
         <h3 style="margin-top: 20px; margin-bottom: 0px;"> {{ $Empresa }}</h3>
         <h3 style="margin-top: 0; margin-bottom: 0;"> {{ $Contacto }}</h3>
+        <br><br>
       </div>
-    </header> <aside style="margin: 0 40px; margin-top: 50px;">
+    </header> 
+    <aside style="margin: 0 40px; margin-top: 50px;">
       <div>
         <h3 style="font-weight: 500;">Apreciados Señores,</h3>
+        <br><br><br>
         <h3 style="font-weight: 500;">Con guia Número: 
         <span style="color: blue; font-weight: 900;">
             <a href="{{ $TccRastreo }}"><strong>{{ $TccNroGuia }} </strong></a> 
@@ -55,7 +58,7 @@
     </div>
   </div>
   <footer>
-    <br><br><br>
+    <br><br><br><br><br><br>
     <img src="{{ asset('storage/images/firmas/serviclientes.png') }}" alt="Firma cripack serviclientes">
   </footer>
 </body>
