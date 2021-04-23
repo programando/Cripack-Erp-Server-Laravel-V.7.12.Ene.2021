@@ -14,7 +14,7 @@
   <![endif]-->
     <title>Cripack - Despachos TCC</title>
 </head>
-<body style="margin: 0; padding: 0; width: 100%; word-break: break-word; -webkit-font-smoothing: antialiased; background-color: #f3f4f6;">
+<body style="margin: 0; padding: 0; width: 100%; word-break: break-word; -webkit-font-smoothing: antialiased; background-color: #fff;">
  
   <div role="article" aria-roledescription="email" aria-label="Confirm your email address" lang="en">
     <header style="display: flex; margin: 0 40px;">
@@ -55,7 +55,7 @@
     </div>
   </div>
   <footer>
-     {{ asset('storage/images/firmas/serviclientes.png') }}
+    <br><br><br>
     <img src="{{ asset('storage/images/firmas/serviclientes.png') }}" alt="Firma cripack serviclientes">
   </footer>
 </body>
