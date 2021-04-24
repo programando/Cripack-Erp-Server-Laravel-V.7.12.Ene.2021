@@ -14,11 +14,11 @@
   <![endif]-->
     <title>Cripack - Despachos TCC</title>
 </head>
-<body style="margin: 0; padding: 0; width: 100%; word-break: break-word; -webkit-font-smoothing: antialiased; background-color: #fff;">
+<body style="font-size: 12px; margin: 0; padding: 0; width: 100%; word-break: break-word; -webkit-font-smoothing: antialiased; background-color: #fff;">
  
-  <div role="article" aria-roledescription="email" aria-label="Confirm your email address" lang="en">
+  <div role="article"  lang="en">
     <header style="display: flex; margin: 0 40px;">
-      <div style="font-size: 14px;">
+      <div style="font-size: 12px;">
        
         <h3>Señores:</h3>
         <h3 style="margin-top: 20px; margin-bottom: 0px;"> {{ $Empresa }}</h3>
