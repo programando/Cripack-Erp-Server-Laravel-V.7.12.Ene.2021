@@ -14,9 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Route::middleware('auth:api')->get('/user', function (Request $request) {
+
+
+Route::post('/login'            , 'TercerosUsersWebController@login')->name('login');
+Route::post('/logout'           , 'TercerosUsersWebController@logout')->name('logout'); 
+
+/*Route::post('/reset/password'   , 'TercerosUserController@resetPassword')->name('reset-password'); 
+Route::post('/update/password'  , 'TercerosUserController@updatePassword')->name('update-password'); 
+*/ 
+
+ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-}); */
+}); 
 
 
 Route::get('/sales'            , 'dashBoardController@ventas')->name('ventas');

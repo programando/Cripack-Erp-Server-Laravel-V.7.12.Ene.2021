@@ -15,9 +15,9 @@ return [
     |
     */
 
-    'paths'                    => ['*','/login','/logout','/reset/password','/update/password','/sanctum/csrf-cookie'],
+    'paths'                    => ['*','login','logout','reset/password','update/password','sanctum/csrf-cookie', 'user'],
     'allowed_methods'          => ['*'],
-    'allowed_origins'          => ['http://localhost:3000','.cripack.com' ],
+    'allowed_origins'          => ['http://localhost:3000','https://cripack.com'],
     'allowed_origins_patterns' => [],
     'allowed_headers'          => ['*'],
     'exposed_headers'          => false,
