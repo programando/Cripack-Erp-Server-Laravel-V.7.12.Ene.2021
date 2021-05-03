@@ -21,7 +21,7 @@ class TercerosUsersWebController extends Controller
           
          if ( $this->isPasswordUpdated ($FormData ) == false ) {
              $this->ErrorMessage ( Lang::get("validation.custom.UserLogin.credencials-error") );
-             return ;
+             return [];
          }
 
          if (Auth::attempt( ['email' => $FormData->email, 'password' => $FormData->password  ], true ) ) { // true al final es para recordar sessión    
