@@ -28,6 +28,7 @@ Route::post('/update/password'  , 'TercerosUserController@updatePassword')->name
 }); 
 
 
+Route::get('/clientes/ots'            , 'TercerosController@OrdenesTrabajoCliente') ;
 Route::get('/sales'            , 'dashBoardController@ventas')->name('ventas');
 Route::get('/sales/compare'            , 'dashBoardController@comparativoVentasUltimosTresAnios')->name('compare');
 

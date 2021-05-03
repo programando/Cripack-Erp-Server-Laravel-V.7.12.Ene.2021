@@ -7,9 +7,10 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
  use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,5 +55,11 @@ class TercerosWeb extends  Authenticatable
 					$this->attributes['password'] = Hash::make( $value );
 			}
 			
+			
+			public static function getDatosEmpresaUsuario( $Idregistro ) {
+						return     DB::select('call api_terceros_consulta_x_datos_usuario( ?)', array ($Idregistro) );
+			}
+			
+			 
 
 }

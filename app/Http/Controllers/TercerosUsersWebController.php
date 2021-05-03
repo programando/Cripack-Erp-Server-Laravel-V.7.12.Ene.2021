@@ -23,12 +23,9 @@ class TercerosUsersWebController extends Controller
              return ;
          }
 
-         if (Auth::attempt( [
-                  'email'    => $FormData->email,
-                  'password' => $FormData->password  ],
-                   true ) ) 
-           {                               // true al final es para recordar sessión    
-           return response()->json( Auth::user(), 200);
+         if (Auth::attempt( ['email' => $FormData->email, 'password' => $FormData->password  ], true ) ) { // true al final es para recordar sessión    
+              $DatosEmpresaUsuario = Users::getDatosEmpresaUsuario ( Auth::user()->idregistro);
+              return response()->json( $DatosEmpresaUsuario, 200);
         }     
         $this->ErrorMessage ( Lang::get("validation.custom.UserLogin.credencials-error") );
     }
