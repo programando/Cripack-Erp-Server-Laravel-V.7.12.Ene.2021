@@ -20,6 +20,7 @@ class TercerosUsersWebController extends Controller
     public function login ( TercerosUsersWebRequest  $FormData ){
           
          if ( $this->isPasswordUpdated ($FormData ) == false ) {
+             $this->ErrorMessage ( Lang::get("validation.custom.UserLogin.credencials-error") );
              return ;
          }
 
