@@ -11,19 +11,18 @@ use App\Models\TercerosWeb as Users;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use App\Events\TercerosUsersWebEvent;
 use App\Http\Requests\TercerosUsersWebRequest;
 use Illuminate\Validation\ValidationException;
 
 class TercerosUsersWebController extends Controller
 {
    
-    public function login ( TercerosUsersWebRequest  $FormData ){
-          
+    public function login ( TercerosUsersWebRequest  $FormData ){         
          if ( $this->isPasswordUpdated ($FormData ) == false ) {
              $this->ErrorMessage ( Lang::get("validation.custom.UserLogin.credencials-error") );
              return [];
          }
-
          if (Auth::attempt( ['email' => $FormData->email, 'password' => $FormData->password  ], true ) ) { // true al final es para recordar sessión    
               $DatosEmpresaUsuario = Users::getDatosEmpresaUsuario ( Auth::user()->idregistro);
               return response()->json( $DatosEmpresaUsuario, 200);
@@ -50,15 +49,60 @@ class TercerosUsersWebController extends Controller
         } else {
             return false;
         }
+    }
+
+    public function resetPassword ( TercerosUsersWebRequest $FormData ){
+        $User = Users::where('email', $FormData->email)->first();
+        if ( !$User || $User->inactivo ) {
+            $this->ErrorMessage (  Lang::get("validation.custom.UserLogin.inactive-user") );
+        }  
+        $User->tmp_token        = Str::random(100);
+        $User->tmp_token_expira = Carbon::now()->addMinute(15) ;
+        $User->save();
+        TercerosUsersWebEvent::dispatch( $User->email, $User->tmp_token);
+        return response()->json('Ok', 200);  
+    }
+    
+    public function updatePassword ( TercerosUsersWebRequest $FormData ){
+        $User = Users::where('tmp_token', $FormData->token)->first();
+      
+        $this->tokenValidate           ( $User  );
+        $this->tokenExpirationValidate ( $User  );
+
+        $User->password       = $FormData->password;
+        $User->remember_token = '';
+        $User->tmp_token      = '';
+        $User->save();
+
+       return response()->json('Ok', 200); 
 
     }
+
+        private function tokenValidate ( $User ){
+            if ( !$User) {
+                throw ValidationException::withMessages( [
+                    'tokenError' => ['null'],
+                    'password' =>  [ 'El token de validación ha expirado o no ha sido validado. Debes iniciar el proceso nuevamente.'  ]
+                ]);             
+            }
+        }
+
+        private function tokenExpirationValidate ( $User ) {
+            $Expiracion = $User->tmp_token_expira;
+            $Diferencia = $Expiracion->diffInMinutes();
+            if (  $Diferencia > 15 ) {
+                throw ValidationException::withMessages( [
+                    'tokenError' => ['Token no válido'],
+                    'password' =>  [ 'El token de validación ha expirado o no ha sido validado. Debes iniciar el proceso nuevamente.'  ]
+                ]);             
+            }
+        }
 
        public function logout(){ 
             Session::flush();
             Cache::flush();
             Auth::logout();
-            
-    }
+        }
 
 
     private function ErrorMessage ( $ErrorTex ) {

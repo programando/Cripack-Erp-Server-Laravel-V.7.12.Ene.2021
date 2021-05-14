@@ -1,4 +1,8 @@
 <?php
+/* DB::listen(function($query) {
+echo "<pre>{$query->sql} - {$query->time}</pre>";
+});
+   */
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,16 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/logines'            , 'TercerosUsersWebController@login')->name('login');
+
 
 Route::post('/login'            , 'TercerosUsersWebController@login')->name('login');
 Route::post('/logout'           , 'TercerosUsersWebController@logout')->name('logout'); 
-
-/*Route::post('/reset/password'   , 'TercerosUserController@resetPassword')->name('reset-password'); 
-Route::post('/update/password'  , 'TercerosUserController@updatePassword')->name('update-password'); 
-*/ 
-
- Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::post('/reset/password'   , 'TercerosUsersWebController@resetPassword')->name('reset-password'); 
+Route::post('/update/password'  , 'TercerosUsersWebController@updatePassword')->name('update-password'); 
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 }); 
 

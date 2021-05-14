@@ -11,9 +11,10 @@ class TercerosController extends Controller
 {
     
     public function OrdenesTrabajoCliente ( Request $FormData) {
+     
         $CacheName = HelperUtilites::getUrlUniqueName();                // obtiene nombre a partir de la URL
-        $DataOts  =Cache::tags( $CacheName )->remember( $CacheName, now()->addMinutes(30), function () use ($FormData)  {
-            return Terceros::getOrdenesTrabajoCliente( $FormData->idtercero );
+        $DataOts  =Cache::tags( $CacheName )->remember( $CacheName, now()->addMinutes(10), function () use ($FormData)  {
+            return Terceros::getOrdenesTrabajoCliente( $FormData  );
         });
          return HelperUtilites::arrayPaginator ($DataOts, $FormData );  // Incluir paginación de un array
     }

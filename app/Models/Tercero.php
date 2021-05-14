@@ -219,8 +219,8 @@ class Tercero extends Model
 		'comis_rcudo'
 	];
 
-			public static function getOrdenesTrabajoCliente( $IdTercero) {
-						return     DB::select('call api_terceros_consulta_trabajos_x_tercero( ?)', array ($IdTercero) );
+			public static function getOrdenesTrabajoCliente( $Data) {
+					return DB::select('call api_terceros_consulta_trabajos_x_tercero( ?, ?, ?)', array ($Data->idtercero,$Data->fechaIni, $Data->fechaFin) );
 			}
 
 

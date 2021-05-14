@@ -15,4 +15,7 @@ return [
   'TCC_SOAP_ENDPOINT' => env( 'TCC_SOAP_ENDPOINT'),
   'TCC_SOAP_PASSWORD' => env ('TCC_SOAP_PASSWORD' ),
 
+  'APP_URL_CLIENT'          => env('APP_URL_CLIENT'),
+  'URL_USER_PASSWORD_RESET' => env('URL_USER_PASSWORD_RESET'),
+
 ];
