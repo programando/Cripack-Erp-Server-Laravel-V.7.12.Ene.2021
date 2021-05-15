@@ -29,7 +29,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 }); 
 
 
-Route::get('/clientes/ots'            , 'TercerosController@OrdenesTrabajoCliente') ;
+Route::get('/clientes/historial/ots'            , 'TercerosController@OrdenesTrabajoCliente') ;
+Route::get('/clientes/estado/ots'               , 'TercerosController@OrdenesTrabajoEstadoProduccion') ;
+
 Route::get('/sales'            , 'dashBoardController@ventas')->name('ventas');
 Route::get('/sales/compare'            , 'dashBoardController@comparativoVentasUltimosTresAnios')->name('compare');
 

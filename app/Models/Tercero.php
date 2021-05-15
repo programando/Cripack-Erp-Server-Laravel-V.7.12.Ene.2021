@@ -219,11 +219,22 @@ class Tercero extends Model
 		'comis_rcudo'
 	];
 
-			public static function getOrdenesTrabajoCliente( $Data) {
+		public static function getOrdenesTrabajoCliente( $Data) {
 					return DB::select('call api_terceros_consulta_trabajos_x_tercero( ?, ?, ?)', array ($Data->idtercero,$Data->fechaIni, $Data->fechaFin) );
 			}
 
+		public static function otsEstadoProduccion ( $idTercero ) {
+				// Datos únicos de ls ots del cliente en produccion
+			 	return DB::select('call api_ots_estado_produccion_por_idtercero_01( ?)', array ( $idTercero ) );
+		 }
 
+	public static function otsEstadoProduccionLaboresOt ( $idRegistroOt  ) {
+				// Datos únicos de ls ots del cliente en produccion
+			 	return DB::select('call api_ots_estado_produccion_labores_por_ot_02( ?)', array ( $idRegistroOt  ) );
+		 }
+
+ 
+ 
 	public function formas_pago()
 	{
 		return $this->belongsTo(FormasPago::class, 'idformapago');
