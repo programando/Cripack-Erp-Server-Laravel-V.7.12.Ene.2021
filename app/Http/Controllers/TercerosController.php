@@ -18,6 +18,7 @@ class TercerosController extends Controller
          return HelperUtilites::arrayPaginator ($DataOts, $FormData );  // Incluir paginación de un array
     }
 
+
     public function OrdenesTrabajoEstadoProduccion ( Request $FormData ) {
        $OtsProduccion = Terceros::otsEstadoProduccion( $FormData->idTercero );
        $DatosTablero = array( array('numero_ot'=>0,'referencia'=>'', 'nomestilotrabajo'=>'','nomtipotrabajo'=>'',
