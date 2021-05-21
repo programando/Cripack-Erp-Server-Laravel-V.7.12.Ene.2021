@@ -219,27 +219,27 @@ class Tercero extends Model
 		'comis_vta',
 		'comis_rcudo'
 	];
-
+		// Historial de cliente
 		public static function getOrdenesTrabajoCliente( $Data ) {
 					return DB::select('call api_terceros_consulta_trabajos_x_tercero( ?, ?, ?)', array ($Data->idTercero,$Data->fechaIni, $Data->fechaFin) );
 			}
 
-		public static function otsEstadoProduccion ( $idTercero ) {
-				// Datos únicos de ls ots del cliente en produccion
+			// Datos únicos de ls ots del cliente en produccion
+		public static function otsEstadoProduccion ( $idTercero ) {	
 			 	return DB::select('call api_ots_estado_produccion_por_idtercero_01( ?)', array ( $idTercero ) );
 		 }
+	
+		// Labores por cada una de las OTS
+		public static function otsEstadoProduccionLaboresOt ( $idRegistroOt  ) {
+					return DB::select('call api_ots_estado_produccion_labores_por_ot_02( ?)', array ( $idRegistroOt  ) );
+			}
 
-	public static function otsEstadoProduccionLaboresOt ( $idRegistroOt  ) {
-				// Datos únicos de ls ots del cliente en produccion
-			 	return DB::select('call api_ots_estado_produccion_labores_por_ot_02( ?)', array ( $idRegistroOt  ) );
-		 }
-
+		// Ordenes de trabajo bloquedas por dibujo en aprobación
+		public static function otsBloqueadasDibEnAprobacion (   ) {
+					return DB::select('call api_ots_bloqueadas_dib_aprobacion_cliente( )' );
+			}
  
-  private static function esUsuarioCripack( $idTercero ) {
  
-		if ( boolval ( session('UsuarioCripack')) == true ) return 0;
-			return $idTercero;
-	}
  
 	public function formas_pago()
 	{

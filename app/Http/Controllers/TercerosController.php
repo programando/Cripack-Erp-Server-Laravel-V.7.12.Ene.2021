@@ -2,14 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\Tercero as Terceros;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
+use App\Mail\TercerosOtsDibujoAprobacion;
 use App\Helpers\Utilities as HelperUtilites;
 
 class TercerosController extends Controller
 {
+    
+    public function otsBloqueadasDibEnAprobacion() {
+      $Ots         = Terceros::otsBloqueadasDibEnAprobacion() ;
+      $IdsClientes = array_unique( Arr::pluck($Ots ,'idtercero' ) );
+      foreach ($IdsClientes as $IdCliente ) {
+            foreach ($Ots as $OT) {
+                if (  $OT->idtercero == $IdCliente ) {
+                    $Emails       = HelperUtilites::getEmailsFromArray($Ots ,'idtercero',$IdCliente  );
+                    $OtsBloquedas = $this->otsBloqueadas($Ots , $IdCliente );
+                    $OtsBloquedas = HelperUtilites::getUniqueValuesFormArray($OtsBloquedas,'idregistro_ot'  );
+                    Mail::to( $Emails )->send( new TercerosOtsDibujoAprobacion ( $OtsBloquedas, $OT ));
+                }
+            } //ForOts
+      } // ForClientes
+    }
+    
+    private function otsBloqueadas($Ots, $key) {
+      $OtsBloquedas =[];
+      foreach ($Ots as $Ot ) {
+        if ($Ot->idtercero == $key ){
+            array_push ( $OtsBloquedas, $Ot);
+        }
+      }
+      return $OtsBloquedas;
+    }
     
     public function OrdenesTrabajoCliente ( Request $FormData) { 
         $FormData  = $this->isUserCripack ( $FormData );

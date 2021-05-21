@@ -29,10 +29,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 }); 
 
 //Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'clientes'], function () {
-Route::group(['prefix' => 'clientes'], function () {
+Route::group(['prefix' => 'clientes/ots/'], function () {
     $localController = 'TercerosController@';
-    Route::get('/historial/ots'            , $localController.'OrdenesTrabajoCliente') ;
-    Route::get('/estado/ots'               , $localController.'OrdenesTrabajoEstadoProduccion') ;
+    Route::get('historial'            , $localController.'OrdenesTrabajoCliente') ;
+    Route::get('estado'               , $localController.'OrdenesTrabajoEstadoProduccion') ;
+    Route::get('en-aprobacion'         , $localController.'otsBloqueadasDibEnAprobacion') ;
 });
 
  

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Mail\RemissionTccToCustomer;
 use Illuminate\Support\Facades\Mail;
 use App\Models\TccRemisionesDespacho as RemisionesTcc;
+use App\Helpers\Utilities as HelperUtilites;
 
 
 $DocumentoReferencia; $UnidadBoomerang; $ObjectToSend; $RespuestaTcc; $NumeroRemesa;
@@ -18,7 +19,7 @@ class TccRemisionesDespachoController extends Controller
         foreach( $Ids as $Row) {  
                 foreach ($Remisiones as $Remision) {
                    if (  $Remision->idregistro == $Row) {
-                     $Emails    = $this->getEmails( $Remisiones, $Row);  
+                     $Emails = HelperUtilites::getEmailsFromArray($Remisiones ,'idregistro',$Row );
                      Mail::to( $Emails, trim($Remision->contacto) )->send( new RemissionTccToCustomer( $Remision, $Remisiones ));
                      $this->remisionesTccUpdateEmalEnviado ($Row );
                      break;
@@ -34,17 +35,7 @@ class TccRemisionesDespachoController extends Controller
         $ModelRemisionesTcc->save();
     }
 
-    private function getEmails ( $Remisiones, $IdRegistro ){
-           $Emails = [];
-            foreach ($Remisiones as $Remision) {
-                if (  $Remision->idregistro == $IdRegistro) {
-                   array_push ($Emails, $Remision->email );
-            }
-        } //foreach 
-        array_push ($Emails, config('company.EMAIL_SERVICIO_CLIENTES'));
-        return  array_values( array_unique($Emails));
-    }
-    
+ 
 
 
     public function getDocsToIntegration () {
