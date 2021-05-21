@@ -2,24 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Utilities as HelperUtilites;
-use App\Models\Tercero as Terceros;
 use Illuminate\Http\Request;
+use App\Models\Tercero as Terceros;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
+use App\Helpers\Utilities as HelperUtilites;
 
 class TercerosController extends Controller
 {
     
     public function OrdenesTrabajoCliente ( Request $FormData) { 
-        $CacheName = HelperUtilites::getUrlUniqueName();                // obtiene nombre a partir de la URL
-        $DataOts  =Cache::tags( $CacheName )->remember( $CacheName, now()->addMinutes(30), function () use ($FormData)  {
-            return Terceros::getOrdenesTrabajoCliente( $FormData  );
-        });
+        $FormData  = $this->isUserCripack ( $FormData );
+        $CacheName = HelperUtilites::getUrlUniqueName();                                                                     // obtiene nombre a partir de la URL
+        $DataOts   = Cache::tags( $CacheName )->remember( $CacheName, now()->addMinutes(30), function () use ($FormData)  {
+            return Terceros:: getOrdenesTrabajoCliente( $FormData  );
+        });  
          return HelperUtilites::arrayPaginator ($DataOts, $FormData );  // Incluir paginación de un array
     }
 
 
     public function OrdenesTrabajoEstadoProduccion ( Request $FormData ) {
+       $FormData = $this->isUserCripack ( $FormData );       
        $OtsProduccion = Terceros::otsEstadoProduccion( $FormData->idTercero );
        $DatosTablero = array( array('numero_ot'=>0,'referencia'=>'', 'nomestilotrabajo'=>'','nomtipotrabajo'=>'',
                             'labor1'=>'', 'labor2'=>'', 'labor3'=>'', 'labor4'=>'', 'labor5'=>'',
@@ -72,8 +75,13 @@ class TercerosController extends Controller
       }
       //Debug::Mostrar ( $DatosTablero);
       return $DatosTablero;
+    }
 
-
+    private function isUserCripack (  $FormData ) {
+        if (  $FormData->userCripack  == '1' ) {
+           $FormData->merge([ 'idTercero' => '0']);
+        }
+        return $FormData;
     }
  
 }

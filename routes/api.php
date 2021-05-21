@@ -28,16 +28,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 }); 
 
+//Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'clientes'], function () {
+Route::group(['prefix' => 'clientes'], function () {
+    $localController = 'TercerosController@';
+    Route::get('/historial/ots'            , $localController.'OrdenesTrabajoCliente') ;
+    Route::get('/estado/ots'               , $localController.'OrdenesTrabajoEstadoProduccion') ;
+});
 
-Route::get('/clientes/historial/ots'            , 'TercerosController@OrdenesTrabajoCliente') ;
-Route::get('/clientes/estado/ots'               , 'TercerosController@OrdenesTrabajoEstadoProduccion') ;
-
-Route::get('/sales'            , 'dashBoardController@ventas')->name('ventas');
-Route::get('/sales/compare'            , 'dashBoardController@comparativoVentasUltimosTresAnios')->name('compare');
-
-
+ 
 Route::group(['prefix'=>'tcc'], function() {
     $localController = 'TccRemisionesDespachoController@';
     Route:: get('/integrar-guias'                          , $localController.'getDocsToIntegration');
     Route:: get('/clientes/notificacion'                    , $localController.'sendCustomerNotification');
 });
+
+/*
+
+Route::get('/sales'            , 'dashBoardController@ventas')->name('ventas');
+Route::get('/sales/compare'    , 'dashBoardController@comparativoVentasUltimosTresAnios')->name('compare');
+
+
+*/

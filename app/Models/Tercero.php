@@ -9,6 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Collection;
 
 
@@ -219,8 +220,8 @@ class Tercero extends Model
 		'comis_rcudo'
 	];
 
-		public static function getOrdenesTrabajoCliente( $Data) {
-					return DB::select('call api_terceros_consulta_trabajos_x_tercero( ?, ?, ?)', array ($Data->idtercero,$Data->fechaIni, $Data->fechaFin) );
+		public static function getOrdenesTrabajoCliente( $Data ) {
+					return DB::select('call api_terceros_consulta_trabajos_x_tercero( ?, ?, ?)', array ($Data->idTercero,$Data->fechaIni, $Data->fechaFin) );
 			}
 
 		public static function otsEstadoProduccion ( $idTercero ) {
@@ -234,6 +235,11 @@ class Tercero extends Model
 		 }
 
  
+  private static function esUsuarioCripack( $idTercero ) {
+ 
+		if ( boolval ( session('UsuarioCripack')) == true ) return 0;
+			return $idTercero;
+	}
  
 	public function formas_pago()
 	{

@@ -24,12 +24,14 @@ class TercerosUsersWebController extends Controller
              return [];
          }
          if (Auth::attempt( ['email' => $FormData->email, 'password' => $FormData->password  ], true ) ) { // true al final es para recordar sessión    
-              $DatosEmpresaUsuario = Users::getDatosEmpresaUsuario ( Auth::user()->idregistro);
+              $DatosEmpresaUsuario = Users::getDatosEmpresaUsuario ( Auth::user()->idregistro);          
               return response()->json( $DatosEmpresaUsuario, 200);
         }     
         $this->ErrorMessage ( Lang::get("validation.custom.UserLogin.credencials-error") );
     }
 
+
+   
     /* APRIL 28 2012
         VERIFICA QUE EL PASSWORD NO HA SIDO ACTUALIZADO. SI ES IGUAL SE ACTUALIZA.
     */
@@ -65,13 +67,14 @@ class TercerosUsersWebController extends Controller
     
     public function updatePassword ( TercerosUsersWebRequest $FormData ){
         $User = Users::where('tmp_token', $FormData->token)->first();
-      
+  
         $this->tokenValidate           ( $User  );
         $this->tokenExpirationValidate ( $User  );
 
-        $User->password       = $FormData->password;
-        $User->remember_token = '';
-        $User->tmp_token      = '';
+        $User->password         = $FormData->password;
+        $User->remember_token   = '';
+        $User->tmp_token        = '';
+        $User->password_updated = true;
         $User->save();
 
        return response()->json('Ok', 200); 
@@ -82,7 +85,7 @@ class TercerosUsersWebController extends Controller
             if ( !$User) {
                 throw ValidationException::withMessages( [
                     'tokenError' => ['null'],
-                    'password' =>  [ 'El token de validación ha expirado o no ha sido validado. Debes iniciar el proceso nuevamente.'  ]
+                    'password' =>  [ 'No se ha podido encontrar información del usuario con el Token suministrado. Inicie el proceso nuevamente.'  ]
                 ]);             
             }
         }

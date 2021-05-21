@@ -22,7 +22,7 @@ class Utilities {
          */
    public static function arrayPaginator( $Data, $Request) {
         // Define how many items we want to be visible in each page
-        $perPage = 15;
+        $perPage = 150;
        // Get current page form url e.x. &page=1
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         // Create a new Laravel collection from the array data
