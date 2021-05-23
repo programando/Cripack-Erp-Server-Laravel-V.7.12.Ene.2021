@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 class TercerosUsersWebListener
 {
     public function handle(TercerosUsersWebEvent $event)    {
-         Mail::to( 'jhonjamesmg@hotmail.com')
+         Mail::to( $event->Email)
             ->queue(   new TercerosUsersWebResetPassword (  $event->Email, $event->Token  ));
     }
 }
