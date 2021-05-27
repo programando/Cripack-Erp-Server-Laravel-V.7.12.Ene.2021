@@ -43,7 +43,7 @@ class TercerosController extends Controller
         $FormData  = $this->isUserCripack ( $FormData );
         $CacheName = HelperUtilites::getUrlUniqueName();                                                                     // obtiene nombre a partir de la URL
         $DataOts   = Cache::tags( $CacheName )->remember( $CacheName, now()->addMinutes(30), function () use ($FormData)  {
-            return Terceros:: getOrdenesTrabajoCliente( $FormData  );
+            return Terceros::getOrdenesTrabajoCliente( $FormData  );
         });  
          return HelperUtilites::arrayPaginator ($DataOts, $FormData );  // Incluir paginación de un array
     }

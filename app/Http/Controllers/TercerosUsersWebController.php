@@ -84,8 +84,9 @@ class TercerosUsersWebController extends Controller
         private function tokenValidate ( $User ){
             if ( !$User) {
                 throw ValidationException::withMessages( [
-                    'tokenError' => ['null'],
-                    'password' =>  [ 'No se ha podido encontrar información del usuario con el Token suministrado. Inicie el proceso nuevamente.'  ]
+                    'tokenError' => 'Token no válido',
+                    'password' =>   'El token de validación ha expirado o no es válido. No se ha podido validar identidad del usuario. Por favor inicie el proceso nuevamente.'  ,
+                    'status'   => 422
                 ]);             
             }
         }
@@ -95,8 +96,9 @@ class TercerosUsersWebController extends Controller
             $Diferencia = $Expiracion->diffInMinutes();
             if (  $Diferencia > 15 ) {
                 throw ValidationException::withMessages( [
-                    'tokenError' => ['Token no válido'],
-                    'password' =>  [ 'El token de validación ha expirado o no ha sido validado. Debes iniciar el proceso nuevamente.'  ]
+                    'tokenError' => 'Token sin vigencia',
+                    'password' =>   'El token de validación ha expirado o no es válido. No se ha podido validar identidad del usuario. Por favor inicie el proceso nuevamente.'  ,
+                    'status'   => 422
                 ]);             
             }
         }
