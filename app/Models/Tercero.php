@@ -239,6 +239,12 @@ class Tercero extends Model
 					return DB::select('call api_ots_bloqueadas_dib_aprobacion_cliente( )' );
 			}
  
+		// Busca los contactos que aún no se han registrado en la web
+		public static function searchContactsWithOutWebRegister (  $identificacion ) {
+					return DB::select('call api_terceros_contactos_sin_registro_web( ?)', array ( "$identificacion" ) );  
+			}
+ 
+ 
  
  
 	public function formas_pago()
@@ -451,7 +457,7 @@ class Tercero extends Model
 		return $this->hasMany(TercerosBloqueadosBitacora::class, 'idtercero');
 	}
 
-	public function terceros_contactos()
+	public function contactos()
 	{
 		return $this->hasMany(TercerosContacto::class, 'idtercero');
 	}

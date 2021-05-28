@@ -8,16 +8,24 @@ use Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\TercerosWeb as Users;
+use App\Models\Tercero as Terceros;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use App\Events\TercerosUsersWebEvent;
 use App\Http\Requests\TercerosUsersWebRequest;
+use App\Http\Requests\TercerosRequest;
 use Illuminate\Validation\ValidationException;
 
 class TercerosUsersWebController extends Controller
 {
    
+    public function searchContactsWithOutWebRegister ( TercerosRequest $FormData ) {
+            $Tercero = Terceros::searchContactsWithOutWebRegister($FormData->identificacion ) ;
+
+            return $Tercero;
+    }
+
     public function login ( TercerosUsersWebRequest  $FormData ){         
          if ( $this->isPasswordUpdated ($FormData ) == false ) {
              $this->ErrorMessage ( Lang::get("validation.custom.UserLogin.credencials-error") );
