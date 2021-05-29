@@ -23,7 +23,9 @@ Route::group(['prefix' => 'usuarios/'], function () {
     Route::post('logout'           , $localController.'logout')->name('logout'); 
     Route::post('reset/password'   , $localController.'resetPassword')->name('reset-password'); 
     Route::post('update/password'  , $localController.'updatePassword')->name('update-password'); 
-    Route::get ('registro'           , $localController.'searchContactsWithOutWebRegister')->name('otsCustomerRegister') ;
+    Route::get ('registro'         , $localController.'searchContactsWithOutWebRegister')->name('otsCustomerRegister') ;
+    Route::post ('registro'        , $localController.'contactWebRegister')->name('contactWebRegister') ;
+    Route::post ('contacto'        , $localController.'contactMessage')->name('contactMessage') ;
 });
 
 

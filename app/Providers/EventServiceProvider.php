@@ -20,6 +20,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\TercerosUsersWebEvent' => [
             'App\Listeners\TercerosUsersWebListener',
+        ],
+         'App\Events\TercerosUsersContactUsEvent' => [
+            'App\Listeners\TercerosUsersContactUsListener',
         ]
     ];
 

@@ -7,22 +7,39 @@ use Cache;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\TercerosWeb as Users;
 use App\Models\Tercero as Terceros;
-
+use App\Models\TercerosWeb as Users;
 use Illuminate\Support\Facades\Auth;
+//--
 use Illuminate\Support\Facades\Lang;
 use App\Events\TercerosUsersWebEvent;
-use App\Http\Requests\TercerosUsersWebRequest;
+//--
+
 use App\Http\Requests\TercerosRequest;
+use App\Events\TercerosUsersContactUsEvent;
+use App\Http\Requests\TercerosUsersWebRequest;
 use Illuminate\Validation\ValidationException;
+
 
 class TercerosUsersWebController extends Controller
 {
    
+    public function contactMessage ( TercerosUsersWebRequest $FormData ) {
+        TercerosUsersContactUsEvent::dispatch( $FormData );
+    }
+
+    public function contactWebRegister( TercerosUsersWebRequest $FormData) {
+        $userWeb = new Users;
+        $userWeb->email            = $FormData->email ;
+        $userWeb->idtercero        = $FormData->idtercero ;
+        $userWeb->password         = $FormData->password ;
+        $userWeb->password_updated = true ;
+        $userWeb->save();
+         return response()->json('Ok', 200); 
+    }
+
     public function searchContactsWithOutWebRegister ( TercerosRequest $FormData ) {
             $Tercero = Terceros::searchContactsWithOutWebRegister($FormData->identificacion ) ;
-
             return $Tercero;
     }
 

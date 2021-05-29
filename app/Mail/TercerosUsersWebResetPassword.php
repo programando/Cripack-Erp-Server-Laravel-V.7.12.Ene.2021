@@ -23,7 +23,7 @@ class TercerosUsersWebResetPassword extends Mailable
   
  
     public function build() {
-                return $this->view('mails.terceros.userResetPassword')
+        return $this->view('mails.terceros.userResetPassword')
                     ->from(  config('company.EMAIL_SERVICIO_CLIENTES') )
                     ->subject('Cambio de contraseña') ;
     }
