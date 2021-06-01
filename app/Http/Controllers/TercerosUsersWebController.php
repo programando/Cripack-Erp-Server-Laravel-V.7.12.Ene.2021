@@ -39,8 +39,8 @@ class TercerosUsersWebController extends Controller
     }
 
     public function searchContactsWithOutWebRegister ( TercerosRequest $FormData ) {
-            $Tercero = Terceros::searchContactsWithOutWebRegister($FormData->identificacion ) ;
-            return $Tercero;
+            $Contacts = Terceros::searchContactsWithOutWebRegister($FormData->identificacion ) ;
+            return $Contacts;
     }
 
     public function login ( TercerosUsersWebRequest  $FormData ){         
