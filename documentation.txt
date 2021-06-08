@@ -21,3 +21,11 @@ DEPURAR CONSULTAS SQL
    // Your Eloquent query executed by using get()
 
    dd(DB::getQueryLog()); // Show results of log
+
+   Funcionó Abril 13 2021
+---------------------------
+composer dump-autoload
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+php artisan config:cache

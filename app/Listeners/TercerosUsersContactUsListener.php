@@ -13,7 +13,7 @@ class TercerosUsersContactUsListener
  
     public function handle(TercerosUsersContactUsEvent $event)
     {
-       Mail::to( config('company.EMAIL_SERVICIO_CLIENTES'))
+       Mail::to( config('company.EMAIL_SERVICLIENTES'))
           ->queue(   new TercerosUsersContactUs ( $event->contacto, $event->asunto , $event->email, $event->mensaje ));
     }
 }

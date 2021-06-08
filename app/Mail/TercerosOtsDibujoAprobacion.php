@@ -22,7 +22,7 @@ class TercerosOtsDibujoAprobacion extends Mailable
  
     public function build()
     {
-                return $this->view('mails.TercerosOtsDibujoAprobacion')
+                return $this->view('mails.terceros.clientes.OtsDibujoAprobacion')
                     ->from(  config('company.EMAIL_USUARIO') )
                     ->subject('Órdenes de trabajo con dibujo por aprobación') ;
     }

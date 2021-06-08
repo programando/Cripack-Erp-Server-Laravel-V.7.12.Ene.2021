@@ -18,12 +18,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\TercerosUsersWebEvent' => [
-            'App\Listeners\TercerosUsersWebListener',
-        ],
-         'App\Events\TercerosUsersContactUsEvent' => [
-            'App\Listeners\TercerosUsersContactUsListener',
-        ]
+        'App\Events\TercerosUsersWebEvent'          => [ 'App\Listeners\TercerosUsersWebListener',           ],
+        'App\Events\TercerosClientesBloqueadosEvent'=> [ 'App\Listeners\TercerosClientesBloqueadosListener', ],
+        'App\Events\TercerosUsersContactUsEvent'    => [ 'App\Listeners\TercerosUsersContactUsListener',     ],
+        'App\Events\OrdenesTrabajoExteriorEvent'    => [ 'App\Listeners\OrdenesTrabajoExteriorListener',     ]
     ];
 
     /**

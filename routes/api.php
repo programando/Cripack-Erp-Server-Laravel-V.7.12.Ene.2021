@@ -34,13 +34,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 }); 
 
 //Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'clientes'], function () {
-Route::group(['prefix' => 'clientes/ots/'], function () {
+Route::group(['prefix' => 'clientes/'], function () {
     $localController = 'TercerosController@'; 
-    Route::get('historial'            , $localController.'OrdenesTrabajoCliente') ;
-    Route::get('estado'               , $localController.'OrdenesTrabajoEstadoProduccion') ;
-    Route::get('en-aprobacion'        , $localController.'otsBloqueadasDibEnAprobacion') ;
+    Route::get('ots/historial'            , $localController.'OrdenesTrabajoCliente') ;
+    Route::get('ots/estado'               , $localController.'OrdenesTrabajoEstadoProduccion') ;
+    Route::get('ots/en-aprobacion'        , $localController.'otsBloqueadasDibEnAprobacion') ;
+    Route::get('bloqueados-cartera'       , $localController.'bloqueadosPorCartera') ;
 });
 
+Route::group(['prefix' => 'ordenes-trabajo/'], function () {
+    $localController = 'OrdenesTrabajoController@'; 
+    Route::get('exterior'            , $localController.'delExteriorIniciarGestionDespacho') ;
+});
  
 Route::group(['prefix'=>'tcc/'], function() {
     $localController = 'TccRemisionesDespachoController@';

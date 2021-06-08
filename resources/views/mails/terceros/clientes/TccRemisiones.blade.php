@@ -59,7 +59,7 @@
   </div>
   <footer>
     <br><br><br><br><br><br>
-    <img src="{{ asset('storage/images/firmas/serviclientes.png') }}" alt="Firma cripack serviclientes">
+    <img src="{{ asset('storage/images/firmas/serviclientes.png') }}" alt="Firma corporativa Cripack-Serviclientes">
   </footer>
 </body>
 </html>

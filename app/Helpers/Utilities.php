@@ -1,11 +1,17 @@
 <?php 
 namespace App\Helpers;
 
+use Illuminate\Support\Arr;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class Utilities {
  
+    /*JUNIO 08 2021.         DEVUELVE ID's UNICOS DE UN ARRAY.  */
+    public static function getUniqueIdsFromArray ( $Array, $IdFieldReference ){
+        return array_unique( Arr::pluck($Array , $IdFieldReference ) );
+    }
    
+    /* JUNIO 02.        CREA TABLA A PARTIR DE ARRAY PARA INCLUIR EN LOS CORREOS   */
     public static function buildTableOtsReferenciaToEmail ($ArrayOts, $fieldCompare, $key ) {
         $Tabla = '';
         $Num = 1;
@@ -23,14 +29,15 @@ class Utilities {
         return   $Tabla;
     }
 
-    public static function getUniqueValuesFormArray( $Array, $key) {
+    /*JUNIO 01 2021.         DEVUELVE FILAS UNICAS DE UN ARRAY.  */
+    public static function getUniqueRowsFormArray( $Array, $key) {
       $uniqueColumn = array_unique(array_column($Array, $key));
       $uniqueArray  = array_intersect_key($Array, $uniqueColumn);
      return $uniqueArray;
 
     }
 
-
+    /*JUNIO 01 2021.         EXTRAE EMAIL UNICOS DE UN CONJUNTO DE DATOS TENIENDO EN CUENTA $key(campo de comparación) */
    public static function getEmailsFromArray( $DataArray, $fieldCompare, $Key ) {
        $Emails = [];
        foreach ($DataArray as $Data) {
@@ -38,7 +45,7 @@ class Utilities {
                 array_push ($Emails, trim($Data->email) );
             }
         } //forDataArray 
-        array_push ($Emails, config('company.EMAIL_SERVICIO_CLIENTES'));
+        array_push ($Emails, config('company.EMAIL_SERVICLIENTES'));
         return  array_values( array_unique($Emails));
      }
  

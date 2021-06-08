@@ -244,7 +244,10 @@ class Tercero extends Model
 					return DB::select('call api_terceros_contactos_sin_registro_web( ?)', array ( "$identificacion" ) );  
 			}
  
- 
+	  public static function bloqueadosPorCartera() {
+				return DB::select('call api_terceros_bloqueados_cartera( )' );
+			
+		}
  
  
 	public function formas_pago()

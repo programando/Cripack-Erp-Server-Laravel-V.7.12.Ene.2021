@@ -6,8 +6,17 @@ return [
   'NIT'                     => env ('EMPRESA_NIT'),
   'DIRECCION'               => env ('EMPRESA_DIRECCION'),
   'TELEFONO'                => env ('EMPRESA_TELEFONO'),
-  'EMAIL_USUARIO'           => env ('MAIL_USERNAME'),
-  'EMAIL_SERVICIO_CLIENTES' => env ('MAIL_SERVICLIENTES'),
+ 
+  'EMAIL_ALMACEN'       => env ('EMAIL_ALMACEN'),
+  'EMAIL_AUXCONTABLE'   => env ('EMAIL_AUXCONTABLE'),
+  'EMAIL_CARTERA'       => env ('EMAIL_CARTERA'),
+  'EMAIL_CONTABILIDAD'  => env ('EMAIL_CONTABILIDAD'),
+  'EMAIL_GERENCIA'      => env ('EMAIL_GERENCIA'),
+  'EMAIL_PRODUCCION'    => env ('EMAIL_PRODUCCION'),
+  'EMAIL_PRODUCCION'    => env ('EMAIL_PRODUCCION'),
+  'EMAIL_SERVICLIENTES' => env ('EMAIL_SERVICLIENTES'),
+  'EMAIL_SISTEMAS'      => env ('EMAIL_SISTEMAS'),
+  'EMAIL_USUARIO'       => env ('MAIL_USERNAME'),
 
 
   'TCC_RASTREO_GUIA'  => env ('TCC_RASTREO_GUIA' ),

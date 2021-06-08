@@ -17,14 +17,14 @@ class TercerosUsersWebResetPassword extends Mailable
          
         $this->Email     = $Email;
         $this->Token     = $Token;
-        $this->from      = ['address'=> config('company.EMAIL_SERVICIO_CLIENTES'), 'name' => config('company.EMPRESA' )];
+        $this->from      = ['address'=> config('company.EMAIL_SERVICLIENTES'), 'name' => config('company.EMPRESA' )];
         $this->urlClient = config('company.APP_URL_CLIENT') . config('company.URL_USER_PASSWORD_RESET').$Token;
     }
   
  
     public function build() {
-        return $this->view('mails.terceros.userResetPassword')
-                    ->from(  config('company.EMAIL_SERVICIO_CLIENTES') )
+        return $this->view('mails.terceros.usuarios.ResetPassword')
+                    ->from(  config('company.EMAIL_SERVICLIENTES') )
                     ->subject('Cambio de contraseña') ;
     }
 }
