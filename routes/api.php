@@ -36,10 +36,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'clientes'], function () {
 Route::group(['prefix' => 'clientes/'], function () {
     $localController = 'TercerosController@'; 
-    Route::get('ots/historial'            , $localController.'OrdenesTrabajoCliente') ;
-    Route::get('ots/estado'               , $localController.'OrdenesTrabajoEstadoProduccion') ;
-    Route::get('ots/en-aprobacion'        , $localController.'otsBloqueadasDibEnAprobacion') ;
-    Route::get('bloqueados-cartera'       , $localController.'bloqueadosPorCartera') ;
+    Route::get('ots/historial'                           , $localController.'OrdenesTrabajoCliente') ;
+    Route::get('ots/estado'                              , $localController.'OrdenesTrabajoEstadoProduccion') ;
+    Route::get('ots/en-aprobacion'                       , $localController.'otsBloqueadasDibEnAprobacion') ;
+    Route::get('bloqueados-cartera'                      , $localController.'bloqueadosPorCartera') ;
+    Route::get('bloqueados-cartera/ots/pendientes'       , $localController.'bloqueadosPorCarteraOtsPendientes') ;
 });
 
 Route::group(['prefix' => 'ordenes-trabajo/'], function () {

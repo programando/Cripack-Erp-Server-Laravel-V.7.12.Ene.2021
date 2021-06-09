@@ -246,9 +246,11 @@ class Tercero extends Model
  
 	  public static function bloqueadosPorCartera() {
 				return DB::select('call api_terceros_bloqueados_cartera( )' );
-			
 		}
  
+	 	  public static function bloqueadosPorCarteraOtsPendientes() {
+				return DB::select('call api_terceros_bloqueados_cartera_ots_pendientes()' );
+		}
  
 	public function formas_pago()
 	{

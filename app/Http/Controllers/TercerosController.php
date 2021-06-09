@@ -11,10 +11,30 @@ use Illuminate\Support\Facades\Session;
 use App\Mail\TercerosOtsDibujoAprobacion;
 use App\Helpers\Utilities as HelperUtilites;
 use App\Events\TercerosClientesBloqueadosEvent;
+use App\Events\Terceros\ClientesBloqueadosOtsEvent;
 
 class TercerosController extends Controller
 {
     
+   public function bloqueadosPorCarteraOtsPendientes() {
+     $Ots = Terceros::bloqueadosPorCarteraOtsPendientes () ;
+     $IdsClientes = HelperUtilites::getUniqueIdsFromArray ( $Ots, 'idtercero'); 
+     foreach ($IdsClientes as $IdCliente ) {
+       foreach ($Ots as $OT) {
+           if (  $OT->idtercero == $IdCliente ) {
+                 $Emails       = HelperUtilites::getEmailsFromArray($Ots ,'idtercero',$IdCliente  );
+                 $OtsBloquedas = $this->otsBloqueadas($Ots , $IdCliente );
+                 
+                 $OtsBloquedas = HelperUtilites::getUniqueRowsFormArray($OtsBloquedas,'idregistro_ot'  );
+                  
+                 ClientesBloqueadosOtsEvent::dispatch( $OT->cliente,$Emails,  $OtsBloquedas, $OT  );
+                 break;
+            }
+       }// Endfor $Ots
+     }//EndFor $IdsClientes
+    
+   }
+   
     public function bloqueadosPorCartera () {
       $Clientes = Terceros::bloqueadosPorCartera () ;
       $IdsClientes = HelperUtilites::getUniqueIdsFromArray ( $Clientes, 'idtercero'); // Ids
@@ -31,7 +51,7 @@ class TercerosController extends Controller
     
     public function otsBloqueadasDibEnAprobacion() {
       $Ots         = Terceros::otsBloqueadasDibEnAprobacion() ;
-      $IdsClientes = array_unique( Arr::pluck($Ots ,'idtercero' ) );
+      $IdsClientes = HelperUtilites::getUniqueIdsFromArray ( $Ots, 'idtercero');  
       foreach ($IdsClientes as $IdCliente ) {
             foreach ($Ots as $OT) {
                 if (  $OT->idtercero == $IdCliente ) {
