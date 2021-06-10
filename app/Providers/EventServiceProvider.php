@@ -18,11 +18,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\TercerosUsersWebEvent'              => [ 'App\Listeners\TercerosUsersWebListener',           ],
-        'App\Events\TercerosClientesBloqueadosEvent'    => [ 'App\Listeners\TercerosClientesBloqueadosListener', ],         // Correo semanal. clientes bloqueados
-        'App\Events\Terceros\ClientesBloqueadosOtsEvent'=> [ 'App\Listeners\Terceros\ClientesBloqueadosOtsListener', ],   // Correo diario. Clientes bloqueados
-        'App\Events\TercerosUsersContactUsEvent'        => [ 'App\Listeners\TercerosUsersContactUsListener',     ],
-        'App\Events\OrdenesTrabajoExteriorEvent'        => [ 'App\Listeners\OrdenesTrabajoExteriorListener',     ]
+        'App\Events\OrdenesTrabajoExteriorEvent'         => [ 'App\Listeners\OrdenesTrabajoExteriorListener',     ],
+        'App\Events\Terceros\ClientesBloqueadosEvent'    => [ 'App\Listeners\Terceros\ClientesBloqueadosListener', ],       // Correo semanal. clientes bloqueados
+        'App\Events\Terceros\ClientesBloqueadosOtsEvent' => [ 'App\Listeners\Terceros\ClientesBloqueadosOtsListener', ],   // Correo diario. Clientes bloqueados
+        'App\Events\Terceros\CotizacionesNtfcionesEvent' => [ 'App\Listeners\Terceros\CotizacionesNtfcionesListener', ],   // Notif.seguimiento de cotizaciones
+        'App\Events\Terceros\UsersContactUsEvent'        => [ 'App\Listeners\Terceros\UsersContactUsListener',     ],
+        'App\Events\Terceros\UsersWebEvent'              => [ 'App\Listeners\Terceros\UsersWebListener',           ],
     ];
 
     /**

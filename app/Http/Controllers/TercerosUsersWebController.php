@@ -12,11 +12,11 @@ use App\Models\TercerosWeb as Users;
 use Illuminate\Support\Facades\Auth;
 //--
 use Illuminate\Support\Facades\Lang;
-use App\Events\TercerosUsersWebEvent;
+use App\Events\Terceros\UsersWebEvent;
 //--
 
 use App\Http\Requests\TercerosRequest;
-use App\Events\TercerosUsersContactUsEvent;
+use App\Events\Terceros\UsersContactUsEvent;
 use App\Http\Requests\TercerosUsersWebRequest;
 use Illuminate\Validation\ValidationException;
 
@@ -25,7 +25,7 @@ class TercerosUsersWebController extends Controller
 {
    
     public function contactMessage ( TercerosUsersWebRequest $FormData ) {
-        TercerosUsersContactUsEvent::dispatch( $FormData );
+        UsersContactUsEvent::dispatch( $FormData );
     }
 
     public function contactWebRegister( TercerosUsersWebRequest $FormData) {
@@ -86,7 +86,7 @@ class TercerosUsersWebController extends Controller
         $User->tmp_token        = Str::random(100);
         $User->tmp_token_expira = Carbon::now()->addMinute(15) ;
         $User->save();
-        TercerosUsersWebEvent::dispatch( $User->email, $User->tmp_token);
+        UsersWebEvent::dispatch( $User->email, $User->tmp_token);
         return response()->json('Ok', 200);  
     }
     

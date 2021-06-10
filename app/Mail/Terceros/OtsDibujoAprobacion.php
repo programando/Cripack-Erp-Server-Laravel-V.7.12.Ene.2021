@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Terceros;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Helpers\Utilities as HelperUtilites;
 
-class TercerosOtsDibujoAprobacion extends Mailable
+class OtsDibujoAprobacion extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,7 +22,7 @@ class TercerosOtsDibujoAprobacion extends Mailable
  
     public function build()
     {
-                return $this->view('mails.terceros.clientes.OtsDibujoAprobacion')
+                return $this->view('mails.terceros.OtsDibujoAprobacion')
                     ->from(  config('company.EMAIL_USUARIO') )
                     ->subject('Órdenes de trabajo con dibujo por aprobación') ;
     }

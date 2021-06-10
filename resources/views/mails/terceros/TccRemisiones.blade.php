@@ -9,36 +9,38 @@
   <!--[if mso]>
     <xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
     <style>
-      td,th,div,p,a,h1,h2,h3,h4,h5,h6 {font-family: "Segoe UI", sans-serif; mso-line-height-rule: exactly;}
+      td,th,div,p,a,h1,h2,h4,h4,h5,h6 {font-family: "Segoe UI", sans-serif; mso-line-height-rule: exactly;}
     </style>
   <![endif]-->
-    <title>Cripack - Servicio al cliente</title>
+    <title>Cripack - Despachos TCC</title>
 </head>
-<body style="font-size: 12px; margin: 0; padding: 0; width: 60%; word-break: break-word; -webkit-font-smoothing: antialiased; background-color: #fff;">
+<body style="font-size: 12px; margin: 0; padding: 0; width: 100%; word-break: break-word; -webkit-font-smoothing: antialiased; background-color: #fff;">
  
   <div role="article"  lang="en">
     <header style="display: flex; margin: 0 40px;">
       <div style="font-size: 12px;">
        
-        <h3>Señores:</h3>
-        <h3 style="margin-top: 20px; margin-bottom: 0px;"> {{ $Empresa }}</h3>
-        <h3 style="margin-top: 5px; margin-bottom: 0px;"> {{ $Contacto }}</h3>
-        
+        <h4>Señores:</h4>
+        <h4 style="margin-top: 20px; margin-bottom: 0px;"> {{ $Empresa }}</h4>
+        <h4 style="margin-top: 0; margin-bottom: 0;"> {{ $Contacto }}</h4>
         <br><br>
       </div>
     </header> 
     <aside style="margin: 0 40px; margin-top: 50px;">
       <div>
-        <h3 style="font-weight: 500;">Apreciados Señores,</h3>
+        <h4 style="font-weight: 500;">Apreciados Señores,</h4>
         <br><br><br>
-        <h3 style="font-weight: 500;"> Informamos que actualmente las siguientes órdenes de trabajo no han ingresado a nuestro programa de producción, por que no cuentan con su aprobación de montaje:</h3>
+        <h4 style="font-weight: 500;">Con guía Número: 
+        <span style="color: blue; font-weight: 900;">
+            <a href="{{ $TccRastreo }}"><strong>{{ $TccNroGuia }} </strong></a> 
+        </span> de TCC hemos despachado lo siguiente:</h4>
       </div>
  
        <table   width="100%">
       <thead  style="text-align: center; color: #fff; background-color: #272C6B; height:25px;">
         <tr>
           <th>#</th>
-          <th style="text-align: center;">Núm.Orden Trabajo</th>
+          <th>Núm.Orden Trabajo</th>
           <th>Tipo Trabajo</th>
           <th>Referencia</th>
         </tr>
@@ -50,9 +52,9 @@
 
  
     </aside>
-    <div style="margin: 0 0px; margin-top: 50px;">
-      <h3 style="font-weight: 500;"><span>
-       Seguiremos atentos a su aprobación para inlcuir estos trabajos en nuestra programación de producción.</span></h3>
+    <div style="margin: 0 40px; margin-top: 50px;">
+      <h4 style="font-weight: 500;">Total: <span style="font-weight: 900;">
+      {{ $Unidades }} paquetes/unidades</span> con un peso aproximado de: <span style="font-weight: 900;">{{ $KilosReales }} kilos.</span></h4>
     </div>
   </div>
   <footer>

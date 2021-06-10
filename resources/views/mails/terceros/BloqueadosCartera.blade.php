@@ -9,7 +9,7 @@
   <!--[if mso]>
     <xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
     <style>
-      td,th,div,p,a,h1,h2,h3,h4,h5,h6 {font-family: "Segoe UI", sans-serif; mso-line-height-rule: exactly;}
+      td,th,div,p,a,h1,h2,h4,h4,h5,h6 {font-family: "Segoe UI", sans-serif; mso-line-height-rule: exactly;}
     </style>
   <![endif]-->
     <title>Cripack - Servicio al cliente</title>
@@ -20,8 +20,9 @@
     <header style="display: flex; margin: 0 40px;">
       <div style="font-size: 12px;">
        
-        <h3>Señores:</h3>
-        <h3 style="margin-top: 20px; margin-bottom: 0px;"> {{ $Empresa }}</h3>
+        <h4>Señores:</h4>
+        
+        <h4 style="margin-top: 20px; margin-bottom: 0px;"> {{ $Empresa }}</h4>
         
         
         <br><br>
@@ -29,16 +30,16 @@
     </header> 
     <aside style="margin: 0 40px; margin-top: 50px;">
       <div>
-        <h3 style="font-weight: 500;">Apreciados Señores,</h3>
+        <h4 style="font-weight: 500;">Apreciados Señores,</h4>
         <br><br><br>
-        <h3 style="font-weight: 500;">         
+        <h4 style="font-weight: 500;">         
       <p style="text-align: justify;">
         Cordial saludo, <br><br>
         Con corte a hoy su cuenta presenta saldos sin cancelar,  por este motivo  el sistema nos impide crear, modificar o remisionar nuevos trabajos.
         Le solicitamos comunicarse con el departamento de cartera a la mayor brevedad para aclarar la situación. <br><br>
         En caso de haberse puesto al día, favor enviarnos los respectivos comprobantes de pago y hacer caso omiso del presente mensaje.
       <br><br>
-      </p></h3>
+      </p></h4>
       </div>
  
  
@@ -46,8 +47,8 @@
  
     </aside>
     <div style="margin: 0 0px; margin-top: 50px;">
-      <h3 style="font-weight: 500;"><span>
-       Cordialmente, </span></h3>
+      <h4 style="font-weight: 500;"><span>
+       Cordialmente, </span></h4>
     </div>
   </div>
   <footer>

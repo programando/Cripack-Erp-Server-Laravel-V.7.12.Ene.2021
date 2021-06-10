@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Terceros;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TercerosUsersWebResetPassword extends Mailable
+class UsersWebResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -23,7 +23,7 @@ class TercerosUsersWebResetPassword extends Mailable
   
  
     public function build() {
-        return $this->view('mails.terceros.usuarios.ResetPassword')
+        return $this->view('mails.terceros.ResetPassword')
                     ->from(  config('company.EMAIL_SERVICLIENTES') )
                     ->subject('Cambio de contraseña') ;
     }

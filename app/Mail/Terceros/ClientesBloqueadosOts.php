@@ -29,7 +29,7 @@ class ClientesBloqueadosOts extends Mailable
     public function build()
     {
         return 
-            $this->view('mails.terceros.clientes.BloqueadosCarteraOts')                    
+            $this->view('mails.terceros.BloqueadosCarteraOts')                    
                  ->from(  config('company.EMAIL_CARTERA') )
                  ->subject('Órdenes de trabajo bloqueadas - Cripack S.A.S.')  ; 
     }

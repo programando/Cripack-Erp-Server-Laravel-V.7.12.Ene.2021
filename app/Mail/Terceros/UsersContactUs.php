@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Terceros;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TercerosUsersContactUs extends Mailable
+class UsersContactUs extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -24,7 +24,7 @@ class TercerosUsersContactUs extends Mailable
     
     public function build()
     { 
-      return $this->view('mails.terceros.usuarios.Contactos')
+      return $this->view('mails.terceros.Contactos')
                    ->from(  config('company.EMAIL_SERVICLIENTES') )
                     ->subject($this->asunto) ;
     }

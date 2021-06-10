@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Arr;
-use Illuminate\Http\Request;
-use App\Models\Tercero as Terceros;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Session;
-use App\Mail\TercerosOtsDibujoAprobacion;
-use App\Helpers\Utilities as HelperUtilites;
-use App\Events\TercerosClientesBloqueadosEvent;
+use App\Events\Terceros\ClientesBloqueadosEvent;
 use App\Events\Terceros\ClientesBloqueadosOtsEvent;
+use App\Helpers\Utilities as HelperUtilites;
+use App\Mail\Terceros\OtsDibujoAprobacion;
+use App\Models\Tercero as Terceros;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class TercerosController extends Controller
 {
@@ -42,7 +42,7 @@ class TercerosController extends Controller
         foreach ($Clientes as $Cliente) {
             if (  $Cliente->idtercero ==$IdCliente  ){
                 $Emails       = HelperUtilites::getEmailsFromArray($Clientes  ,'idtercero',$IdCliente  );
-                TercerosClientesBloqueadosEvent::dispatch ($Emails , $Cliente->nomtercero );
+                ClientesBloqueadosEvent::dispatch ($Emails , $Cliente->nomtercero );
                 break ;
             }
         }// Endfor   $Clientes
@@ -58,7 +58,7 @@ class TercerosController extends Controller
                     $Emails       = HelperUtilites::getEmailsFromArray($Ots ,'idtercero',$IdCliente  );
                     $OtsBloquedas = $this->otsBloqueadas($Ots , $IdCliente );
                     $OtsBloquedas = HelperUtilites::getUniqueRowsFormArray($OtsBloquedas,'idregistro_ot'  );
-                    Mail::to( $Emails )->send( new TercerosOtsDibujoAprobacion ( $OtsBloquedas, $OT ));
+                    Mail::to( $Emails )->send( new OtsDibujoAprobacion ( $OtsBloquedas, $OT ));
                     break;
                 }
             } //ForOts

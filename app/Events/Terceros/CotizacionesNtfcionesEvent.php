@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Terceros;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -10,18 +10,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TercerosUsersContactUsEvent
+class CotizacionesNtfcionesEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-     public $contacto, $asunto, $email, $mensaje ;
- 
-    public function __construct( $Data )
+    public  $Ntfcion, $Cotizacion , $CotizacionDt ;
+    
+    public function __construct(  $Ntfcion, $Cotizacion , $CotizacionDt )
     {
-        $this->contacto = $Data->contacto ;
-        $this->asunto   = $Data->asunto ;
-        $this->email    = $Data->email ;
-        $this->mensaje  = $Data->mensaje ;
-
+         $this->Ntfcion      = $Ntfcion;
+         $this->Cotizacion   = $Cotizacion;
+         $this->CotizacionDt = $CotizacionDt;
     }
+
+
 }
