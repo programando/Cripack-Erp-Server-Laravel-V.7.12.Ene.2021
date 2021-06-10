@@ -80,7 +80,7 @@ class Cotizaciones extends Model
 
 	// Junio 09 de 2021.		 Consulta datos iniciales de las notificaciones por enviar
 		public static function notificacionesPendientes(  ) {
-					return DB::select('call api_terceros_cotizaciones_seguimiento_paso_1(?)', array(Carbon::now()->format('Ymd') ) );
+					return DB::select('call api_terceros_cotizaciones_notificaciones_seguimiento(?)', array(Carbon::now()->format('Ymd') ) );
 			}
 		
 		public static function consultaCtzPorIdControl( $Idcontrol ) {

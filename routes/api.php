@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'cotizaciones/'], function () {
     $localController = 'CotizacionesController@'; 
     Route::get('notificaciones/pendientes'            , $localController.'notificacionesPendientes') ;
+    Route::get('rechazar'            , $localController.'rechazarCotizacion') ;
 });
+
 
 
 Route::group(['prefix' => 'usuarios/'], function () {
