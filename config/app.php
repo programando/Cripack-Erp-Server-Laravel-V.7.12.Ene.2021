@@ -177,7 +177,7 @@ return [
        
         App\Providers\CompanyServiceProvider::class,
 
-
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
     ],
 

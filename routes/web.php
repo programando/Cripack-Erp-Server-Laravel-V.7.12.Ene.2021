@@ -1,6 +1,5 @@
 <?php
 
-use App\Mail\RemissionTccToCustomer;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +18,5 @@ Route::get('/', function () {
    return view('welcome');
  
 });
+
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
