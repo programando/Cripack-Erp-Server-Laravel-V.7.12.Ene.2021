@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Session;
 
 class TercerosController extends Controller
 {
-    
+  
+   //Junio 06 2021.     Ejecuta proceso para poblar bitacora de diseñadores
+   public function bitacoraOtsPorDisenador () {
+      Terceros::bitacoraOtsPorDisenador();
+   }
+   
    public function bloqueadosPorCarteraOtsPendientes() {
      $Ots = Terceros::bloqueadosPorCarteraOtsPendientes () ;
      $IdsClientes = HelperUtilites::getUniqueIdsFromArray ( $Ots, 'idtercero'); 

@@ -40,6 +40,7 @@ Route::group(['prefix' => 'clientes/'], function () {
     Route::get('ots/en-aprobacion'                       , $localController.'otsBloqueadasDibEnAprobacion') ;
     Route::get('bloqueados-cartera'                      , $localController.'bloqueadosPorCartera') ;
     Route::get('bloqueados-cartera/ots/pendientes'       , $localController.'bloqueadosPorCarteraOtsPendientes') ;
+    Route::get('bitacora/disenadores'                    , $localController.'bitacoraOtsPorDisenador') ;
 });
 
 Route::group(['prefix' => 'ordenes-trabajo/'], function () {

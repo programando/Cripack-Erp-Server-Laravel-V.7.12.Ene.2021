@@ -219,6 +219,10 @@ class Tercero extends Model
 		'comis_vta',
 		'comis_rcudo'
 	];
+		public static function bitacoraOtsPorDisenador () {
+			return DB::select('call btcra_mvto_ots_registro_11_pm(  )'  );
+		}
+		
 		// Historial de cliente
 		public static function getOrdenesTrabajoCliente( $Data ) {
 					return DB::select('call api_terceros_consulta_trabajos_x_tercero( ?, ?, ?)', array ($Data->idTercero,$Data->fechaIni, $Data->fechaFin) );
