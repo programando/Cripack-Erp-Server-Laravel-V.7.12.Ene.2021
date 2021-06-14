@@ -24,8 +24,7 @@ class TccRemisionesDespachoController extends Controller
         $Guias = Arrays::getUniqueRowsFormArray ($RemisionesPdtes, 'nro_rmsa_tcc' ) ;
         foreach ( $Guias as $Guia ) {
             $FechaEntrega = $this->getFechaTccFechaEntrega ( $Guia->nro_rmsa_tcc );
-            if ( $FechaEntrega  != '') {
-                 
+            if ( $FechaEntrega  != '' && !empty ( $FechaEntrega ) ) {       
                 RemisionesTcc::remisionesUpdateFechaEntregaTcc ($Guia->idremision, Fechas::getFechaTCC($FechaEntrega  ));
             }
         }
