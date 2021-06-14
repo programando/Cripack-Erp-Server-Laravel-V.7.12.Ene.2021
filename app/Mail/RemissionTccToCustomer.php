@@ -7,7 +7,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Helpers\Utilities as HelperUtilites;
+
+
+Use Arrays; //      Helpers
 
 class RemissionTccToCustomer extends Mailable
 {
@@ -22,7 +24,7 @@ class RemissionTccToCustomer extends Mailable
          $this->TccNroGuia  = $_Remision->nro_rmsa_tcc;
          $this->KilosReales = $_Remision->kilos_reales;
          $this->Unidades    = $_Remision->unidades;
-         $this->BodyTable   = HelperUtilites::buildTableOtsReferenciaToEmail ( $Data , 'idregistro',$_Remision->idregistro);
+         $this->BodyTable   = Arrays::buildTableOtsReferenciaToEmail ( $Data , 'idregistro',$_Remision->idregistro);
     }
 
     public function build()

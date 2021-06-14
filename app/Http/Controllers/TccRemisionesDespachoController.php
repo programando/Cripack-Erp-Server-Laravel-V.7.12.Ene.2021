@@ -1,25 +1,67 @@
 <?php
 
 namespace App\Http\Controllers;
-use config;
-use Illuminate\Support\Arr;
+
 use Illuminate\Http\Request;
-use App\Mail\RemissionTccToCustomer;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
+
+use App\Mail\RemissionTccToCustomer;
 use App\Models\TccRemisionesDespacho as RemisionesTcc;
-use App\Helpers\Utilities as HelperUtilites;
+
+use Fechas;         //  Helpers
+use Arrays;         //  Helpers
+use config;
 
 
 $DocumentoReferencia; $UnidadBoomerang; $ObjectToSend; $RespuestaTcc; $NumeroRemesa;
 class TccRemisionesDespachoController extends Controller
 {
+    
+    // Junio 14 2021.       Consulta fecha de entrega TCC al cliente y actualiza datos en la remision
+    public function remisionesPdtesFechaEntregaTcc () {
+        $RemisionesPdtes = RemisionesTcc::remisionesPdtesFechaEntregaTcc () ;
+        $Guias = Arrays::getUniqueRowsFormArray ($RemisionesPdtes, 'nro_rmsa_tcc' ) ;
+        foreach ( $Guias as $Guia ) {
+            $FechaEntrega = $this->getFechaTccFechaEntrega ( $Guia->nro_rmsa_tcc );
+            if ( $FechaEntrega  != '') {
+                 
+                RemisionesTcc::remisionesUpdateFechaEntregaTcc ($Guia->idremision, Fechas::getFechaTCC($FechaEntrega  ));
+            }
+        }
+    }
+
+    // Junio 21 201.        Consulta el estado de una guía en tcc.
+    public function getFechaTccFechaEntrega ( $NroGuia) {
+          try{
+              $client = new \SoapClient( config('company.TCC_ESTADO_GUIA') );
+              $result = $client->ConsultarEstatusRemesasListaOSB([
+                  'Clave'       => 'CALCRIPACK',
+                  'remesas'     => "'".$NroGuia."'",
+                  'Respuesta'   =>'0',
+                  'Informacion' =>'',
+                  'Mensaje'     =>'',
+              ]);
+            $Resultado = json_decode(json_encode((array) simplexml_load_string($result->Informacion)),1);
+            if ( isset( $Resultado ['remesa']['fechacumplido'] )){
+                return $Resultado ['remesa']['fechacumplido'];
+          }else{
+            return '';
+          }
+          }
+          catch(Exception $e){
+              echo $e->getMessage();
+          }
+    }
+
+    
     public function sendCustomerNotification() {
         $Remisiones = RemisionesTcc::sendCustomerNotification() ;
         $Ids        = array_unique( Arr::pluck($Remisiones ,'idregistro' ) );
         foreach( $Ids as $Row) {  
                 foreach ($Remisiones as $Remision) {
                    if (  $Remision->idregistro == $Row) {
-                     $Emails = HelperUtilites::getEmailsFromArray($Remisiones ,'idregistro',$Row );
+                     $Emails = Arrays::getEmailsFromArray($Remisiones ,'idregistro',$Row );
                      Mail::to( $Emails, trim($Remision->contacto) )->send( new RemissionTccToCustomer( $Remision, $Remisiones ));
                      $this->remisionesTccUpdateEmalEnviado ($Row );
                      break;

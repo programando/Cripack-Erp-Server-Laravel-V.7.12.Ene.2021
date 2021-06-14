@@ -89,4 +89,15 @@ class TccRemisionesDespacho extends Model
 	 	return     DB::select('call api_remisiones_informar_clientes()');
  }
 
+  //  Junio 14 2021.			Consuilta las remisiones que no tienen fecha de entraga por parte del transportador 
+	public static function remisionesPdtesFechaEntregaTcc() {
+	 	return     DB::select('call api_remisiones_tcc_confirma_entrega()');
+ }
+
+  //  Junio 14 2021.			actualiza la fecha de entrega de las remisiones
+	public static function remisionesUpdateFechaEntregaTcc( $idRemision, $FechaEntrega ) {
+	 	return     DB::select('call api_remisiones_tcc_confirma_entrega_update_fecha(?,?)', array($idRemision, $FechaEntrega ));
+ }
+
+
 }

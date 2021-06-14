@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
+use Arrays;         //  Helpers
+
 class TercerosController extends Controller
 {
   
@@ -23,14 +25,14 @@ class TercerosController extends Controller
    
    public function bloqueadosPorCarteraOtsPendientes() {
      $Ots = Terceros::bloqueadosPorCarteraOtsPendientes () ;
-     $IdsClientes = HelperUtilites::getUniqueIdsFromArray ( $Ots, 'idtercero'); 
+     $IdsClientes = Arrays::getUniqueIdsFromArray ( $Ots, 'idtercero'); 
      foreach ($IdsClientes as $IdCliente ) {
        foreach ($Ots as $OT) {
            if (  $OT->idtercero == $IdCliente ) {
-                 $Emails       = HelperUtilites::getEmailsFromArray($Ots ,'idtercero',$IdCliente  );
+                 $Emails       = Arrays::getEmailsFromArray($Ots ,'idtercero',$IdCliente  );
                  $OtsBloquedas = $this->otsBloqueadas($Ots , $IdCliente );
                  
-                 $OtsBloquedas = HelperUtilites::getUniqueRowsFormArray($OtsBloquedas,'idregistro_ot'  );
+                 $OtsBloquedas = Arrays::getUniqueRowsFormArray($OtsBloquedas,'idregistro_ot'  );
                   
                  ClientesBloqueadosOtsEvent::dispatch( $OT->cliente,$Emails,  $OtsBloquedas, $OT  );
                  break;
@@ -42,11 +44,11 @@ class TercerosController extends Controller
    
     public function bloqueadosPorCartera () {
       $Clientes = Terceros::bloqueadosPorCartera () ;
-      $IdsClientes = HelperUtilites::getUniqueIdsFromArray ( $Clientes, 'idtercero'); // Ids
+      $IdsClientes = Arrays::getUniqueIdsFromArray ( $Clientes, 'idtercero'); // Ids
       foreach ($IdsClientes as $IdCliente ) {
         foreach ($Clientes as $Cliente) {
             if (  $Cliente->idtercero ==$IdCliente  ){
-                $Emails       = HelperUtilites::getEmailsFromArray($Clientes  ,'idtercero',$IdCliente  );
+                $Emails       = Arrays::getEmailsFromArray($Clientes  ,'idtercero',$IdCliente  );
                 ClientesBloqueadosEvent::dispatch ($Emails , $Cliente->nomtercero );
                 break ;
             }
@@ -56,13 +58,13 @@ class TercerosController extends Controller
     
     public function otsBloqueadasDibEnAprobacion() {
       $Ots         = Terceros::otsBloqueadasDibEnAprobacion() ;
-      $IdsClientes = HelperUtilites::getUniqueIdsFromArray ( $Ots, 'idtercero');  
+      $IdsClientes = Arrays::getUniqueIdsFromArray ( $Ots, 'idtercero');  
       foreach ($IdsClientes as $IdCliente ) {
             foreach ($Ots as $OT) {
                 if (  $OT->idtercero == $IdCliente ) {
-                    $Emails       = HelperUtilites::getEmailsFromArray($Ots ,'idtercero',$IdCliente  );
+                    $Emails       = Arrays::getEmailsFromArray($Ots ,'idtercero',$IdCliente  );
                     $OtsBloquedas = $this->otsBloqueadas($Ots , $IdCliente );
-                    $OtsBloquedas = HelperUtilites::getUniqueRowsFormArray($OtsBloquedas,'idregistro_ot'  );
+                    $OtsBloquedas = Arrays::getUniqueRowsFormArray($OtsBloquedas,'idregistro_ot'  );
                     Mail::to( $Emails )->send( new OtsDibujoAprobacion ( $OtsBloquedas, $OT ));
                     break;
                 }
@@ -86,7 +88,7 @@ class TercerosController extends Controller
         $DataOts   = Cache::tags( $CacheName )->remember( $CacheName, now()->addMinutes(30), function () use ($FormData)  {
             return Terceros::getOrdenesTrabajoCliente( $FormData  );
         });  
-         return HelperUtilites::arrayPaginator ($DataOts, $FormData );  // Incluir paginación de un array
+         return Arrays::arrayPaginator ($DataOts, $FormData );  // Incluir paginación de un array
     }
 
 

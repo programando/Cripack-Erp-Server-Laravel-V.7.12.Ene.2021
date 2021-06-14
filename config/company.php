@@ -19,9 +19,10 @@ return [
   'EMAIL_USUARIO'       => env ('MAIL_USERNAME'),
 
 
+  'TCC_ESTADO_GUIA'   => env ('TCC_ESTADO_GUIA' ),
   'TCC_RASTREO_GUIA'  => env ('TCC_RASTREO_GUIA' ),
   'TCC_SOAP_CUENTA'   => env ('TCC_SOAP_CUENTA' ),
-  'TCC_SOAP_ENDPOINT' => env( 'TCC_SOAP_ENDPOINT'),
+  'TCC_SOAP_ENDPOINT' => env ( 'TCC_SOAP_ENDPOINT'),
   'TCC_SOAP_PASSWORD' => env ('TCC_SOAP_PASSWORD' ),
 
   'APP_URL_CLIENT'          => env('APP_URL_CLIENT'),

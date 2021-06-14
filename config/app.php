@@ -233,6 +233,7 @@ return [
 
 
         /* COMPANY PROVIDERS */
+        'Arrays'    => App\Helpers\Arrays::class,
         'Fechas'    => App\Helpers\Fechas::class,
         'Folders'   => App\Helpers\Folders::class,
         'Images'    => App\Helpers\Images::class,

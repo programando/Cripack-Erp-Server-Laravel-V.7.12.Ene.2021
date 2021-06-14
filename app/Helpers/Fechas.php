@@ -1,6 +1,7 @@
 <?php
 namespace App\Helpers;
 
+use DateTime;
 use Carbon\Carbon;
 
 class Fechas {
@@ -16,7 +17,15 @@ class Fechas {
         return Carbon::parse( $FechaDespacho );
     }
 
+    public static function getFechaTCC( $Fecha ) {
+        // 14 Junio 2021.        Fecha de retorno '13/01/2021 ...' es interpretada como Dia 01  Mes 13, lo cual da un error.
+          $Partes = explode('/',$Fecha);
+          $Dia    = $Partes[1].'/';
+          $Mes    = $Partes[0].'/';
+          $Anio   = $Partes[2];
+          $Fecha  = $Dia . $Mes . $Anio;
+            return  Carbon::parse( $Fecha )->format('Y-m-d h:m:s');
+    }
+
 
 }
-
-

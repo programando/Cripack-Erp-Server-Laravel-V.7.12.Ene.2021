@@ -52,6 +52,7 @@ Route::group(['prefix'=>'tcc/'], function() {
     $localController = 'TccRemisionesDespachoController@';
     Route:: get('integrar-guias'                          , $localController.'getDocsToIntegration');
     Route:: get('clientes/notificacion'                    , $localController.'sendCustomerNotification');
+    Route:: get('remisiones/pdtes/fecha/entrega'           , $localController.'remisionesPdtesFechaEntregaTcc');
 });
 
 

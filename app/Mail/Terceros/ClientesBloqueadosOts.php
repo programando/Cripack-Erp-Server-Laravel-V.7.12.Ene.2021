@@ -6,8 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Helpers\Utilities as HelperUtilites;
 
+use Arrays ;    //  Helpers
 class ClientesBloqueadosOts extends Mailable
 {
     use Queueable, SerializesModels;
@@ -17,7 +17,7 @@ class ClientesBloqueadosOts extends Mailable
     {
          $this->Empresa = $Empresa;
           
-         $this->BodyTable = HelperUtilites::buildTableOtsReferenciaToEmail ( $OtsBloquedas, 'idregistro_ot', $OT->idregistro_ot);
+         $this->BodyTable = Arrays::buildTableOtsReferenciaToEmail ( $OtsBloquedas, 'idregistro_ot', $OT->idregistro_ot);
          
     }
 

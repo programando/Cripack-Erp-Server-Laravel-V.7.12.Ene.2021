@@ -6,7 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Helpers\Utilities as HelperUtilites;
+
+
+Use Arrays ;        //      Helpers
 
 class OtsDibujoAprobacion extends Mailable
 {
@@ -17,7 +19,7 @@ class OtsDibujoAprobacion extends Mailable
     {
        $this->Empresa = $OT->nomtercero;
        $this->Contacto  = $OT->contacto;
-       $this->BodyTable = HelperUtilites::buildTableOtsReferenciaToEmail ( $OtsBloquedas, 'idregistro_ot', $OT->idregistro_ot);
+       $this->BodyTable = Arrays::buildTableOtsReferenciaToEmail ( $OtsBloquedas, 'idregistro_ot', $OT->idregistro_ot);
     }
  
     public function build()
