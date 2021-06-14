@@ -19,7 +19,6 @@ class Fechas {
 
     public static function getFechaTCC( $Fecha ) {
         // 14 Junio 2021.        Fecha de retorno '13/01/2021 ...' es interpretada como Dia 01  Mes 13, lo cual da un error.
-          dd ($Fecha  );
           $Partes = explode('/',$Fecha);
           $Dia    = $Partes[1].'/';
           $Mes    = $Partes[0].'/';
