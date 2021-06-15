@@ -1,8 +1,7 @@
 <?php 
 namespace App\Helpers;
 
-use Illuminate\Support\Arr;
-use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class Utilities { 
         /**

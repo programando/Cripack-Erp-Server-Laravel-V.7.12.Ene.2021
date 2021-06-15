@@ -3,6 +3,7 @@ namespace App\Helpers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Arrays {
 
