@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'solicitudes/ots/'], function () {
     Route::get('tipos/arreglo'            , 'WebOtsTpArregloController@getTiposArreglos') ;
+    Route::get('sustratos'            , 'WebOtsSustratoController@getSustratos') ;
 });
 
  
