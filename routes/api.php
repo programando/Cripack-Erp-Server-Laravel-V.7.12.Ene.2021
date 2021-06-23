@@ -10,7 +10,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'solicitudes/ots/'], function () {
     Route::get('tipos/arreglo'            , 'WebOtsTpArregloController@getTiposArreglos') ;
-    Route::get('sustratos'            , 'WebOtsSustratoController@getSustratos') ;
+    Route::get('sustratos'                , 'WebOtsSustratoController@getSustratos') ;
+    Route::get('calibres'                 , 'WebOtsCalibreController@getCalibres') ;
+    Route::get('tirajes'                  , 'WebOtsTirajeController@getTirajes') ;
+    Route::get('frecuencias'              , 'WebOtsFrecuenciaController@getFrecuencias') ;
+    Route::get('maquinas'                 , 'WebOtsMaquinaController@getMaquinas') ;
+    Route::get('ayuda-pega'               , 'WebOtsAyudapegaController@getAyudaPega') ;
+    Route::get('punzones'                 , 'WebOtsPunzonesController@getPunzones') ;
 });
 
  

@@ -21,7 +21,7 @@ class OrdenesTrabajoExterior extends Mailable
 
     public function build()
     {
-        return $this->from(config('company.EMAIL_SISTEMAS'))
+        return $this->from(config('company.EMAIL_SERVICLIENTES'))
             ->subject('Órdenes de trabajo del exterior pendientes por despacho')
             ->view('mails.ordenesTrabajo.exterior');
     }

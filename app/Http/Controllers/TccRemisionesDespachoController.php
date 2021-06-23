@@ -61,6 +61,7 @@ class TccRemisionesDespachoController extends Controller
                 foreach ($Remisiones as $Remision) {
                    if (  $Remision->idregistro == $Row) {
                      $Emails = Arrays::getEmailsFromArray($Remisiones ,'idregistro',$Row );
+                      array_push ($Emails, config('company.EMAIL_PRODUCCION'));
                      Mail::to( $Emails, trim($Remision->contacto) )->send( new RemissionTccToCustomer( $Remision, $Remisiones ));
                      $this->remisionesTccUpdateEmalEnviado ($Row );
                      break;

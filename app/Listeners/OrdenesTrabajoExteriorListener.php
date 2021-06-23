@@ -13,12 +13,12 @@ class OrdenesTrabajoExteriorListener
      
     public function handle(OrdenesTrabajoExteriorEvent $event)
     {
-        Mail::to( config('company.EMAIL_ALMACEN'))
-            ->cc(config('company.EMAIL_SERVICLIENTES'))
-            ->cc(config('company.EMAIL_PRODUCCION'))
+        Mail::to(config('company.EMAIL_ALMACEN'))
+            ->cc(config('company.EMAIL_PRODUCCION') )
             ->cc(config('company.EMAIL_AUXCONTABLE'))
             ->cc(config('company.EMAIL_GERENCIA'))
-            ->cc( config('company.EMAIL_SISTEMAS') )
+            ->cc(config('company.EMAIL_PRODUCCION'))
+            ->cc(config('company.EMAIL_SERVICLIENTES'))
           ->queue(   new OrdenesTrabajoExterior ( $event->Ots ));
     }
 }

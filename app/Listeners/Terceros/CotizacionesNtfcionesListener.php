@@ -14,7 +14,8 @@ class CotizacionesNtfcionesListener
     public function handle(CotizacionesNtfcionesEvent $event)
     {
           Mail::to( trim($event->Ntfcion->email))
-           ->cc( config('company.EMAIL_SISTEMAS') )
+           ->cc( config('company.EMAIL_PRODUCCION') )
+           ->cc( config('company.EMAIL_SERVICLIENTES') )
            ->queue(   new CotizacionesNtfciones ($event->Ntfcion, $event->Cotizacion , $event->CotizacionDt));
     }
 }
