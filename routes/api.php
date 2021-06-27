@@ -56,10 +56,14 @@ Route::group(['prefix' => 'clientes/'], function () {
 });
 
 Route::group(['prefix' => 'ordenes-trabajo/'], function () {
-    $localController = 'OrdenesTrabajoController@'; 
-    Route::get('exterior'            , $localController.'delExteriorIniciarGestionDespacho') ;
+    $localController = 'OrdenesTrabajo'; 
+    Route::get('exterior'                   , $localController . 'Controller@delExteriorIniciarGestionDespacho') ;
+    Route::post('solicitud/plano'            , $localController . 'ControllerTroquelPlano@troquelPlano') ;
 });
+
  
+ 
+
 Route::group(['prefix'=>'tcc/'], function() {
     $localController = 'TccRemisionesDespachoController@';
     Route:: get('integrar-guias'                          , $localController.'getDocsToIntegration');

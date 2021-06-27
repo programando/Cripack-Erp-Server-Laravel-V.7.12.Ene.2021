@@ -181,8 +181,14 @@ class OrdenesTrabajo extends Model
 			return DB::select('call api_ots_exterior_gestion_dspacho_factura_finaliza( )' );
 	}
 
+  public static function getMaderaWebOts ( $IdMaquina, $IdSustrato){
+		return DB::select('call web_ots_config_madera_consulta(?,? )', array( $IdMaquina, $IdSustrato) );
+	}
 
-
+	public static function getLaboresPorEstiloTipoTrabajo() {
+		return DB::select('call labores_por_estilo_trabajo_consulta_x_estilo_trabajo(?,? )', array( 1, 1) );
+		
+	}
 	public function estilos_trabajo()
 	{
 		return $this->belongsTo(EstilosTrabajo::class, 'idestilotrabajo');

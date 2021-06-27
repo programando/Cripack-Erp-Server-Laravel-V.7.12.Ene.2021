@@ -10,7 +10,7 @@ use App\Events\OrdenesTrabajoExteriorEvent;
 class OrdenesTrabajoController extends Controller
 {
      public function delExteriorIniciarGestionDespacho ( ) {
-       
+
        try {
                 $thereAreOts = OTs::delExteriorIniciarGestionDespacho();
                 if ( !$thereAreOts ) return ;

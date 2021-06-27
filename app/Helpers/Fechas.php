@@ -27,5 +27,13 @@ class Fechas {
             return  Carbon::parse( $Fecha )->format('Y-m-d h:m:s');
     }
 
+    public static function get1900(){
+        return Carbon::create(1900, 1, 1, 0, 0, 0);
+    }
+
+    public static function getHoy() {
+        return Carbon::now();
+    }
+
 
 }
