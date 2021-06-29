@@ -6,7 +6,10 @@ use App\Events\Terceros\ClientesBloqueadosEvent;
 use App\Events\Terceros\ClientesBloqueadosOtsEvent;
 use App\Helpers\Utilities as HelperUtilites;
 use App\Mail\Terceros\OtsDibujoAprobacion;
+
 use App\Models\Tercero as Terceros;
+use App\Models\TercerosWebActividades as TercerosActividades;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
@@ -88,6 +91,7 @@ class TercerosController extends Controller
         $DataOts   = Cache::tags( $CacheName )->remember( $CacheName, now()->addMinutes(30), function () use ($FormData)  {
             return Terceros::getOrdenesTrabajoCliente( $FormData  );
         });  
+        TercerosActividades::saveActivity( $FormData->idTercero , 2, 'CONSULTA HISTORIAL' );         
          return Arrays::arrayPaginator ($DataOts, $FormData );  // Incluir paginación de un array
     }
 
@@ -144,7 +148,7 @@ class TercerosController extends Controller
 
         $I++;
       }
-      //Debug::Mostrar ( $DatosTablero);
+      TercerosActividades::saveActivity( $FormData->idTercero , 3, 'CONSULTA ESTADO OT' );         
       return $DatosTablero;
     }
 

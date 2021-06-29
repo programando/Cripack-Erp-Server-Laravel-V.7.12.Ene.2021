@@ -7,8 +7,11 @@ use Cache;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+//--
 use App\Models\Tercero as Terceros;
 use App\Models\TercerosWeb as Users;
+use App\Models\TercerosWebActividades as TercerosActividades;
+//--
 use Illuminate\Support\Facades\Auth;
 //--
 use Illuminate\Support\Facades\Lang;
@@ -35,6 +38,7 @@ class TercerosUsersWebController extends Controller
         $userWeb->password         = $FormData->password ;
         $userWeb->password_updated = true ;
         $userWeb->save();
+        TercerosActividades::saveActivity( $FormData->idtercero , 1, 'NUEVO REGISTRO' );         
          return response()->json('Ok', 200); 
     }
 
@@ -49,7 +53,8 @@ class TercerosUsersWebController extends Controller
              return [];
          }
          if (Auth::attempt( ['email' => $FormData->email, 'password' => $FormData->password  ], true ) ) { // true al final es para recordar sessión    
-              $DatosEmpresaUsuario = Users::getDatosEmpresaUsuario ( Auth::user()->idregistro);          
+              $DatosEmpresaUsuario = Users::getDatosEmpresaUsuario ( Auth::user()->idregistro); 
+              TercerosActividades::saveActivity( Auth::user()->idtercero, 5, 'INGRESO SISTEMA' );         
               return response()->json( $DatosEmpresaUsuario, 200);
         }     
         $this->ErrorMessage ( Lang::get("validation.custom.UserLogin.credencials-error") );
@@ -87,6 +92,7 @@ class TercerosUsersWebController extends Controller
         $User->tmp_token_expira = Carbon::now()->addMinute(15) ;
         $User->save();
         UsersWebEvent::dispatch( $User->email, $User->tmp_token);
+        TercerosActividades::saveActivity( $User->idtercero, 6, 'CAMBIO CONTRASEÑA - SOLICITUD' );         
         return response()->json('Ok', 200);  
     }
     
@@ -101,7 +107,7 @@ class TercerosUsersWebController extends Controller
         $User->tmp_token        = '';
         $User->password_updated = true;
         $User->save();
-
+        TercerosActividades::saveActivity( $User->idtercero, 7, 'CAMBIO CONTRASEÑA - ACTUALIZACIÓN' );         
        return response()->json('Ok', 200); 
 
     }
@@ -128,10 +134,11 @@ class TercerosUsersWebController extends Controller
             }
         }
 
-       public function logout(){ 
+       public function logout( Request $FormData){ 
             Session::flush();
             Cache::flush();
             Auth::logout();
+            TercerosActividades::saveActivity( $FormData->idtercero, 8, 'SALIDA SISTEMA' );         
         }
 
 
