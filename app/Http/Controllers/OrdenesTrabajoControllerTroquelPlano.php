@@ -8,17 +8,20 @@ use Illuminate\Http\Request;
 use App\Models\OrdenesTrabajo as OTS;
 use App\Models\OrdenesTrabajoMateriales as OtMateriales;
 use App\Models\OrdenesTrabajoLabores as OtLabores;
+use App\Http\Requests\TroquelPlanoRequest;
 
 class OrdenesTrabajoControllerTroquelPlano extends Controller
 {
  
 
-    public function troquelPlano( Request $FormData ) {
-       $Madera  = $this->getMaderaWebOts ( $FormData );
+    public function troquelPlano( TroquelPlanoRequest $FormData ) {
+/*        $Madera  = $this->getMaderaWebOts ( $FormData );
        $NewOT   = $this->grabarOtTroquelPlano ($FormData );
        $this->grabarMaderas ( $NewOT, $Madera);
-       $this->grabarLabores    ( $NewOT );
-       return $NewOT;
+       $this->grabarLabores    ( $NewOT ); */
+       \Log::info( $FormData);
+       return response()->json(['message'=>'error uploading file'], 503);
+       return $FormData;
     }
 
 
