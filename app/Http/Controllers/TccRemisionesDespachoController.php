@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 
-use App\Mail\RemissionTccToCustomer;
+use App\Mail\Despachos\RemissionTccToCustomer;
+use App\Mail\Despachos\RemissionSendToCustomer;
 use App\Models\TccRemisionesDespacho as RemisionesTcc;
 
 use Fechas;         //  Helpers
@@ -60,10 +61,9 @@ class TccRemisionesDespachoController extends Controller
         foreach( $Ids as $Row) {  
                 foreach ($Remisiones as $Remision) {
                    if (  $Remision->idregistro == $Row) {
-                     $Emails = Arrays::getEmailsFromArray($Remisiones ,'idregistro',$Row );
-                      array_push ($Emails, config('company.EMAIL_PRODUCCION'));
-                     Mail::to( $Emails, trim($Remision->contacto) )->send( new RemissionTccToCustomer( $Remision, $Remisiones ));
-                     $this->remisionesTccUpdateEmalEnviado ($Row );
+                     $Emails = Arrays::getEmailsFromArray($Remisiones ,'idregistro',$Row );     
+                     $this->sendEmailWithRemissions ( $Emails,$Remision, $Remisiones );
+                     $this->remisionesTccUpdateEmailEnviado ($Row );
                      break;
                  }
             } //foreach $Remisiones  
@@ -71,7 +71,17 @@ class TccRemisionesDespachoController extends Controller
         } //foreach $Ids
     }
 
-    private function remisionesTccUpdateEmalEnviado ( $IdRegistro ) {
+    private function sendEmailWithRemissions ( $Emails, $Remision, $Remisiones ) {
+         array_push ($Emails, config('company.EMAIL_PRODUCCION'));
+         if ( $Remision->idtercero_transportador === 856 )  {
+            Mail::to( $Emails, trim($Remision->contacto) )->send( new RemissionTccToCustomer( $Remision, $Remisiones ));
+         }else {
+             Mail::to( $Emails, trim($Remision->contacto) )->send( new RemissionSendToCustomer( $Remision, $Remisiones ));
+         }
+    }
+
+
+    private function remisionesTccUpdateEmailEnviado ( $IdRegistro ) {
         $ModelRemisionesTcc = RemisionesTcc::where('idregistro', $IdRegistro)->first();
         $ModelRemisionesTcc->email_enviado = 1;
         $ModelRemisionesTcc->save();

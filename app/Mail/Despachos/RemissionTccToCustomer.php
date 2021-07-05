@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Despachos;
 
 use config;
 use Illuminate\Bus\Queueable;
@@ -29,7 +29,7 @@ class RemissionTccToCustomer extends Mailable
 
     public function build()
     {
-        return $this->view('mails.terceros.TccRemisiones')
+        return $this->view('mails.despachos.TccRemisiones')
                     ->from(  config('company.EMAIL_USUARIO') )
                     ->subject('Notificación despacho desde Cripack') ;
     }
