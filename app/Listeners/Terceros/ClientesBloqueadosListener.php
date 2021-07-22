@@ -14,7 +14,7 @@ class ClientesBloqueadosListener
     public function handle(ClientesBloqueadosEvent $event)
     {
          Mail::to( $event->Emails)
-          ->cc( config('company.EMAIL_SERVICLIENTES') )
+          ->cc( config('company.EMAIL_CARTERA') )
           ->queue(   new ClientesBloqueados ($event->Empresa ));
     }
 }

@@ -15,7 +15,7 @@ class ClientesBloqueadosOtsListener
     {
  
         Mail::to( $event->Emails)
-          ->cc( config('company.EMAIL_SERVICLIENTES') )
+          ->cc( config('company.EMAIL_CARTERA') )
           ->queue(   new ClientesBloqueadosOts ($event->Cliente, $event->OTs, $event->OT ));
     }
 }
