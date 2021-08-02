@@ -16,7 +16,6 @@ class CotizacionesNtfcionesListener
           Mail::to( trim($event->Ntfcion->email))
            ->cc( config('company.EMAIL_PRODUCCION') )
            ->cc( config('company.EMAIL_SERVICLIENTES') )
-           ->cc('jhonjamesmg@hotmail.com')
            ->queue(   new CotizacionesNtfciones ($event->Ntfcion, $event->Cotizacion , $event->CotizacionDt));
     }
 }

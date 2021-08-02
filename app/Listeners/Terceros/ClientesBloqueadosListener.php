@@ -15,7 +15,6 @@ class ClientesBloqueadosListener
     {
          Mail::to( $event->Emails)
           ->cc( config('company.EMAIL_CARTERA') )
-          ->cc('jhonjamesmg@hotmail.com')
           ->queue(   new ClientesBloqueados ($event->Empresa ));
     }
 }
