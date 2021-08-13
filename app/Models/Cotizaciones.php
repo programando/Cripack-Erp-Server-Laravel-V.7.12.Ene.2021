@@ -82,6 +82,10 @@ class Cotizaciones extends Model
 		public static function notificacionesPendientes(  ) {
 					return DB::select('call api_terceros_cotizaciones_notificaciones_seguimiento(?)', array(Carbon::now()->format('Ymd') ) );
 			}
+		public static function consultaCtzDtPorIdRegisro( $idregistro_ctz_dt ) {
+					return DB::select('call api_terceros_cotizaciones_dt_consulta_datos(?)', array( $idregistro_ctz_dt ) );
+			}
+			
 		
 		public static function consultaCtzPorIdControl( $Idcontrol ) {
 			return DB::select('call cotizaciones_consultar_h_x_idcontrol(?)', array( $Idcontrol ) );

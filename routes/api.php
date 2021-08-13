@@ -23,7 +23,10 @@ Route::group(['prefix' => 'solicitudes/ots/'], function () {
 Route::group(['prefix' => 'cotizaciones/'], function () {
     $localController = 'CotizacionesController@'; 
     Route::get('notificaciones/pendientes'            , $localController.'notificacionesPendientes') ;
-    Route::get('rechazar'            , $localController.'rechazarCotizacion') ;
+    Route::get('rechazar'                             , $localController.'rechazarCotizacion') ;
+    Route::get('aprobada/{Id_Ctz_Dt}'                 , $localController.'aprobada') ;
+    Route::get('en-estudio/{Id_Ctz_Dt}'               , $localController.'enEstudio') ;
+    Route::get('aprobar-todo/{NroCotizacion}'               , $localController.'aprobarTodo') ;
 });
 
 

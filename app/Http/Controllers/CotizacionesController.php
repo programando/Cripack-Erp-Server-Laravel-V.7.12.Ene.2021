@@ -6,7 +6,10 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Cotizaciones as Ctz;
+use App\Models\CotizacionesDt as CtzDt;
 use App\Events\Terceros\CotizacionesNtfcionesEvent;
+use App\Events\Terceros\CotizacionesAprobarEvent;
+use App\Events\Terceros\CotizacionesEnEstudioEvent;
 
 class CotizacionesController extends Controller
 {
@@ -34,5 +37,29 @@ class CotizacionesController extends Controller
         $Cotizacion->fecha_estado = Carbon::now();
         $Cotizacion->save();
     }
+
+    public function aprobada( Request $FormData ) {
+         
+         $CotizDt = CtzDt::where('idregistro_ctz_dt', $FormData->Id_Ctz_Dt)->first();
+         $CotizDt->aprobada = 1;
+         $CotizDt->fcha_aprobada =  Carbon::now();
+         $CotizDt->save();
+
+         $CotizDt= Ctz::consultaCtzDtPorIdRegisro ($FormData->Id_Ctz_Dt ) ;
+         CotizacionesAprobarEvent::dispatch( $CotizDt );
+         return view('mails\terceros\CotizacionesAprobadasConfirmacion');
+        //dd ($CotizDt );
+    }
+   
+   public function enEstudio( Request $FormData ) {
+        $CotizDt= Ctz::consultaCtzDtPorIdRegisro ($FormData->Id_Ctz_Dt ) ;
+        CotizacionesEnEstudioEvent::dispatch ( $CotizDt);
+        return view('mails\terceros\CotizacionesAprobadasConfirmacion');
+    }
+ 
+   public function aprobarTodo( Request $FormData ) {
+       // dd ($FormData );
+    }
+ 
 
 }

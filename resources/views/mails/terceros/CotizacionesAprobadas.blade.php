@@ -89,8 +89,8 @@
       <div style="font-size: 10px;">
        
         <h4>Señores:</h4>
-        <h4 style="margin-top: 20px; margin-bottom: 0px;"> {{ $Empresa }}</h4>
-        <h4 style="margin-top: 5px; margin-bottom: 0px;"> {{ $Contacto }}</h4>
+        <h4 style="margin-top: 20px; margin-bottom: 0px;"> {{ $NomCliente}} </h4>
+        
         
         <br><br><br>
       </div>
@@ -100,52 +100,18 @@
         <h4 style="font-weight: 500;">Apreciados Señores,</h4>
         <br><br>
         <h4 style="font-weight: 500;"> 
-               Con fecha <strong> {{ $FechaCotizacion }} </strong> enviamos cotización número : <strong> {{ $NroCotizacion}} </strong>, la cual se encuentra
-        pendiente de aprobación, por tal motivo solicitamos nos informe de su estado a la siguiente dirección electrónica:<br>
-          {{  config('company.EMAIL_SERVICLIENTES')}}  
-        Para mayor facilidad, relacionamos los detalles de la misma ( Puede aprobar presionando uno de los botones correspondientes ):
+        <p>
+               Hemos recibido la aprobación de la referencia : <strong> {{ $Referencia }} </strong> y solicitamos a nuestro departamento de servicio al cliente inciar con la creación de la respectiva orden de trabajo para que sea incluida en nuestra programación de producción.
+          </p>
         <br>
 
         </h4>
       </div>
 
-<table   width="90%" style="margin: 0 auto;">
-
-<!--             <thead  style="text-align: center; color: #fff; background-color: #FFF; height:25px;">
-              <tr colspan="10" style="text-align: center">
-                  <td> <a class="btn-aprobar"  href="{{ url('cotizaciones/aprobar-todo',[$NroCotizacion])}}">   Aprobar todos los trabajos de esta cotización </a></td>
-              </tr>
-            </thead> -->
-      </table>
-
-
-      <div style="margin: 0 auto;">
-       <table   width="90%" >
-
-            <thead  style="text-align: center; color: #fff; background-color: #272C6B; height:25px;">
-              <tr>
-                <th>Referencia</th>
-                <th>Estilo</th>
-                <th>Trabajo</th>
-                <th>Material</th>
-                <th >Cab.</th>
-                <th>Cant.</th>
-                <th>Encauche</th>
-                <th>Precio</th>
-                <th> Aprobar </th>
-                <th> En estudio </th>
-              </tr>
-            </thead>
-            <tbody style="font-size:13px;">
-                  {!! $BodyTable !!}
-            </tbody>
-      </table>
-</div>
-  
     </aside>
     <div style="margin: 0 0px; margin-top: 50px;">
       <h4 style="font-weight: 500;"><span>
-       Quedamos atentos a su confirmación. <br><br> Cordialmente,</span></h4>
+       Agradecemos su confirmación. <br><br> Cordialmente,</span></h4>
     </div>
   </div>
   <footer>
