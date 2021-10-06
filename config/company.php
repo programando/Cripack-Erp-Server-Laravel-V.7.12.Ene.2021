@@ -17,6 +17,7 @@ return [
   'EMAIL_SERVICLIENTES' => env ('EMAIL_SERVICLIENTES'),
   'EMAIL_USUARIO'       => env ('MAIL_USERNAME'),
   'EMAIL_VENTAS'        => env ('EMAIL_VENTAS'),
+  'EMAIL_FROM_ADDRESS'   => env ('EMAIL_FROM_ADDRESS'),
 
   'TCC_ESTADO_GUIA'   => env ('TCC_ESTADO_GUIA' ),
   'TCC_RASTREO_GUIA'  => env ('TCC_RASTREO_GUIA' ),
