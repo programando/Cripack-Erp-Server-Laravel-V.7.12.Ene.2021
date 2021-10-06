@@ -84,9 +84,10 @@ class TercerosUsersWebController extends Controller
     }
 
     public function resetPassword ( TercerosUsersWebRequest $FormData ){
-        $User = Users::where('email', $FormData->email)->first();
+        $User = Users::where('email', $FormData->email)->first();      
         if ( !$User || $User->inactivo ) {
             $this->ErrorMessage (  Lang::get("validation.custom.UserLogin.inactive-user") );
+            return ;
         }  
         $User->tmp_token        = Str::random(100);
         $User->tmp_token_expira = Carbon::now()->addMinute(15) ;

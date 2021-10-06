@@ -20,3 +20,13 @@ Route::get('/', function () {
 });
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
+
+Route::get('enviar', ['as' => 'enviar', function () {
+    $data = ['link' => 'http://styde.net'];
+    \Mail::send('mails.notificacion', $data, function ($message) {
+        $message->from('comunicaciones@cripack.com', 'Cripack');
+        $message->to('jhonjamesmg@hotmail.com')->subject('Notificación');
+    });
+    return "Se envío el email";
+}]);

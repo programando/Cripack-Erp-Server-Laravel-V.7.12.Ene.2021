@@ -64,6 +64,10 @@ Route::group(['prefix' => 'ordenes-trabajo/'], function () {
     Route::post('solicitud/plano'            , $localController . 'ControllerTroquelPlano@troquelPlano') ;
 });
 
+Route::group(['prefix' => 'braile/'], function () {
+    $localController = 'BrailleTextosAnalisisController@'; 
+    Route::post('transcripcion/textos'            , $localController . 'transcripcionTextos') ;
+});
  
  
 
