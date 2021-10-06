@@ -32,7 +32,7 @@ class CotizacionesNtfciones extends Mailable
     public function build() {
        return 
             $this->view('mails.terceros.CotizacionesNtfciones')                    
-                 ->from(  config('company.EMAIL_SERVICLIENTES') )
+                 ->from(  config('company.EMAIL_FROM_ADDRESS') )
                  ->subject('Seguimiento Cotización Nro.: ' . $this->NroCotizacion . ' Cripack S.A.S ' )  ; 
     }
 

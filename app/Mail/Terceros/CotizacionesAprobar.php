@@ -26,7 +26,7 @@ class CotizacionesAprobar extends Mailable
     
     public function build()  {
                     $this->view('mails.terceros.CotizacionesAprobadas')                    
-                 ->from(  config('company.EMAIL_SERVICLIENTES') )
+                 ->from(  config('company.EMAIL_FROM_ADDRESS') )
                  ->subject('Aprobación : ' . $this->Referencia. ' Cripack S.A.S ' )  ; 
     }
 }

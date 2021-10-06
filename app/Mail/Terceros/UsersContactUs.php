@@ -25,7 +25,7 @@ class UsersContactUs extends Mailable
     public function build()
     { 
       return $this->view('mails.terceros.Contactos')
-                   ->from(  config('company.EMAIL_SERVICLIENTES') )
+                   ->from(  config('company.EMAIL_FROM_ADDRESS') )
                     ->subject($this->asunto) ;
     }
 }
