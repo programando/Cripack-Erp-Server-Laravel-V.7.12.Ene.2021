@@ -26,9 +26,14 @@ Route::group(['prefix' => 'cotizaciones/'], function () {
     Route::get('rechazar'                             , $localController.'rechazarCotizacion') ;
     Route::get('aprobada/{Id_Ctz_Dt}'                 , $localController.'aprobada') ;
     Route::get('en-estudio/{Id_Ctz_Dt}'               , $localController.'enEstudio') ;
-    Route::get('aprobar-todo/{NroCotizacion}'               , $localController.'aprobarTodo') ;
+    Route::get('aprobar-todo/{NroCotizacion}'         , $localController.'aprobarTodo') ;
 });
 
+Route::group(['prefix' => 'documentacion'], function () {
+    $localController = 'DocumentacionProcesosArchivosController@'; 
+    Route::get('/'                          , $localController.'getArchivosLecturaWeb') ;
+    Route::get('/download/file/{file}'      , $localController.'downloadFile') ;
+});
 
 
 Route::group(['prefix' => 'usuarios/'], function () {

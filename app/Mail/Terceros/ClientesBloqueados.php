@@ -22,7 +22,7 @@ class ClientesBloqueados extends Mailable
     {
         return 
             $this->view('mails.terceros.BloqueadosCartera')                    
-                ->from(  config('company.EMAIL_CARTERA') )
+                ->from(  config('company.EMAIL_FROM_ADDRESS') )
                 ->subject('Bloqueo crédito en Cripack S.A.S.')  ;
     }
 }

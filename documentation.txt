@@ -5,7 +5,7 @@ php artisan queue:work
 
  Crear Modelos
  --------------
-    php artisan code:models --table=braille_textos_analisis
+    php artisan code:models --table=documentacion_procesos_archivos
 
 Consultas mas eficientes
    https://programacionymas.com/blog/consultas-laravel-eficientes-usando-eloquent
@@ -25,7 +25,7 @@ DEPURAR CONSULTAS SQL
    Funcionó Abril 13 2021
 ---------------------------
 composer dump-autoload
-php artisan cache:clear
+clear & php artisan cache:clear & php artisan config:clear &  php artisan view:clear & php artisan config:cache &  php artisan serve --host=localhost --port=8000
 php artisan config:clear
 php artisan view:clear
 php artisan config:cache
