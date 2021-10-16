@@ -31,5 +31,6 @@ return [
   'FTP_HOST'                => env('FTP_HOST'),
   'FTP_PASS'                => env('FTP_PASS'),
   'FTP_USER'                => env('FTP_USER'),
+  'FTP_ROOT'                => env('FTP_ROOT'),
  
 ];

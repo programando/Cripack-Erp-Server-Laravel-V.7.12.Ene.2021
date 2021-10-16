@@ -54,6 +54,13 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        
+        'documentos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/documentos'),
+            'url' => env('APP_URL').'/storage/app/public/documentos',
+            'visibility' => 'public',
+        ],
 
         's3' => [
             'driver'   => 's3',
@@ -70,10 +77,11 @@ return [
                 'host'                 => config('company.FTP_HOST'),
                 'username'             => config('company.FTP_USER'),
                 'password'             => config('company.FTP_PASS'),
-                'port'                 => '21',
-                'passive'              => true,
-                'ignorePassiveAddress' => true,
-                'ssl'                  => true,
+                //'port'                 => '21',
+                //'passive'              => true,
+                //'ignorePassiveAddress' => true,
+                //'ssl'                  => true,
+                //'root'              => config('company.FTP_ROOT'),
                 //'timeout'  => 30,
                 //'root'     => '/',
                 //'url'      => '/'

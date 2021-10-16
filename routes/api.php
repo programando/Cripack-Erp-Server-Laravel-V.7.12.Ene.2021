@@ -32,7 +32,7 @@ Route::group(['prefix' => 'cotizaciones/'], function () {
 Route::group(['prefix' => 'documentacion'], function () {
     $localController = 'DocumentacionProcesosArchivosController@'; 
     Route::get('/'                          , $localController.'getArchivosLecturaWeb') ;
-    Route::get('/download/file/{file}'      , $localController.'downloadFile') ;
+    Route::get('/download/file'      , $localController.'downloadFile') ;
 });
 
 

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+ 
 use Illuminate\Support\Facades\Storage;
 use App\Models\DocumentacionProcesosArchivo as Archivos;
 
+use Response;
 
 class DocumentacionProcesosArchivosController extends Controller
 {
@@ -14,17 +15,22 @@ class DocumentacionProcesosArchivosController extends Controller
          return Archivos::where('cnslta_web','1')->get();
      }
 
-     public function downloadFile ( $File ) {
-        // $File =  config('company.FTP_HOST')."/$File";
-         
-        return   Storage::disk('ftp')->get( $File  ) ;
+     public function downloadFile ( Request $FormData) {
+     
+        $File = $FormData->get('pdfFile');   
+        $path = Storage::disk('documentos')->path($File );
+        
+        return Response::make(file_get_contents($path), 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="'.$File.'"'
+        ]);
 
-         return  Storage::disk('ftp')->download( $File );
-     }
+     } 
 
 
 
 
+ 
 
 
 
