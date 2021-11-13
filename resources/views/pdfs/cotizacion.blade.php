@@ -54,7 +54,7 @@
         <table width="100%" class="mb40">
             <tr>
                 <td width="30%">
-                   <img src="https://drako.api.plusoft.co/storage/images/drako/logo.jpg" alt="">              
+                   <img src="https://webcross.cripack.com/storage/images/logo/cripack.png" alt="">              
                 </td>
               
                 <td width="40%" class="taC">
