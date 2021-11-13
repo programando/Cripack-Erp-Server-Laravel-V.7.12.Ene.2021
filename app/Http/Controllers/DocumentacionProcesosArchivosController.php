@@ -18,7 +18,7 @@ class DocumentacionProcesosArchivosController extends Controller
      public function downloadFile ( Request $FormData) {
      
         $File = $FormData->get('pdfFile');   
-        $path = Storage::disk('documentos')->path($File );
+        $path = Storage::disk('GestionDocumentalEmpresa')->path($File );
         
         return Response::make(file_get_contents($path), 200, [
                 'Content-Type' => 'application/pdf',

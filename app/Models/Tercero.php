@@ -255,6 +255,14 @@ class Tercero extends Model
 	 	  public static function bloqueadosPorCarteraOtsPendientes() {
 				return DB::select('call api_terceros_bloqueados_cartera_ots_pendientes()' );
 		}
+
+		public static function solicitudOrdenesCompraGenerarFactura() {
+				return DB::select('call api_solicitud_ordenes_compra_clientes()' );
+		}
+
+				public static function cotizacionGenerarDesdeOT( $idregistro_ot) {
+				return DB::select('call api_ordenes_trabajo_datos_cotizaciones_impresion(?)', array ( $idregistro_ot ) );
+		}
  
 	public function formas_pago()
 	{

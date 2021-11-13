@@ -58,9 +58,11 @@ Route::group(['prefix' => 'clientes/'], function () {
     Route::get('ots/historial'                           , $localController.'OrdenesTrabajoCliente') ;
     Route::get('ots/estado'                              , $localController.'OrdenesTrabajoEstadoProduccion') ;
     Route::get('ots/en-aprobacion'                       , $localController.'otsBloqueadasDibEnAprobacion') ;
+    Route::post('ots/cotizacion/ot'                       , $localController.'cotizacionGenerarDesdeOT')->name('get-cotizacion-from-ot') ;
     Route::get('bloqueados-cartera'                      , $localController.'bloqueadosPorCartera') ;
     Route::get('bloqueados-cartera/ots/pendientes'       , $localController.'bloqueadosPorCarteraOtsPendientes') ;
     Route::get('bitacora/disenadores'                    , $localController.'bitacoraOtsPorDisenador') ;
+    Route::get('solicitud/orden-compra'                   , $localController.'solicitudOrdenesCompraGenerarFactura') ;
 });
 
 Route::group(['prefix' => 'ordenes-trabajo/'], function () {

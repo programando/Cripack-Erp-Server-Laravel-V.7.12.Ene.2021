@@ -2,25 +2,66 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\Terceros\ClientesBloqueadosEvent;
-use App\Events\Terceros\ClientesBloqueadosOtsEvent;
-use App\Helpers\Utilities as HelperUtilites;
-use App\Mail\Terceros\OtsDibujoAprobacion;
-
-use App\Models\Tercero as Terceros;
-use App\Models\TercerosWebActividades as TercerosActividades;
-
-use Illuminate\Http\Request;
+use App\Traits\PdfsTrait;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
+use Arrays;         //  Helpers
+use App\Models\Tercero as Terceros;
+
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
+
 use Illuminate\Support\Facades\Session;
 
-use Arrays;         //  Helpers
+use Illuminate\Support\Facades\Storage;
+use App\Mail\Terceros\OtsDibujoAprobacion;
+use App\Helpers\Utilities as HelperUtilites;
+
+use App\Events\Terceros\ClientesBloqueadosEvent;
+use App\Events\Terceros\SolicitudOrdenCompraEvent;
+
+use App\Events\Terceros\ClientesBloqueadosOtsEvent;
+use App\Models\TercerosWebActividades as TercerosActividades;
 
 class TercerosController extends Controller
 {
-  
+  use PdfsTrait;
+
+  // 13 nov 2021.     
+  // Genera documento pdf-cotización con base en datos de la orden de trabajo
+
+  public function cotizacionGenerarDesdeOT ( request $FormData) {  
+
+      $idOT             = $FormData->idregistro_ot;
+      $Cotizacion       = Terceros::cotizacionGenerarDesdeOT ($idOT  );
+      $PdfContent       = $this->pdfCreateFileTrait('pdfs.cotizacion', compact('Cotizacion') );
+      Storage::disk('ClientFiles')->put( "Cotz_OT_$idOT.pdf", $PdfContent);
+      return $Cotizacion;
+      //src="{{ asset('storage/images/logo/cripack.png') }}"
+      //alt="Logo corporativo Cripack S.A.S"
+
+  }
+
+
+  // Octubre 30 2021.... Solicitu de ordenes de compra a clientes para generar facturas
+   public function solicitudOrdenesCompraGenerarFactura () {
+      $Ots = Terceros::solicitudOrdenesCompraGenerarFactura () ;
+      $IdsClientes = Arrays::getUniqueIdsFromArray ( $Ots, 'idtercero'); 
+      foreach ($IdsClientes as $IdCliente ) {
+       foreach ($Ots as $OT) {
+           if (  $OT->idtercero == $IdCliente ) {
+              $Emails    = Arrays::getEmailsFromArray($Ots ,'idtercero',$IdCliente  );
+              
+              $OtsBloquedas = $this->otsBloqueadas($Ots , $IdCliente );
+              $OtsBloquedas = Arrays::getUniqueRowsFormArray($OtsBloquedas,'idregistro_ot'  );
+              SolicitudOrdenCompraEvent::dispatch( $OT->nomtercero,$Emails,  $OtsBloquedas, $OT  );
+              return ;
+           }
+       } // Endfor $Ots
+      }  //EndFor $IdsClientes
+   }
+
+
    //Junio 06 2021.     Ejecuta proceso para poblar bitacora de diseñadores
    public function bitacoraOtsPorDisenador () {
       Terceros::bitacoraOtsPorDisenador();
@@ -158,5 +199,7 @@ class TercerosController extends Controller
         }
         return $FormData;
     }
+
+
  
 }

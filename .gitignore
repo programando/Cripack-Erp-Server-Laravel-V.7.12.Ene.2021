@@ -1,7 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
-/storage/app/public/documentos
+/storage/app/public/documentos-empresa
+/storage/app/public/client-files
 /storage/*.key
 /vendor
 .env

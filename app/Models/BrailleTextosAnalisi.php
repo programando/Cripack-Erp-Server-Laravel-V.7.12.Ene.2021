@@ -6,10 +6,11 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 
-class BrailleTextosAnalisis extends Model
+class BrailleTextosAnalisi extends Model
 {
 	protected $table = 'braille_textos_analisis';
 	protected $primaryKey = 'idregistro';
@@ -111,5 +112,19 @@ class BrailleTextosAnalisis extends Model
 		'max_cara',
 		'max_filas'
 	];
-	
+
+
+	public static function deleteTranscriptedTexts ( $IdTercero  ) {
+			return DB::select('call braille_textos_borrar(?)', array( $IdTercero  ) );
+	}
+
+
+
+	  public static function textSave ( $idtercero, $texto, $caja_largo, $caja_ancho, $caja_alto, $caracteres, $espacios, $palabras, $op1nfe, $op1nfm,$op1nc, $op1mce ,$op1mcm , $op1fmax, $op1fdef, $op1ncare, 															$op1ncarm,  $op2nfe, $op2nfm,$op2nc, $op2mce ,$op2mcm , $op2fmax, $op2fdef, $op2ncare, $op2ncarm ,    $op3nfe, $op3nfm,$op3nc, $op3mce ,$op3mcm , $op3fmax, $op3fdef, 																$op3ncare, $op3ncarm,         $op4nfe, $op4nfm,$op4nc, $op4mce ,$op4mcm , $op4fmax, $op4fdef, $op4ncare, $op4ncarm, $max_cara, $max_filas ) {
+ 
+		 
+	  	return DB::select("call braille_textos_grabar(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", array($idtercero, "$texto", $caja_largo, $caja_ancho, $caja_alto,$caracteres, $espacios, $palabras, $op1nfe,	$op1nfm,$op1nc, $op1mce ,$op1mcm ,$op1fmax, $op1fdef, $op1ncare, $op1ncarm, $op2nfe,	$op2nfm,$op2nc, $op2mce ,$op2mcm ,$op2fmax, $op2fdef, $op2ncare, $op2ncarm,    $op3nfe,	$op3nfm,$op3nc, $op3mce ,$op3mcm ,$op3fmax, $op3fdef, $op3ncare, $op3ncarm,   $op4nfe,	$op4nfm,$op4nc, $op4mce ,$op4mcm ,$op4fmax, $op4fdef, $op4ncare, $op4ncarm,$max_cara, $max_filas  ));
+	 
+	  }
+
 }

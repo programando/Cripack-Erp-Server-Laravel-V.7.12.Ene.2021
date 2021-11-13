@@ -24,8 +24,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Terceros\CotizacionesNtfcionesEvent' => [ 'App\Listeners\Terceros\CotizacionesNtfcionesListener',   ],   // Notif.seguimiento de cotizaciones
         'App\Events\Terceros\CotizacionesAprobarEvent'   => [ 'App\Listeners\Terceros\CotizacionesAprobarListener',     ],   // Aprobar cotizaciones
         'App\Events\Terceros\CotizacionesEnEstudioEvent' => [ 'App\Listeners\Terceros\CotizacionesEnEstudioListener',   ],   // Cotizaciones en estudio
+        'App\Events\Terceros\SolicitudOrdenCompraEvent'  => [ 'App\Listeners\Terceros\SolicitudOrdenCompraListener',   ],   // Cotizaciones en estudio
         'App\Events\Terceros\UsersContactUsEvent'        => [ 'App\Listeners\Terceros\UsersContactUsListener',          ],
         'App\Events\Terceros\UsersWebEvent'              => [ 'App\Listeners\Terceros\UsersWebListener',                ],
+        
     ];
 
     /**
