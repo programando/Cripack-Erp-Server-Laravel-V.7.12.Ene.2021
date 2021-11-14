@@ -23,6 +23,7 @@
     .t36            { font-size:36pt; line-height:36pt; }
     .t38            { font-size:38pt; line-height:38pt; }
     .t40            { font-size:40pt; line-height:40pt; }
+    .t44            { font-size:44pt; line-height:40pt; }
     .mb3            { margin-bottom:3pt; }
     .mb10           { margin-bottom:10pt; }
     .mb15           { margin-bottom:15pt; }
@@ -43,6 +44,12 @@
     .bRad1          { border-radius:10pt 10pt 0 0; }
     .bRad2          { border-radius:0 0 10pt 10pt; }
     .vatop          { vertical-align:top;}
+    .colorcripack   { color: #16182F} ;
+
+    /* a partir de aqui puedes crear lo que consideses. las clases que necesites */
+    .img {width: 20px; height:10px; margin: 10px 0;}
+    .contenedor { width: 30%}
+    .mt10 {margin-top: 50px}
 </style>
 
   </head>
@@ -54,14 +61,14 @@
         <table width="100%" class="mb40">
             <tr>
                 <td width="30%">
-                   <img src="https://webcross.cripack.com/public/storage/images/logo/cripack.jpg" alt="">              
+                   <img src="D:\Laragon\www\Cripack-Erp-Server-Laravel-V.7.12.Ene.2021\storage\app/public/images\logo\Logo30anios.png" alt="" width="100%" >              
                 </td>
               
-                <td width="40%" class="taC">
-                    <div class="t38 tB"> CRIPACK S.A.S </div>
+                <td width="40%" class="taC colorcripack">
+                    <div class="t44 tB "> CRIPACK S.A.S </div>
                     <div class="t24 mb10"  >NIT 800.149.062-1</div>
-                    <div class="t24 mb10" >Carrera 6 # 21 - 44 </div>
-                    <div class="t24 mb10" >Código Postal 760044 Cali - Colombia</div>
+                    <div class="t24 mb10" >Carrera 6 # 21 - 44 Cali - Colombia</div>
+                    <div class="t24 mb10" >Código postal 760044 </div>
                     <div class="t24 mb10" >(57)(602) 387 3164 </div>
                     <div class="t24 mb10" >Cel. 315 270 1964 </div>
                     
@@ -94,7 +101,7 @@
                         <table width="100%" class="taC">
                             <tr>
                                 <td width="33%" class="p5 bRS1"> {{ date('d')}}  </td>
-                                <td width="33%" class="p5 bRS1"> {{ date('Mm')}}  </td>
+                                <td width="33%" class="p5 bRS1"> {{ date('M')}}  </td>
                                 <td width="34%" class="p5 bRS1"> {{ date('Y')}}  </td>
                             </tr>
                         </table>
@@ -109,7 +116,7 @@
                 <td></td>
                 <td width="35%">
                     <div class="t26 taC mb3"><strong> COTIZACIÓN </strong> </div>
-                    <div class="p8 bS1 bRad tB taC t32"> {{ $Cotizacion[0]->nro_cotizacion}}  </div>
+                    <div class="p8 bS1 bRad tB taC t32"> O- {{ $Cotizacion[0]->nro_cotizacion}}  </div>
                 </td>
             </tr>
         </table>
@@ -153,25 +160,28 @@
             </table>
             <table width="100%">
                  
-  
+                    {{  $cantidad   = $Cotizacion[0]->cantidad ; }}
+                    {{  $vrUnitario = $Cotizacion[0]->ctzacion_precio_unitario ; }}
+                    {{    $iva      = $Cotizacion[0]->iva ; }}
+                    {{ $subtotal    =  ( $vrUnitario * $cantidad)  }}
 
                     <tr>
                         <td width="40%" class="p128 bRS1 ">     {{ $Cotizacion[0]->referencia}}    </td>
                         <td width="15%" class="p128 bRS1 ">     {{ $Cotizacion[0]->nomestilotrabajo}}     </td>
                         <td width="10%" class="p128 bRS1">      {{ $Cotizacion[0]->nomtipotrabajo}}    </td>
                         <td width="30%" class="p128 bRS1 ">     {{ $Cotizacion[0]->nommaterial}} </td>
-                        <td width="5%" class="p128 bRS1 taR">   {{ $Cotizacion[0]->cabida}}   </td>
-                        <td width="5%" class="p128 bRS1 taR">   {{ $Cotizacion[0]->ctzacion_encauche}}   </td>
-                        <td width="6%" class="p128 bRS1 taR">   {{ $Cotizacion[0]->cantidad}} </td>
-                        <td width="10%" class="p128  bRS1 taR"> {{ number_format( $Cotizacion[0]->ctzacion_precio_unitario, 0, ",", ".")}}     </td>
-                        <td width="14%" class="p128 bRS1 taR">   {{ number_format($Cotizacion[0]->ctzacion_precio_unitario * $Cotizacion[0]->cantidad)}}    </td>
+                        <td width="5%" class="p128 bRS1 taC">   {{ $Cotizacion[0]->cabida}}   </td>
+                        <td width="5%" class="p128 bRS1 taC">   {{ $Cotizacion[0]->ctzacion_encauche}}   </td>
+                        <td width="6%" class="p128 bRS1 taC">   {{ $cantidad}} </td>
+                        <td width="10%" class="p128  bRS1 taR"> {{ number_format( $vrUnitario, 0, ",", ".")}}     </td>
+                        <td width="14%" class="p128 bRS1 taR">   {{ number_format( $subtotal )}}    </td>
                          
                     </tr>
                 
  
             </table>
             
-
+ 
             <table class="bTS1" width="100%">
                 <tr class="vatop">
 
@@ -188,20 +198,20 @@
                         <table width="100%">
                             <tr>
                                 <td width="50%" class="p10 tB bRS1 bBS1">SUBTOTAL :</td>
-                                <td width="55%" class="t20 tB p10 bBS1 taR">{{ number_format($Cotizacion[0]->ctzacion_precio_unitario * $Cotizacion[0]->cantidad)}} </td>
+                                <td width="55%" class="t20 tB p10 bBS1 taR">{{ number_format( $subtotal )}} </td>
                             </tr>
                         </table>
                                            
                         <table width="100%">
                             <tr>
                                 <td width="50%" class="p10 tB bRS1 bBS1">IVA</td>
-                                <td width="55%" class="t20 tB p10 bBS1 taR"> {{ number_format($Cotizacion[0]->ctzacion_precio_unitario * $Cotizacion[0]->cantidad * $Cotizacion[0]->iva )}}</td>
+                                <td width="55%" class="t20 tB p10 bBS1 taR"> {{ number_format( ( $subtotal * $iva) )}}</td>
                             </tr>
                         </table>
                         <table width="100%">
                             <tr>
                                 <td width="50%" class="p10 tB bRS1">TOTAL</td>
-                                <td width="55%" class="t20 tB p10 taR"></td>
+                                <td width="55%" class="t20 tB p10 taR"> {{ number_format( $subtotal + ( $subtotal * $iva)    )}} </td>
                             </tr>
                         </table>
                     </td>
@@ -211,11 +221,23 @@
            
         </div>
  <br><br><br>
- 
+ <br><br><br>
 
         <div class="h60"></div>
 
 
+    
+    <div>
+        <div class="">
+        <div class="contenedor">
+             <img class="img" src="D:\Laragon\www\Cripack-Erp-Server-Laravel-V.7.12.Ene.2021\storage\app/public/images\firmas\omar.png"   /> 
+        </div>
+       
+        <div class="mt10">
+            <div class="">OMAR JOSÉ ORTEGA SANTAMARÍA</div>  
+        </div>
+        </div>
+    </div>
 
     </div>
 </div>

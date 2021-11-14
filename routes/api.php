@@ -6,7 +6,7 @@ echo "<pre>{$query->sql} - {$query->time}</pre>";
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+ 
 
 Route::group(['prefix' => 'solicitudes/ots/'], function () {
     Route::get('tipos/arreglo'            , 'WebOtsTpArregloController@getTiposArreglos') ;
@@ -85,8 +85,13 @@ Route::group(['prefix'=>'tcc/'], function() {
     Route:: get('remisiones/pdtes/fecha/entrega'           , $localController.'remisionesPdtesFechaEntregaTcc');
 });
 
+Route::get('getLogo', function () {
+        return \Storage::disk('Images')->path('logo\cripack.jpg');
+})->name('getLogo');
 
+ 
 
+ 
 
 
 /*
