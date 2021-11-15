@@ -117,7 +117,7 @@
                 <td></td>
                 <td width="35%">
                     <div class="t26 taC mb3"><strong> COTIZACIÓN </strong> </div>
-                    <div class="p8 bS1 bRad tB taC t32"> O- {{ $Cotizacion[0]->nro_cotizacion}}  </div>
+                    <div class="p8 bS1 bRad tB taC t32"> CTZ- {{ $Cotizacion[0]->nro_cotizacion}}  </div>
                 </td>
             </tr>
         </table>
@@ -198,7 +198,7 @@
                 <td width="20%">
                         <table width="100%">
                             <tr>
-                                <td width="50%" class="p10 tB bRS1 bBS1">SUBTOTAL :</td>
+                                <td width="50%" class="p10 tB bRS1 bBS1">SUBTOTAL </td>
                                 <td width="55%" class="t20 tB p10 bBS1 taR">{{ number_format( $subtotal )}} </td>
                             </tr>
                         </table>

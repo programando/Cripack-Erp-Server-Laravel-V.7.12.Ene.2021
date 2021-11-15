@@ -42,13 +42,13 @@
        <table   width="100%">
       <thead  style="text-align: center; color: #fff; background-color: #272C6B; height:25px;">
         <tr>
-          <th>#</th>
-          <th style="text-align: center;">Núm.Orden Trabajo</th>
-          <th>Tipo Trabajo</th>
+          <th>&nbsp;#&nbsp;</th>
+          <th style="text-align: center;">Ord.Trabajo</th>
+          <th>&nbsp;Tipo Trabajo&nbsp;</th>
           <th>Referencia</th>
+          <th>&nbsp;(*&nbsp;)Días &nbsp;</th>
+          <th>&nbsp;Cotización&nbsp;</th>
           <th>Precio</th>
-          <th>Días (*)</th>
-          <th>Cotización</th>
         </tr>
       </thead>
       <tbody  >
@@ -59,6 +59,15 @@
  
  
     </aside>
+        <div style="margin: 0 40px; margin-top: 50px;">
+      <h4 style="font-weight: 400;">
+        <span>
+        <br><br><br>
+            (*) Días   = Días transcurridos desde la última solicitud de orden de compra. <br>Después de 10 días sin respuesta, nuestro sistema bloquerá el registro de nuevos trabajos.
+        </span>
+        </h4>
+    </div>
+
     <div style="margin: 0 40px; margin-top: 50px;">
       <h4 style="font-weight: 500;">
       <span>

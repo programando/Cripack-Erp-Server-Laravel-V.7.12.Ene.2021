@@ -259,6 +259,9 @@ class Tercero extends Model
 		public static function solicitudOrdenesCompraGenerarFactura() {
 				return DB::select('call api_solicitud_ordenes_compra_clientes()' );
 		}
+		public static function ordenesTrabajoUpdateFchaSlctudOrdCpra( $idregistro_ot ) {
+				return DB::select('call api_ordenes_trabajo_update_fcha_slctud_ord_cpra(?)' , array ( $idregistro_ot ) );
+		}
 
 				public static function cotizacionGenerarDesdeOT( $idregistro_ot) {
 				return DB::select('call api_ordenes_trabajo_datos_cotizaciones_impresion(?)', array ( $idregistro_ot ) );

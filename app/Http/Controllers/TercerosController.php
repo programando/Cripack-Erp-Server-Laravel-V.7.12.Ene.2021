@@ -22,6 +22,7 @@ use App\Events\Terceros\SolicitudOrdenCompraEvent;
 
 use App\Events\Terceros\ClientesBloqueadosOtsEvent;
 use App\Models\TercerosWebActividades as TercerosActividades;
+use Illuminate\Support\Facades\Response;
 
 class TercerosController extends Controller
 {
@@ -31,15 +32,14 @@ class TercerosController extends Controller
   // Genera documento pdf-cotización con base en datos de la orden de trabajo
 
   public function cotizacionGenerarDesdeOT ( request $FormData) {  
-
-      $idOT             = $FormData->idregistro_ot;
+      $idOT             = $FormData->ID;
       $Cotizacion       = Terceros::cotizacionGenerarDesdeOT ($idOT  );
       $PdfContent       = $this->pdfCreateFileTrait('pdfs.cotizacion', compact('Cotizacion') );
-      Storage::disk('ClientFiles')->put( 'Cotizacion_O_'.$idOT.'.pdf', $PdfContent);
-      return $Cotizacion;
-      //src="{{ asset('storage/images/logo/cripack.png') }}"
-      //alt="Logo corporativo Cripack S.A.S"
-
+      $pdfFile          = 'Cotizacion_'.$Cotizacion[0]->nro_cotizacion.'.pdf';
+      Storage::disk('ClientFiles')->put($pdfFile  , $PdfContent);    
+      
+      $pdfFile  = Storage::disk('ClientFiles')->path($pdfFile);
+      return response()->download($pdfFile);
   }
 
 
@@ -50,11 +50,12 @@ class TercerosController extends Controller
       foreach ($IdsClientes as $IdCliente ) {
        foreach ($Ots as $OT) {
            if (  $OT->idtercero == $IdCliente ) {
-              $Emails    = Arrays::getEmailsFromArray($Ots ,'idtercero',$IdCliente  );
+              $Emails           = Arrays::getEmailsFromArray($Ots ,'idtercero',$IdCliente  );          
+              $OtsPdtesOrdCpra  = $this->otsBloqueadas($Ots , $IdCliente );
+              $OtsPdtesOrdCpra  = Arrays::getUniqueRowsFormArray($OtsPdtesOrdCpra,'idregistro_ot'  );
+              SolicitudOrdenCompraEvent::dispatch( $OT->nomtercero,$Emails,  $OtsPdtesOrdCpra, $OT  );
               
-              $OtsBloquedas = $this->otsBloqueadas($Ots , $IdCliente );
-              $OtsBloquedas = Arrays::getUniqueRowsFormArray($OtsBloquedas,'idregistro_ot'  );
-              SolicitudOrdenCompraEvent::dispatch( $OT->nomtercero,$Emails,  $OtsBloquedas, $OT  );
+              Terceros::ordenesTrabajoUpdateFchaSlctudOrdCpra (  $OT->idregistro_ot );
               return ;
            }
        } // Endfor $Ots
