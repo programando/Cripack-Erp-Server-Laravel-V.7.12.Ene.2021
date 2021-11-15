@@ -229,7 +229,8 @@
     <div>
 
         <div class="contenedor">
-             <img class="img" src="{{  asset('storage/images/firmas/omar.png') }} "   /> 
+             <img src="{{  asset('storage/images/firmas/omar.png') }} "  alt="" width="100%"  /> 
+             <img src="{{  asset('storage/images/logo/Logo30anios.png') }}" alt="" width="100%" > 
         </div>
        
 
