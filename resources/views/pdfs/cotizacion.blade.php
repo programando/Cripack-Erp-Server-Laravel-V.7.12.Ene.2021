@@ -50,7 +50,7 @@
     /* a partir de aqui puedes crear lo que consideses. las clases que necesites */
     .img {width: 20px; height:10px; margin: 10px 0;}
     .contenedor { width: 30%}
-    .mt10 {margin-top: 50px}
+ 
 </style>
 
   </head>
@@ -225,9 +225,7 @@
  <br><br><br>
 
         <div class="h60"></div>
-
-
-    
+ 
     <div>
 
         <div class="contenedor">
