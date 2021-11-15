@@ -231,7 +231,7 @@
     <div>
 
         <div class="contenedor">
-             <img class="img" src="{{  asset('storage/images/frimas/omar.png') }} "   /> 
+             <img class="img" src="{{  asset('storage/images/firmas/omar.png') }} "   /> 
         </div>
        
 
