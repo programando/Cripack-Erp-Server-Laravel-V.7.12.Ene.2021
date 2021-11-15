@@ -230,6 +230,7 @@
 
         <div class="contenedor">
              <img clas ="img" src="https://api.cripack.com/storage/images/firmas/gerencia.png"  alt=""   /> 
+              <img clas ="img" src="{{ asset('storage/images/firmas/gerencia.png') }}" alt=""   />
         </div>
        
 
