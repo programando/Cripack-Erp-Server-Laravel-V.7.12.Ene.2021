@@ -24,6 +24,7 @@
     .t38            { font-size:38pt; line-height:38pt; }
     .t40            { font-size:40pt; line-height:40pt; }
     .t44            { font-size:44pt; line-height:40pt; }
+    .t56            { font-size:56pt; line-height:56pt; }
     .mb3            { margin-bottom:3pt; }
     .mb10           { margin-bottom:10pt; }
     .mb15           { margin-bottom:15pt; }
@@ -44,7 +45,7 @@
     .bRad1          { border-radius:10pt 10pt 0 0; }
     .bRad2          { border-radius:0 0 10pt 10pt; }
     .vatop          { vertical-align:top;}
-    .colorcripack   { color: #16182F} ;
+    .colorcripack   { color: #20286d} ;
 
     /* a partir de aqui puedes crear lo que consideses. las clases que necesites */
     .img {width: 20px; height:10px; margin: 10px 0;}
@@ -61,16 +62,16 @@
         <table width="100%" class="mb40">
             <tr>
                 <td width="30%">
-                   <img src="D:\Laragon\www\Cripack-Erp-Server-Laravel-V.7.12.Ene.2021\storage\app/public/images\logo\Logo30anios.png" alt="" width="100%" >              
+                   <img src="{{ asset('storage/images/logo/Logo30anios.png') }}" alt="" width="100%" >              
                 </td>
               
                 <td width="40%" class="taC colorcripack">
-                    <div class="t44 tB "> CRIPACK S.A.S </div>
+                    <div class="t56 tB "> CRIPACK S.A.S </div>
                     <div class="t24 mb10"  >NIT 800.149.062-1</div>
                     <div class="t24 mb10" >Carrera 6 # 21 - 44 Cali - Colombia</div>
                     <div class="t24 mb10" >Código postal 760044 </div>
-                    <div class="t24 mb10" >(57)(602) 387 3164 </div>
-                    <div class="t24 mb10" >Cel. 315 270 1964 </div>
+                    <div class="t24 mb10" >(57)(602) 387 31 64 </div>
+                    <div class="t24 mb10" >Cel. 315 270 19 64 </div>
                     
                 </td>
                  <td width="30%" class="taR">
@@ -228,15 +229,13 @@
 
     
     <div>
-        <div class="">
+
         <div class="contenedor">
-             <img class="img" src="D:\Laragon\www\Cripack-Erp-Server-Laravel-V.7.12.Ene.2021\storage\app/public/images\firmas\omar.png"   /> 
+             <img class="img" src="{{  asset('storage/images/frimas/omar.png') }} "   /> 
         </div>
        
-        <div class="mt10">
-            <div class="">OMAR JOSÉ ORTEGA SANTAMARÍA</div>  
-        </div>
-        </div>
+
+ 
     </div>
 
     </div>
