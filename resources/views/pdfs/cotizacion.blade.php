@@ -230,7 +230,6 @@
 
         <div class="contenedor">
              <img clas ="img" src="{{  asset('storage/images/firmas/gerencia.png') }} "  alt=""   /> 
- 
         </div>
        
 
