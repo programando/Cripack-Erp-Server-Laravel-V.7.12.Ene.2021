@@ -63,8 +63,8 @@ return [
 
         'ClientFiles' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/client-files'),
-            'url' => env('APP_URL').'/storage/app/public/client-files',
+            'root' => storage_path('app/public/curstomers_files'),
+            'url' => env('APP_URL').'/storage/app/public/curstomers_files',
             'visibility' => 'public',
         ],
         
