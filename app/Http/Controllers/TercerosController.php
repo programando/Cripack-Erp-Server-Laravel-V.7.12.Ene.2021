@@ -35,7 +35,7 @@ class TercerosController extends Controller
       $idOT             = $FormData->idregistro_ot;
       $Cotizacion       = Terceros::cotizacionGenerarDesdeOT ($idOT  );
       $PdfContent       = $this->pdfCreateFileTrait('pdfs.cotizacion', compact('Cotizacion') );
-      Storage::disk('ClientFiles')->put( 'Cotizacion O-'.$idOT.'.pdf', $PdfContent);
+      Storage::disk('ClientFiles')->put( 'Cotizacion_O_'.$idOT.'.pdf', $PdfContent);
       return $Cotizacion;
       //src="{{ asset('storage/images/logo/cripack.png') }}"
       //alt="Logo corporativo Cripack S.A.S"
