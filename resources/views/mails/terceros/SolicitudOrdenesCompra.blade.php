@@ -63,7 +63,7 @@
       <h4 style="font-weight: 400;">
         <span>
         <br><br><br>
-            (*) Días   = Días transcurridos desde la última solicitud de orden de compra. <br>Después de 10 días sin respuesta, nuestro sistema bloquerá el registro de nuevos trabajos.
+            (*) Días   = Días transcurridos desde la última solicitud de orden de compra. <br>Después de 10 días sin respuesta, nuestro sistema bloquerá automáticamente el registro de nuevos trabajos.
         </span>
         </h4>
     </div>

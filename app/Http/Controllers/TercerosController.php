@@ -56,7 +56,7 @@ class TercerosController extends Controller
               SolicitudOrdenCompraEvent::dispatch( $OT->nomtercero,$Emails,  $OtsPdtesOrdCpra, $OT  );
               
               Terceros::ordenesTrabajoUpdateFchaSlctudOrdCpra (  $OT->idregistro_ot );
-              return ;
+              //return ;
            }
        } // Endfor $Ots
       }  //EndFor $IdsClientes
