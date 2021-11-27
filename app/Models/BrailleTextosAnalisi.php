@@ -127,4 +127,29 @@ class BrailleTextosAnalisi extends Model
 	 
 	  }
 
+		public static function getTextsToAnalysis ( $IdTercero ) {
+				return DB::select('call braile_textos_analisis_consulta(?)', array( $IdTercero  ) );
+
+		}
+
+ 		public static function textSavePrinter ( $idtercero, $texto, $max_cara, $max_filas, $cara_1, $cara_1_long, $cara_2, $cara_2_long, $palabraError, $cara) {
+			$DataResult = DB::select('call braile_textos_impresion_crear(?,?,?,?,?,?,?,?,?,?)', array( $idtercero, "$texto", $max_cara, $max_filas, "$cara_1", $cara_1_long, "$cara_2", $cara_2_long,$palabraError,"$cara"   ) );
+			return $DataResult ;
+		}
+
+		public static function getSimbolos (  ) {
+					return  DB::select('call braile_simbolos_consulta()');	 
+		}
+
+	  public static function saveSimbols ( $idtercero, $id_impresion, $caracter, $imgBraile_1, $imgBraile_2 ) {
+				return 	DB::select('call braile_textos_impresion_simbolos_grabar(?,?,?,?,?)', array( $idtercero, $id_impresion, "$caracter", "$imgBraile_1", "$imgBraile_2" ) );
+		}
+
+		public function getTextosImpresion ( $Idtercero ) {
+			return DB::select('call braile_impresion_textos_unicos_x_tercero(?)', array( $IdTercero  ) );
+ 
+		}
+
+
+
 }
