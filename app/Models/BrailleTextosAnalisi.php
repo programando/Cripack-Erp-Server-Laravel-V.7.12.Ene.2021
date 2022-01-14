@@ -145,11 +145,20 @@ class BrailleTextosAnalisi extends Model
 				return 	DB::select('call braile_textos_impresion_simbolos_grabar(?,?,?,?,?)', array( $idtercero, $id_impresion, "$caracter", "$imgBraile_1", "$imgBraile_2" ) );
 		}
 
-		public function getTextosImpresion ( $Idtercero ) {
+		public function getTextosImpresion ( $IdTercero ) {
 			return DB::select('call braile_impresion_textos_unicos_x_tercero(?)', array( $IdTercero  ) );
  
 		}
 
+	 public static function textosUnicosImpresion ( $IdTercero ) {
+		 	return DB::select('call braile_impresion_textos_unicos_x_tercero(?)', array( $IdTercero  ) );
+	 }
 
-
+	 public static function palabrasPorCara ( $IdTercero, $cara, $texto) {
+		 	return DB::select('call braile_impresion_textos_x_cara(?,?,?)', array( $IdTercero, $cara, "$texto"  ) );
+	 }
+	 
+	 public static function simbolosPorPalabra ( $Id_Impresion, $ImagesPath  ) {
+		 return DB::select('call braile_impresion_simbolos(?,?)', array(  $Id_Impresion, "$ImagesPath" ) );
+	 }
 }

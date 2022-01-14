@@ -23,8 +23,9 @@ class BrailleTextosAnalisisController extends Controller
           Braile::deleteTranscriptedTexts (  $idtercero );
           $this->saveText (  $idtercero, $texto , $largo, $ancho, $alto );
           $this->distibuirImpresionTextos ( $idtercero) ;
-          $this->showTranscription ( $idtercero );
+          $result = $this->showTranscription ( $idtercero );
 
+         return $result;
      }
 
 
@@ -196,9 +197,25 @@ class BrailleTextosAnalisisController extends Controller
 
 
      private function showTranscription ( $IdTercero ) {
-            
-         
+            $Resultado = [];
+            $textosUnicos = Braile::textosUnicosImpresion( $IdTercero);
+            foreach ($textosUnicos as $Texto) {   
+                $this->palabrasPorcara ( $IdTercero,'1', $Texto->texto, $Resultado);
+                $this->palabrasPorcara ( $IdTercero,'2', $Texto->texto, $Resultado);
+            }
+            return $Resultado;
      }
+
+    private function palabrasPorcara ( $IdTercero, $Cara, $Texto, &$Resultado) {
+        $ImagesPath      = str_replace('\\', '/', asset('/storage/images/braile\\/') ) ; 
+        $palabrasPorCara = Braile::palabrasPorCara( $IdTercero, $Cara, $Texto);
+        foreach ($palabrasPorCara as $Palabra ) {
+                $simbolosPorPalabra = Braile::simbolosPorPalabra ( $Palabra->id_impresion, $ImagesPath  );
+                //array_push ( $Resultado, $simbolosPorPalabra  );
+                $Resultado = $simbolosPorPalabra;
+            }
+    }
+
 
 
       private function buscarSimbolo ( $caraterBusqueda ) {
