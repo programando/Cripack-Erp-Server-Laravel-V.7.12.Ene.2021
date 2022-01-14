@@ -211,8 +211,8 @@ class BrailleTextosAnalisisController extends Controller
         $palabrasPorCara = Braile::palabrasPorCara( $IdTercero, $Cara, $Texto);
         foreach ($palabrasPorCara as $Palabra ) {
                 $simbolosPorPalabra = Braile::simbolosPorPalabra ( $Palabra->id_impresion, $ImagesPath  );
-                //array_push ( $Resultado, $simbolosPorPalabra  );
-                $Resultado = $simbolosPorPalabra;
+                $Resultados = $simbolosPorPalabra;
+                array_push ( $Resultado, $Resultados  );
             }
     }
 
