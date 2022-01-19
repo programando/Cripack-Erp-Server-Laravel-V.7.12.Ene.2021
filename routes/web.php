@@ -14,10 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
    return view('welcome');
  
 });
+
+Route::get('/trm'            , 'TrmsController@getTrm') ;
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 

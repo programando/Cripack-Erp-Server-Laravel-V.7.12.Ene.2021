@@ -18,7 +18,8 @@ use config;
 $DocumentoReferencia; $UnidadBoomerang; $ObjectToSend; $RespuestaTcc; $NumeroRemesa;
 class TccRemisionesDespachoController extends Controller
 {
-    
+ 
+
     // Junio 14 2021.       Consulta fecha de entrega TCC al cliente y actualiza datos en la remision
     public function remisionesPdtesFechaEntregaTcc () {
         $RemisionesPdtes = RemisionesTcc::remisionesPdtesFechaEntregaTcc () ;
