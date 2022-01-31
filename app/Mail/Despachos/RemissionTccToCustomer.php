@@ -30,7 +30,7 @@ class RemissionTccToCustomer extends Mailable
     public function build()
     {
         return $this->view('mails.despachos.TccRemisiones')
-                    ->from(  config('company.EMAIL_USUARIO') )
+                    ->from(  config('company.EMAIL_FROM_ADDRESS') )
                     ->subject('Notificación despacho desde Cripack') ;
     }
 
