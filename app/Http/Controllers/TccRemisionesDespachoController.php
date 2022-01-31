@@ -65,12 +65,35 @@ class TccRemisionesDespachoController extends Controller
                      $Emails = Arrays::getEmailsFromArray($Remisiones ,'idregistro',$Row );     
                      $this->sendEmailWithRemissions ( $Emails,$Remision, $Remisiones );
                      $this->remisionesTccUpdateEmailEnviado ($Row );
+                     sleep(5);
                      break;
                  }
             } //foreach $Remisiones  
             echo $Row ."\n";
         } //foreach $Ids
     }
+/*
+$love = true;
+while($love) {
+    $message = Message::to($record->to)
+        ->from(array('no-reply@clouddueling.com' => $user->name()))
+        ->reply(array($user->email => $user->name()))
+        ->subject($record->subject)
+        ->body($body->value)
+        ->html(true)
+        ->send();
+
+    if (! $message->was_sent())
+        throw new Swift_TransportException($errstr . ': ' . $errno);
+}
+    # Send Mail
+    Mail::send('emails.email', $data, function($message) use ($data)
+    {
+        $message->from($data['email'] , $data['title']);
+        $message->to('test@test.de', 'my name')->subject('contact request');
+    });
+
+*/
 
     private function sendEmailWithRemissions ( $Emails, $Remision, $Remisiones ) {
          array_push ($Emails, config('company.EMAIL_PRODUCCION'));
