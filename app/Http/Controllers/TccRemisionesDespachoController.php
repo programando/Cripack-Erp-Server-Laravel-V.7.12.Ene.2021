@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Mail;
-
-use App\Mail\Despachos\RemissionTccToCustomer;
-use App\Mail\Despachos\RemissionSendToCustomer;
-use App\Models\TccRemisionesDespacho as RemisionesTcc;
-
-use Fechas;         //  Helpers
-use Arrays;         //  Helpers
 use config;
+use Carbon\Carbon;
+use Illuminate\Support\Arr;
+
+use Illuminate\Http\Request;
+use Arrays;         //  Helpers
+use Fechas;         //  Helpers
+use Illuminate\Support\Facades\Mail;
+use App\Events\Terceros\DespachoTccSendEmailEvent;
+use App\Models\TccRemisionesDespacho as RemisionesTcc;
+use App\Events\Terceros\DespachoCustomerSendEmailEvent;
+use App\Events\Terceros\DespachoServiClientesSendEmailEvent;
 
 
 $DocumentoReferencia; $UnidadBoomerang; $ObjectToSend; $RespuestaTcc; $NumeroRemesa;
@@ -65,49 +66,34 @@ class TccRemisionesDespachoController extends Controller
                      $Emails = Arrays::getEmailsFromArray($Remisiones ,'idregistro',$Row );     
                      $this->sendEmailWithRemissions ( $Emails,$Remision, $Remisiones );
                      $this->remisionesTccUpdateEmailEnviado ($Row );
-                     sleep(5);
                      break;
                  }
             } //foreach $Remisiones  
-            echo $Row ."\n";
         } //foreach $Ids
+         
+        $this->sendNotificationServicioAlCliente (  $Remisiones);
     }
-/*
-$love = true;
-while($love) {
-    $message = Message::to($record->to)
-        ->from(array('no-reply@clouddueling.com' => $user->name()))
-        ->reply(array($user->email => $user->name()))
-        ->subject($record->subject)
-        ->body($body->value)
-        ->html(true)
-        ->send();
 
-    if (! $message->was_sent())
-        throw new Swift_TransportException($errstr . ': ' . $errno);
-}
-    # Send Mail
-    Mail::send('emails.email', $data, function($message) use ($data)
-    {
-        $message->from($data['email'] , $data['title']);
-        $message->to('test@test.de', 'my name')->subject('contact request');
-    });
-
-*/
+    private function sendNotificationServicioAlCliente ( $Remisiones ) {
+       DespachoServiClientesSendEmailEvent::dispatch( $Remisiones );
+    }
 
     private function sendEmailWithRemissions ( $Emails, $Remision, $Remisiones ) {
          array_push ($Emails, config('company.EMAIL_PRODUCCION'));
-         if ( $Remision->idtercero_transportador === 856 )  {
-            Mail::to( $Emails, trim($Remision->contacto) )->send( new RemissionTccToCustomer( $Remision, $Remisiones ));
+         if ( $Remision->idtercero_transportador === 856 )  { 
+           DespachoTccSendEmailEvent::dispatch ($Emails, $Remision->contacto ,  $Remision, $Remisiones );
          }else {
-             Mail::to( $Emails, trim($Remision->contacto) )->send( new RemissionSendToCustomer( $Remision, $Remisiones ));
+           DespachoCustomerSendEmailEvent::dispatch ($Emails, $Remision->contacto ,  $Remision, $Remisiones );
          }
     }
 
+    
 
     private function remisionesTccUpdateEmailEnviado ( $IdRegistro ) {
         $ModelRemisionesTcc = RemisionesTcc::where('idregistro', $IdRegistro)->first();
         $ModelRemisionesTcc->email_enviado = 1;
+        $ModelRemisionesTcc->fecha_enviado = Carbon::now();
+
         $ModelRemisionesTcc->save();
     }
 
