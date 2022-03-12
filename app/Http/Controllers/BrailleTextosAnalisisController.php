@@ -13,7 +13,7 @@ class BrailleTextosAnalisisController extends Controller
      public function transcripcionTextos ( Request $FormData ) {
             
           $idtercero = $FormData->idTercero;
-          $texto     = trim($FormData->texto);
+          $texto     = strtoupper(trim($FormData->texto));
           $largo     = (int)$FormData->largo;
           $alto      = (int)$FormData->alto;
           $ancho     = (int)$FormData->ancho;    
@@ -23,7 +23,7 @@ class BrailleTextosAnalisisController extends Controller
           Braile::deleteTranscriptedTexts (  $idtercero );
           $this->saveText (  $idtercero, $texto , $largo, $ancho, $alto );
           $this->distibuirImpresionTextos ( $idtercero) ;
-          $result = $this->showTranscription ( $idtercero );
+          $result = $this->showTranscription ( $idtercero, $texto );
 
          return $result;
      }
@@ -86,6 +86,7 @@ class BrailleTextosAnalisisController extends Controller
              $op4ncare   = $this->NcarE ( $caracteres, $op4mce ) ;
              $op4ncarm   = $this->NCarM ( $caracteres , $op4mcm);
              //-----------------------------------------------------------------------------   
+             
              Braile::textSave( $idtercero, $texto, $caja_largo, $caja_ancho, $caja_alto, $caracteres, $espacios, $palabras, $op1nfe, $op1nfm , $op1nc, $op1mce, $op1mcm, $op1fmax,$op1fdef,      $op1ncare, $op1ncarm,  $op2nfe, $op2nfm , $op2nc, $op2mce, $op2mcm, $op2fmax,$op2fdef, $op2ncare, $op2ncarm,   $op3nfe, $op3nfm , $op3nc, $op3mce, $op3mcm, $op3fmax,$op3fdef, $op3ncare, $op3ncarm, $op4nfe, $op4nfm , $op4nc, $op4mce, $op4mcm, $op4fmax,$op4fdef, $op4ncare, $op4ncarm, $op3nc, $op3nfm  );
       }
 
@@ -196,25 +197,24 @@ class BrailleTextosAnalisisController extends Controller
     }
 
 
-     private function showTranscription ( $IdTercero ) {
-            $Resultado = [];
-            $textosUnicos = Braile::textosUnicosImpresion( $IdTercero);
-            foreach ($textosUnicos as $Texto) {   
-                $this->palabrasPorcara ( $IdTercero,'1', $Texto->texto, $Resultado);
-                $this->palabrasPorcara ( $IdTercero,'2', $Texto->texto, $Resultado);
-            }
-            return $Resultado;
+     private function showTranscription ( $IdTercero, $Texto ) {
+            
+            $ImagesPath      = str_replace('\\', '/', asset('/storage/images/braile\\/') ) ; 
+            $jsonResonse =[];
+
+             $Cara1         = Braile::palabrasPorCara( $IdTercero, '1', $Texto);
+             $Cara2          = Braile::palabrasPorCara( $IdTercero, '2', $Texto);
+             if ( !empty( $Cara1) ) {
+                $SimbolosCara1 = Braile::simbolosPorPalabra ( $Cara1[0]->id_impresion, $ImagesPath  );
+                 array_push($jsonResonse, [ 'cara1'    => $Cara1, 'simbolos1'      => $SimbolosCara1] );
+             }
+             if ( !empty( $Cara2)) {
+                    $SimbolosCara2 = Braile::simbolosPorPalabra ( $Cara2[0]->id_impresion, $ImagesPath  );      
+                     array_push($jsonResonse, [ 'cara2'    => $Cara2, 'simbolos2'      => $SimbolosCara2] );
+             } 
+            return   $jsonResonse;
      }
 
-    private function palabrasPorcara ( $IdTercero, $Cara, $Texto, &$Resultado) {
-        $ImagesPath      = str_replace('\\', '/', asset('/storage/images/braile\\/') ) ; 
-        $palabrasPorCara = Braile::palabrasPorCara( $IdTercero, $Cara, $Texto);
-        foreach ($palabrasPorCara as $Palabra ) {
-                $simbolosPorPalabra = Braile::simbolosPorPalabra ( $Palabra->id_impresion, $ImagesPath  );
-                $Resultados = $simbolosPorPalabra;
-                array_push ( $Resultado, $Resultados  );
-            }
-    }
 
 
 
