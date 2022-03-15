@@ -19,6 +19,7 @@ class OrdenesTrabajoExteriorListener
             ->cc(config('company.EMAIL_GERENCIA'))
             ->cc(config('company.EMAIL_PRODUCCION'))
             ->cc(config('company.EMAIL_SERVICLIENTES'))
+            ->cc(config('company.EMAIL_SOPORTE'))
           ->queue(   new OrdenesTrabajoExterior ( $event->Ots ));
     }
 }
