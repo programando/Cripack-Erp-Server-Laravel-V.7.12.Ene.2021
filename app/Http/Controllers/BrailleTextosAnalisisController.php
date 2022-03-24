@@ -11,19 +11,20 @@ class BrailleTextosAnalisisController extends Controller
     private $Simbolos, $imgBraile_1, $imgBraile_2, $SimboloExcepcion;
 
      public function transcripcionTextos ( Request $FormData ) {
-            
+
           $idtercero = $FormData->idTercero;
           $texto     = strtoupper(trim($FormData->texto));
           $largo     = (int)$FormData->largo;
           $alto      = (int)$FormData->alto;
-          $ancho     = (int)$FormData->ancho;    
+          $ancho     = (int)$FormData->ancho; 
+          $cara      = (int)$FormData->cara;   
           
           $this->setParameters ();
           $this->reservarSimbolos () ;
           Braile::deleteTranscriptedTexts (  $idtercero );
           $this->saveText (  $idtercero, $texto , $largo, $ancho, $alto );
           $this->distibuirImpresionTextos ( $idtercero) ;
-          $result = $this->showTranscription ( $idtercero, $texto );
+          $result = $this->showTranscription ( $idtercero, $texto, $cara );
 
          return $result;
      }
@@ -197,26 +198,56 @@ class BrailleTextosAnalisisController extends Controller
     }
 
 
-     private function showTranscription ( $IdTercero, $Texto ) {
+     private function showTranscription ( $IdTercero, $Texto, $cara ) {
             
             $ImagesPath      = str_replace('\\', '/', asset('/storage/images/braile\\/') ) ; 
-            $jsonResonse =[];
+            $jsonResonse =[];  $ArrayPalabra;
 
-             $Cara1         = Braile::palabrasPorCara( $IdTercero, '1', $Texto);
-             $Cara2          = Braile::palabrasPorCara( $IdTercero, '2', $Texto);
-             if ( !empty( $Cara1) ) {
+             $ParabrasCara1  = Braile::palabrasPorCara( $IdTercero, "$cara", $Texto);
+             //$ParabrasCara2  = Braile::palabrasPorCara( $IdTercero, '2', $Texto);
+            
+              
+ 
+             foreach ($ParabrasCara1 as $Palabra => $value ) {
+                 $simbolosPalabra = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
+                 array_push($jsonResonse, [ 
+                                'cara'."$cara"    => $value->cara,
+                                       'MC'       => $value->max_cara,
+                                       'MF'       => $value->max_filas,
+                                       'simbolos' => $simbolosPalabra
+                                ] );
+                  //$ArrayPalabra[]['cara'."$cara"]      = $value->cara;
+                  //$ArrayPalabra[]['MC']               = $value->max_cara;
+                  //$ArrayPalabra[]['MF']               = $value->max_filas;
+                  //$ArrayPalabra[]['simbolos']       = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
+             }
+            
+
+            /* foreach ($ParabrasCara2 as $Palabra => $value ) {
+                   $ArrayPalabra[]['cara2']      = $value->cara_2;
+                   $ArrayPalabra[]['simbolos']   = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
+             }
+           */
+
+
+             return  $jsonResonse ;
+             //dd( $Cara1);
+
+            /* if ( !empty( $Cara1) ) {
                 $SimbolosCara1 = Braile::simbolosPorPalabra ( $Cara1[0]->id_impresion, $ImagesPath  );
                  array_push($jsonResonse, [ 'cara1'    => $Cara1, 'simbolos1'      => $SimbolosCara1] );
              }
+             
              if ( !empty( $Cara2)) {
                     $SimbolosCara2 = Braile::simbolosPorPalabra ( $Cara2[0]->id_impresion, $ImagesPath  );      
                      array_push($jsonResonse, [ 'cara2'    => $Cara2, 'simbolos2'      => $SimbolosCara2] );
              } 
+
             return   $jsonResonse;
+            */
      }
 
-
-
+   
 
       private function buscarSimbolo ( $caraterBusqueda ) {
            $this->imgBraile_1 ='';

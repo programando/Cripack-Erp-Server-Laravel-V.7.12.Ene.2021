@@ -73,7 +73,7 @@ Route::group(['prefix' => 'ordenes-trabajo/'], function () {
 
 Route::group(['prefix' => 'braile/'], function () {
     $localController = 'BrailleTextosAnalisisController@'; 
-    Route::post('transcripcion/textos'            , $localController . 'transcripcionTextos') ;
+    Route::post('transcripcion/textos'                  , $localController . 'transcripcionTextos') ;
 });
  
  
