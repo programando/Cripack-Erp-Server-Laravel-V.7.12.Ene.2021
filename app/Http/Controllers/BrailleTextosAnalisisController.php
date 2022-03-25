@@ -206,45 +206,19 @@ class BrailleTextosAnalisisController extends Controller
              $ParabrasCara1  = Braile::palabrasPorCara( $IdTercero, "$cara", $Texto);
              //$ParabrasCara2  = Braile::palabrasPorCara( $IdTercero, '2', $Texto);
             
-              
+ 
  
              foreach ($ParabrasCara1 as $Palabra => $value ) {
                  $simbolosPalabra = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
                  array_push($jsonResonse, [ 
-                                'cara'."$cara"    => $value->cara,
-                                       'MC'       => $value->max_cara,
-                                       'MF'       => $value->max_filas,
-                                       'simbolos' => $simbolosPalabra
-                                ] );
-                  //$ArrayPalabra[]['cara'."$cara"]      = $value->cara;
-                  //$ArrayPalabra[]['MC']               = $value->max_cara;
-                  //$ArrayPalabra[]['MF']               = $value->max_filas;
-                  //$ArrayPalabra[]['simbolos']       = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
+                                'cara'."$cara"      => $value->cara,
+                                       'idregistro' => $value->id_impresion,
+                                       'MC'         => $value->max_cara,
+                                       'MF'         => $value->max_filas,
+                                       'simbolos'   => $simbolosPalabra
+                                ] ); 
              }
-            
-
-            /* foreach ($ParabrasCara2 as $Palabra => $value ) {
-                   $ArrayPalabra[]['cara2']      = $value->cara_2;
-                   $ArrayPalabra[]['simbolos']   = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
-             }
-           */
-
-
              return  $jsonResonse ;
-             //dd( $Cara1);
-
-            /* if ( !empty( $Cara1) ) {
-                $SimbolosCara1 = Braile::simbolosPorPalabra ( $Cara1[0]->id_impresion, $ImagesPath  );
-                 array_push($jsonResonse, [ 'cara1'    => $Cara1, 'simbolos1'      => $SimbolosCara1] );
-             }
-             
-             if ( !empty( $Cara2)) {
-                    $SimbolosCara2 = Braile::simbolosPorPalabra ( $Cara2[0]->id_impresion, $ImagesPath  );      
-                     array_push($jsonResonse, [ 'cara2'    => $Cara2, 'simbolos2'      => $SimbolosCara2] );
-             } 
-
-            return   $jsonResonse;
-            */
      }
 
    
