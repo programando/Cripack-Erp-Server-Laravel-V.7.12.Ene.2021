@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BrailleTextosAnalisi as Braile;
 
+use App\Helpers\Strings;
+
 class BrailleTextosAnalisisController extends Controller
 {
     private $Estandar = array(), $Minimo = array(), $Caracteres = array();
@@ -13,12 +15,14 @@ class BrailleTextosAnalisisController extends Controller
      public function transcripcionTextos ( Request $FormData ) {
 
           $idtercero = $FormData->idTercero;
-          $texto     = strtoupper(trim($FormData->texto));
+          $texto     =  Strings::FixAccents (strtoupper(trim($FormData->texto)));
+
           $largo     = (int)$FormData->largo;
           $alto      = (int)$FormData->alto;
           $ancho     = (int)$FormData->ancho; 
           $cara      = (int)$FormData->cara;   
           
+           
           $this->setParameters ();
           $this->reservarSimbolos () ;
           Braile::deleteTranscriptedTexts (  $idtercero );
