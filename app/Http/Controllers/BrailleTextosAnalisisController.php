@@ -147,15 +147,14 @@ class BrailleTextosAnalisisController extends Controller
     private function grabarCaras ($idtercero, $texto,    $Filas , $MaxCara=5, $MaxFilas=8) {  
         $FilasOcupadas = 1;
          $texto = trim( $texto); 
-          
+          $CantLoops = 0;
         foreach ($Filas as $Fila ) {
             $palabrasAtraducir = strtolower(($Fila));
             $palabraError      = substr( $palabrasAtraducir,0,4)== 'n/a-' ? 1 : 0;
             $palabrasAtraducir = $palabraError == 1 ? substr( $palabrasAtraducir,4,strlen($palabrasAtraducir )) : $palabrasAtraducir;
             $Long              = strlen( $palabrasAtraducir ) ;
-            
-            if ($Long > 0 ) {
-                if ( $FilasOcupadas <= $MaxFilas ) {
+             
+            if ( $FilasOcupadas <= $MaxFilas ) {
                     $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, $palabrasAtraducir, $Long, 0, 0, $palabraError, '1');
                     $FilasOcupadas=  $FilasOcupadas  + 1;
                     $this->grabarSimbolosBraile ( $idtercero, $id_impresion[0]->id_impresion, $palabrasAtraducir );
@@ -163,10 +162,10 @@ class BrailleTextosAnalisisController extends Controller
                     $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, 0, 0, $palabrasAtraducir, $Long, $palabraError,'2');
                     $FilasOcupadas  =  $FilasOcupadas  + 1;
                     $this->grabarSimbolosBraile ($idtercero, $id_impresion[0]->id_impresion , $palabrasAtraducir );
-                }
             }
+             $CantLoops++;
         }
-         
+        dd ( $CantLoops) ;
     }
 
 
