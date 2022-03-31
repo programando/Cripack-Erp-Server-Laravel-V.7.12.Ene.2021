@@ -147,32 +147,23 @@ class BrailleTextosAnalisisController extends Controller
     private function grabarCaras ($idtercero, $texto,    $Filas , $MaxCara=5, $MaxFilas=8) {  
         $FilasOcupadas = 1;
          $texto = trim( $texto); 
-         $CantLoops = [];
-         $jsonResonse =[];
+
         foreach ($Filas as $Fila ) {
             $palabrasAtraducir = strtolower(($Fila));
             $palabraError      = substr( $palabrasAtraducir,0,4)== 'n/a-' ? 1 : 0;
             $palabrasAtraducir = $palabraError == 1 ? substr( $palabrasAtraducir,4,strlen($palabrasAtraducir )) : $palabrasAtraducir;
             $Long              = strlen( $palabrasAtraducir ) ;
 
-            if ( $Long > 0 ) {
-            if ( $FilasOcupadas <= $MaxFilas ) {
-                    $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, $palabrasAtraducir, $Long, 0, 0, $palabraError, '1');
-                    $FilasOcupadas=  $FilasOcupadas  + 1;
-                    $this->grabarSimbolosBraile ( $idtercero, $id_impresion[0]->id_impresion, $palabrasAtraducir );
-                }else {
-                    $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, 0, 0, $palabrasAtraducir, $Long, $palabraError,'2');
-                    $FilasOcupadas  =  $FilasOcupadas  + 1;
-                    $this->grabarSimbolosBraile ($idtercero, $id_impresion[0]->id_impresion , $palabrasAtraducir );
-            }
-
- 
-             array_push($jsonResonse,[
-                        'palabrasAtraducir'=>$palabrasAtraducir ,
-                        'Long'=>$Long ,
-                        'id_impresion'=>$id_impresion,
-                        'FilasOcupadas'=>$FilasOcupadas,
-                    ]);
+            if ( (int)$Long > 0 ) {
+                if ( $FilasOcupadas <= $MaxFilas ) {
+                        $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, $palabrasAtraducir, $Long, 0, 0, $palabraError, '1');
+                        $FilasOcupadas=  $FilasOcupadas  + 1;
+                        $this->grabarSimbolosBraile ( $idtercero, $id_impresion[0]->id_impresion, $palabrasAtraducir );
+                    }else {
+                        $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, 0, 0, $palabrasAtraducir, $Long, $palabraError,'2');
+                        $FilasOcupadas  =  $FilasOcupadas  + 1;
+                        $this->grabarSimbolosBraile ($idtercero, $id_impresion[0]->id_impresion , $palabrasAtraducir );
+                }
             };
         }
        
@@ -218,19 +209,21 @@ class BrailleTextosAnalisisController extends Controller
             
             $ImagesPath      = str_replace('\\', '/', asset('/storage/images/braile\\/') ) ; 
             $jsonResonse =[];  $ArrayPalabra;
-             $ParabrasCara1  = Braile::palabrasPorCara( $IdTercero, "$cara", $Texto); 
+            $ParabrasCara1  = Braile::palabrasPorCara( $IdTercero, "$cara", $Texto); 
+             $idregistro = 1;   
              foreach ($ParabrasCara1 as $Palabra => $value ) {
                  $simbolosPalabra = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
                  array_push($jsonResonse, [ 
                                 'cara'."$cara"      => $value->cara,
-                                       'idregistro' => $value->id_impresion,
+                                       'idregistro' => $idregistro,
                                        'MC'         => $value->max_cara,
                                        'MF'         => $value->max_filas,
                                        'simbolos'   => $simbolosPalabra
-                                ] ); 
+                                ] );
+                $idregistro++; 
              }
              
-             return  array_unique($jsonResonse, SORT_REGULAR) ;
+             return   $jsonResonse  ;
      }
 
    
