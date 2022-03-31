@@ -218,12 +218,7 @@ class BrailleTextosAnalisisController extends Controller
             
             $ImagesPath      = str_replace('\\', '/', asset('/storage/images/braile\\/') ) ; 
             $jsonResonse =[];  $ArrayPalabra;
-
-             $ParabrasCara1  = Braile::palabrasPorCara( $IdTercero, "$cara", $Texto);
-             //$ParabrasCara2  = Braile::palabrasPorCara( $IdTercero, '2', $Texto);
-            
-               dd ( $ParabrasCara1) ;  
- 
+             $ParabrasCara1  = Braile::palabrasPorCara( $IdTercero, "$cara", $Texto); 
              foreach ($ParabrasCara1 as $Palabra => $value ) {
                  $simbolosPalabra = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
                  array_push($jsonResonse, [ 
