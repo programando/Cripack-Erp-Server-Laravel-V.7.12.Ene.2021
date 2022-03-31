@@ -97,6 +97,7 @@ class BrailleTextosAnalisisController extends Controller
 
     private function distibuirImpresionTextos ( $IdTercero )     {
         $Textos = Braile::getTextsToAnalysis ( $IdTercero );
+        dd ( $Textos );
          foreach ($Textos  as $Texto ) {
             $Filas = $this->distribuirPalabra ( $Texto->texto, $Texto->max_cara );  
             $this->grabarCaras ($IdTercero,$Texto->texto, $Filas , $Texto->max_cara , $Texto->max_filas );
