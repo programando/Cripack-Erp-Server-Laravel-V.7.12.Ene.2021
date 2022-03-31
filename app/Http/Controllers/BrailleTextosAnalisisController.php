@@ -149,18 +149,18 @@ class BrailleTextosAnalisisController extends Controller
          $texto = trim( $texto); 
 
         foreach ($Filas as $Fila ) {
-            $palabrasAtraducir = strtolower( $Fila );
+            $palabrasAtraducir = strtolower( $Fila);
             $palabraError      = substr( $palabrasAtraducir,0,4)== 'n/a-' ? 1 : 0;
             $palabrasAtraducir = $palabraError == 1 ? substr( $palabrasAtraducir,4,strlen($palabrasAtraducir )) : $palabrasAtraducir;
-            $Long              = strlen( $palabrasAtraducir)  ;
+            $Long              = strlen( trim($palabrasAtraducir) ) ;
 
             if ( (int)$Long > 0 ) {
                 if ( $FilasOcupadas <= $MaxFilas ) {
-                        $id_impresion  = Braile::textSavePrinter ($idtercero, 'paso1', $MaxCara, $MaxFilas, $palabrasAtraducir, $Long, 0, 0, $palabraError, '1');
+                        $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, 'PASO1', $Long, 0, 0, $palabraError, '1');
                         $FilasOcupadas=  $FilasOcupadas  + 1;
                         $this->grabarSimbolosBraile ( $idtercero, $id_impresion[0]->id_impresion, $palabrasAtraducir );
                     }else {
-                        $id_impresion  = Braile::textSavePrinter ($idtercero, 'paso2', $MaxCara, $MaxFilas, 0, 0, $palabrasAtraducir, $Long, $palabraError,'2');
+                        $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, 0, 0, 'PASO2', $Long, $palabraError,'2');
                         $FilasOcupadas  =  $FilasOcupadas  + 1;
                         $this->grabarSimbolosBraile ($idtercero, $id_impresion[0]->id_impresion , $palabrasAtraducir );
                 }
