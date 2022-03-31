@@ -175,7 +175,7 @@ class BrailleTextosAnalisisController extends Controller
                     ]);
             };
         }
-        dd ( $jsonResonse) ;
+       
     }
 
 
@@ -222,7 +222,7 @@ class BrailleTextosAnalisisController extends Controller
              $ParabrasCara1  = Braile::palabrasPorCara( $IdTercero, "$cara", $Texto);
              //$ParabrasCara2  = Braile::palabrasPorCara( $IdTercero, '2', $Texto);
             
- 
+               dd ( $ParabrasCara1) ;  
  
              foreach ($ParabrasCara1 as $Palabra => $value ) {
                  $simbolosPalabra = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
