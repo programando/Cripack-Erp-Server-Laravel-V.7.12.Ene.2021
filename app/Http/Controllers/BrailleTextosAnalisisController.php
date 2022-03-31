@@ -156,12 +156,12 @@ class BrailleTextosAnalisisController extends Controller
 
             if ( (int)$Long > 0 ) {
                 if ( $FilasOcupadas <= $MaxFilas ) {
-                        $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, 'PASO1', $Long, 0, 0, $palabraError, '1');
                         $FilasOcupadas=  $FilasOcupadas  + 1;
+                        $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, $palabrasAtraducir, $Long, 0, 0, $palabraError, '1');
                         $this->grabarSimbolosBraile ( $idtercero, $id_impresion[0]->id_impresion, $palabrasAtraducir );
                     }else {
-                        $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, 0, 0, 'PASO2', $Long, $palabraError,'2');
                         $FilasOcupadas  =  $FilasOcupadas  + 1;
+                        $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, 0, 0, $palabrasAtraducir, $Long, $palabraError,'2');
                         $this->grabarSimbolosBraile ($idtercero, $id_impresion[0]->id_impresion , $palabrasAtraducir );
                 }
             };
