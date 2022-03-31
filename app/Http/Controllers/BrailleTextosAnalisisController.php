@@ -229,7 +229,8 @@ class BrailleTextosAnalisisController extends Controller
                                        'simbolos'   => $simbolosPalabra
                                 ] ); 
              }
-             return  $jsonResonse ;
+             
+             return  array_unique($jsonResonse, SORT_REGULAR) ;
      }
 
    
