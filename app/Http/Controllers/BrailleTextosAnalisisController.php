@@ -135,7 +135,6 @@ class BrailleTextosAnalisisController extends Controller
             
         } // EndWhile
         $Filas[]=$Fila;
-        dd($Filas );
         return $Filas;
     }
 
@@ -148,9 +147,10 @@ class BrailleTextosAnalisisController extends Controller
     private function grabarCaras ($idtercero, $texto,    $Filas , $MaxCara=5, $MaxFilas=8) {  
         $FilasOcupadas = 1;
          $texto = trim( $texto); 
+ 
         foreach ($Filas as $Fila ) {
             $palabrasAtraducir = strtolower(($Fila));
-            $palabraError      = substr( $palabrasAtraducir,0,4)== 'n/a-' ? 1 : 0;
+            $palabraError      = substr( $palabrasAtraducir,0,4)== 'N/A-' ? 1 : 0;
             $palabrasAtraducir = $palabraError == 1 ? substr( $palabrasAtraducir,4,strlen($palabrasAtraducir )) : $palabrasAtraducir;
             $Long              = strlen( $palabrasAtraducir ) ;
              
