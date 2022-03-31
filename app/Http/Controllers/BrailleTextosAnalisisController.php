@@ -149,10 +149,10 @@ class BrailleTextosAnalisisController extends Controller
          $texto = trim( $texto); 
 
         foreach ($Filas as $Fila ) {
-            $palabrasAtraducir = strtolower(($Fila));
+            $palabrasAtraducir = strtolower( $Fila );
             $palabraError      = substr( $palabrasAtraducir,0,4)== 'n/a-' ? 1 : 0;
             $palabrasAtraducir = $palabraError == 1 ? substr( $palabrasAtraducir,4,strlen($palabrasAtraducir )) : $palabrasAtraducir;
-            $Long              = strlen( trim($palabrasAtraducir) ) ;
+            $Long              = strlen( $palabrasAtraducir)  ;
 
             if ( (int)$Long > 0 ) {
                 if ( $FilasOcupadas <= $MaxFilas ) {
