@@ -20,15 +20,13 @@ class BrailleTextosAnalisisController extends Controller
           $largo     = (int)$FormData->largo;
           $alto      = (int)$FormData->alto;
           $ancho     = (int)$FormData->ancho; 
-          $cara      = (int)$FormData->cara;   
-          
-           
+    
           $this->setParameters ();
           $this->reservarSimbolos () ;
           Braile::deleteTranscriptedTexts (  $idtercero );
           $this->saveText (  $idtercero, $texto , $largo, $ancho, $alto );
           $this->distibuirImpresionTextos ( $idtercero) ;
-          $result = $this->showTranscription ( $idtercero, $texto, $cara );
+          $result = $this->showTranscription ( $idtercero, $texto  );
 
          return $result;
      }
@@ -177,62 +175,56 @@ class BrailleTextosAnalisisController extends Controller
          $Letras             = preg_split('//',$Palabra ,-1, PREG_SPLIT_NO_EMPTY)  ;  /// Separa cada palabra en letras para encontrar su simbolo braile 
          $complementoSimbolo = 0;
          $complementoNumero  = true;
-         //Debug::Mostrar ( $Letras ) ;
          foreach ( $Letras as $Letra) {
              $letraToSave = strtolower( $Letra);
              $this->buscarSimbolo ( $letraToSave ) ;  
              if ( $this->imgBraile_1 == 'espacio.png' ){
                   $complementoNumero = true;    
              }
-
              // es numero y es el primero de la lista
              if ( in_array( $letraToSave, $numeros ) && $complementoNumero == true  ) {
                  $this->imgBraile_2 = $this->imgBraile_1 ;
                  $this->imgBraile_1 = 'numeral.png';
                  $complementoNumero = false;
              }
-
              if ( $complementoSimbolo > 0 && !in_array( $letraToSave,$excepciones ) && $complementoNumero == true )  {
                      $this->imgBraile_2=''; 
              }     
-             
              Braile::saveSimbols ( $idtercero, $id_impresion, $letraToSave, $this->imgBraile_1, $this->imgBraile_2) ;
-            
             if ( strlen($this->imgBraile_2) > 0  )     $complementoSimbolo++;
-            
-             
          }
     }
 
 
-     private function showTranscription ( $IdTercero, $Texto, $cara ) {
-            
-            $ImagesPath      = str_replace('\\', '/', asset('/storage/images/braile\\/') ) ; 
-            $jsonResonse =[];  $ArrayPalabra;
-            $ParabrasCara1  = Braile::palabrasPorCara( $IdTercero, "$cara", $Texto); 
-             $idregistro = 1;   
-             foreach ($ParabrasCara1 as $Palabra => $value ) {
-                 $simbolosPalabra = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
-                 array_push($jsonResonse, [ 
-                                'cara'."$cara"      => $value->cara,
-                                       'idregistro' => $idregistro,
-                                       'MC'         => $value->max_cara,
-                                       'MF'         => $value->max_filas,
-                                       'simbolos'   => $simbolosPalabra
-                                ] );
-                $idregistro++; 
-             }
-             
-             return   $jsonResonse  ;
+     private function showTranscription ( $IdTercero, $Texto ) {
+            $jsonResponse  = [];  $ArrayPalabra;
+            $ParabrasCara1 = Braile::palabrasPorCara( $IdTercero, "1", $Texto);
+            $ParabrasCara2 = Braile::palabrasPorCara( $IdTercero, "2", $Texto);
+            $this->addDataToArray ($ParabrasCara1 , $jsonResponse,'1' );
+            $this->addDataToArray ($ParabrasCara2 , $jsonResponse,'2' );
+             return   $jsonResponse  ;
      }
 
+        private function addDataToArray ( $PalabrasPorCara, &$jsonResponse, $nro_cara){
+                $ImagesPath    = str_replace('\\', '/', asset('/storage/images/braile\\/') ) ;
+                foreach ($PalabrasPorCara as $Palabra => $value ) {     
+                    $simbolosPalabra = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
+                    array_push ($jsonResponse  ,  [
+                                   'cara'       => 'cara'."$nro_cara",
+                            'cara'."$nro_cara"  => $value->cara,
+                                   'idregistro' => $value->id_impresion,
+                                   'MC'         => $value->max_cara,
+                                   'MF'         => $value->max_filas,
+                                   'simbolos'   => $simbolosPalabra
+                        ]);
+                }
+        }
    
 
       private function buscarSimbolo ( $caraterBusqueda ) {
            $this->imgBraile_1 ='';
            $this->imgBraile_2 = '';
            $this->SimboloExcepcion = false;
-        
            $this->caracterEsEspacio         ( $caraterBusqueda  );
            $this->caracterEsSignoPesos      ( $caraterBusqueda  );
            $this->caracterEsPorcentaje      ( $caraterBusqueda  );   
