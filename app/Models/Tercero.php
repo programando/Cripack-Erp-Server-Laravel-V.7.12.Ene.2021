@@ -219,6 +219,42 @@ class Tercero extends Model
 		'comis_vta',
 		'comis_rcudo'
 	];
+		public function scopeclienteBusqueda( $query, $Filtro){
+			return $query
+					 ->where('cliente','1')
+					 ->where ( function ($query) use ( $Filtro) {
+							$query->where('identificacion'         ,'LIKE'   , "%$Filtro%")		 
+							->orWhere('codigo_tercero'       ,'LIKE'   , "%$Filtro%")
+							->orWhere('nom_sucursal'   ,'LIKE'   , "%$Filtro%")
+							->orWhere('nomtercero'     ,'LIKE'   , "%$Filtro%")
+							->orWhere('alias'     ,'LIKE'   , "%$Filtro%");
+					 })
+					 ->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias')
+					 ->get();
+		}
+
+ 
+		public function getNomterceroAttribute( $value ) {
+				return trim($value);
+		}
+
+		public function getNomsucursalAttribute( $value ) {
+			return trim($value);
+		}
+		public function getDireccionAttribute( $value ) {
+			return trim($value);
+		}	
+		public function getelefonoAttribute( $value ) {
+			return trim($value);
+		}			
+		public function getAliasAttribute( $value ) {
+			return trim($value);
+		}
+
+		public function getIdentificacionAttribute( $value ) {
+			return trim($value);
+		}
+
 		public static function bitacoraOtsPorDisenador () {
 			return DB::select('call btcra_mvto_ots_registro_11_pm(  )'  );
 		}
@@ -267,6 +303,8 @@ class Tercero extends Model
 				return DB::select('call api_ordenes_trabajo_datos_cotizaciones_impresion(?)', array ( $idregistro_ot ) );
 		}
  
+
+
 	public function formas_pago()
 	{
 		return $this->belongsTo(FormasPago::class, 'idformapago');

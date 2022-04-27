@@ -28,6 +28,12 @@ class TercerosController extends Controller
 {
   use PdfsTrait;
 
+
+  public function clienteBusqueda ( request $FormData ) {
+      return Terceros::clienteBusqueda($FormData->filtroBusqueda );
+  }
+
+
   // 13 nov 2021.     
   // Genera documento pdf-cotización con base en datos de la orden de trabajo
 

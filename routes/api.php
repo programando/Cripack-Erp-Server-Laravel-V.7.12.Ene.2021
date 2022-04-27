@@ -63,6 +63,7 @@ Route::group(['prefix' => 'clientes/'], function () {
     Route::get('bloqueados-cartera/ots/pendientes'       , $localController.'bloqueadosPorCarteraOtsPendientes') ;
     Route::get('bitacora/disenadores'                    , $localController.'bitacoraOtsPorDisenador') ;
     Route::get('solicitud/orden-compra'                   , $localController.'solicitudOrdenesCompraGenerarFactura') ;
+    Route::post('busqueda'                               , $localController.'clienteBusqueda') ;
 });
 
 Route::group(['prefix' => 'ordenes-trabajo/'], function () {
