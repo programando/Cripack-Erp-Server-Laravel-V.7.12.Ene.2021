@@ -29,6 +29,14 @@ class TercerosController extends Controller
   use PdfsTrait;
 
 
+  public function buscarClientePorCodigo ( request $FormData  ){
+     return Terceros::BuscarClientePorCodigo ( $FormData->codigo_tercero);
+  }
+
+  public function primerosVeinteClientes (){
+    return Terceros::primerosVeinteClientes(); 
+  }
+
   public function clienteBusqueda ( request $FormData ) {
       return Terceros::clienteBusqueda($FormData->filtroBusqueda );
   }

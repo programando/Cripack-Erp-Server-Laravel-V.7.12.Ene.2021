@@ -219,6 +219,19 @@ class Tercero extends Model
 		'comis_vta',
 		'comis_rcudo'
 	];
+		
+ 
+
+		public static function BuscarClientePorCodigo ( $CodTercero  ){
+			return DB::select('call terceros_buscar_por_codigo(?)', array ("$CodTercero") );
+		}
+
+		public function scopeprimerosVeinteClientes($query ){
+				return $query->where('cliente','1')->orderBy('nomtercero')
+						->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias')
+						->take(12)->get();
+		}
+
 		public function scopeclienteBusqueda( $query, $Filtro){
 			return $query
 					 ->where('cliente','1')
@@ -234,31 +247,7 @@ class Tercero extends Model
 		}
 
  
-		public function getNomterceroAttribute( $value ) {
-				return trim($value);
-		}
 
-		public function getNomsucursalAttribute( $value ) {
-			return trim($value);
-		}
-		public function getDireccionAttribute( $value ) {
-			return trim($value);
-		}	
-		public function getelefonoAttribute( $value ) {
-			return trim($value);
-		}			
-		public function getAliasAttribute( $value ) {
-			return trim($value);
-		}
-
-		public function getIdentificacionAttribute( $value ) {
-			return trim($value);
-		}
-
-		public static function bitacoraOtsPorDisenador () {
-			return DB::select('call btcra_mvto_ots_registro_11_pm(  )'  );
-		}
-		
 		// Historial de cliente
 		public static function getOrdenesTrabajoCliente( $Data ) {
 					return DB::select('call api_terceros_consulta_trabajos_x_tercero( ?, ?, ?)', array ($Data->idTercero,$Data->fechaIni, $Data->fechaFin) );
@@ -303,6 +292,32 @@ class Tercero extends Model
 				return DB::select('call api_ordenes_trabajo_datos_cotizaciones_impresion(?)', array ( $idregistro_ot ) );
 		}
  
+
+		public function getNomterceroAttribute( $value ) {
+			return trim($value);
+	}
+
+	public function getNomsucursalAttribute( $value ) {
+		return trim($value);
+	}
+	public function getDireccionAttribute( $value ) {
+		return trim($value);
+	}	
+	public function getelefonoAttribute( $value ) {
+		return trim($value);
+	}			
+	public function getAliasAttribute( $value ) {
+		return trim($value);
+	}
+
+	public function getIdentificacionAttribute( $value ) {
+		return trim($value);
+	}
+
+	public static function bitacoraOtsPorDisenador () {
+		return DB::select('call btcra_mvto_ots_registro_11_pm(  )'  );
+	}
+	
 
 
 	public function formas_pago()
