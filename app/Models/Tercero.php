@@ -229,7 +229,7 @@ class Tercero extends Model
 		public function scopeprimerosVeinteClientes($query ){
 				return $query->where('cliente','1')->orderBy('nomtercero')
 						->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias')
-						->take(12)->get();
+						->take(40)->get();
 		}
 
 		public function scopeclienteBusqueda( $query, $Filtro){
