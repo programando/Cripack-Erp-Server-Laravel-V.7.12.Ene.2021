@@ -222,14 +222,23 @@ class Tercero extends Model
 		
  
 
-		public static function BuscarClientePorCodigo ( $CodTercero  ){
+		public static function buscarClientePorCodigo ( $CodTercero  ){
 			return DB::select('call terceros_buscar_por_codigo(?)', array ("$CodTercero") );
 		}
+		
+		public static function clienteUltimasVeinteVisitas ( $IdTercero   ){
+			return DB::select('call terceros_visitas_consultar_x_idtercero (?)', array ( $IdTercero ) );
+		}
+
+		public static function buscarClientePorIdTercero ( $IdTercero  ){
+			return DB::select('call terceros_buscar_x_idtercero (?)', array ($IdTercero) );
+		}
+
 
 		public function scopeprimerosVeinteClientes($query ){
 				return $query->where('cliente','1')->orderBy('nomtercero')
 						->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias')
-						->take(40)->get();
+						->take(10)->get();
 		}
 
 		public function scopeclienteBusqueda( $query, $Filtro){

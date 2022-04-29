@@ -63,9 +63,11 @@ Route::group(['prefix' => 'clientes/'], function () {
     Route::get('bloqueados-cartera/ots/pendientes'       , $localController.'bloqueadosPorCarteraOtsPendientes') ;
     Route::get('bitacora/disenadores'                    , $localController.'bitacoraOtsPorDisenador') ;
     Route::get('solicitud/orden-compra'                  , $localController.'solicitudOrdenesCompraGenerarFactura') ;
-    Route::post('busqueda'                               , $localController.'clienteBusqueda') ;
     Route::get('primeros/registros'                      , $localController.'primerosVeinteClientes') ;
-    Route::post('buscar/codigo'                          , $localController.'buscarClientePorCodigo') ;
+    Route::post('busqueda/texto'                               , $localController.'clienteBusqueda') ;
+    Route::post('busqueda/codigo'                          , $localController.'buscarClientePorCodigo') ;
+    Route::post('busqueda/idtercero'                        , $localController.'buscarClientePorIdTercero') ;
+    Route::post('ultimas/visitas'                        , $localController.'clienteUltimasVeinteVisitas') ;
 });
 
 Route::group(['prefix' => 'ordenes-trabajo/'], function () {
