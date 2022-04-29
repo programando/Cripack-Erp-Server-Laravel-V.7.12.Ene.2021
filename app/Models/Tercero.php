@@ -221,6 +221,10 @@ class Tercero extends Model
 	];
 		
  
+		public static function clienteUltimasCincoCompras ( $IdTercero  ){
+			return DB::select('call terceros_clientes_ultima_compra ( ? )', array ( $IdTercero ) );
+		}
+
 
 		public static function buscarClientePorCodigo ( $CodTercero  ){
 			return DB::select('call terceros_buscar_por_codigo(?)', array ("$CodTercero") );

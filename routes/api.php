@@ -68,6 +68,7 @@ Route::group(['prefix' => 'clientes/'], function () {
     Route::post('busqueda/codigo'                          , $localController.'buscarClientePorCodigo') ;
     Route::post('busqueda/idtercero'                        , $localController.'buscarClientePorIdTercero') ;
     Route::post('ultimas/visitas'                        , $localController.'clienteUltimasVeinteVisitas') ;
+    Route::post('ultimas/cinco/compras'                        , $localController.'clienteUltimasCincoCompras') ;
 });
 
 Route::group(['prefix' => 'ordenes-trabajo/'], function () {

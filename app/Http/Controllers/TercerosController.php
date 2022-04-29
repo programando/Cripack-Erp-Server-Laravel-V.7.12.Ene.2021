@@ -29,6 +29,9 @@ class TercerosController extends Controller
   use PdfsTrait;
 
 
+  public function clienteUltimasCincoCompras ( request $FormData  ){
+    return Terceros::clienteUltimasCincoCompras ( $FormData->idtercero);
+ }
 
   public function clienteUltimasVeinteVisitas ( request $FormData  ){
     return Terceros::clienteUltimasVeinteVisitas ( $FormData->idtercero);
