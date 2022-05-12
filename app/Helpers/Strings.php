@@ -7,6 +7,13 @@ class Strings {
          * MARZO 16 2018
          * Retorna un string sin espacios extenos e internos, con la longitus indicada
          */
+ 
+    public static function InicialMayuscula ( $String) {
+            $String = mb_strtolower( trim( $String),'UTF-8'); 
+            return ucfirst( $String); 
+         }
+ 
+         
     public static function UpperTrim( $String, $Long ) {
         $String = trim( $String );
         $String = preg_replace('/\s\s+/', ' ', $String  );
