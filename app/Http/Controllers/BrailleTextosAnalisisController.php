@@ -213,7 +213,7 @@ class BrailleTextosAnalisisController extends Controller
                                    'cara'       => 'cara'."$nro_cara",
                             'cara'."$nro_cara"  => $value->cara,
                                    'idregistro' => $value->id_impresion,
-                                   'MC'         => $value->max_cara,
+                                   'MC'         => $value->MC,
                                    'MF'         => $value->max_filas,
                                    'simbolos'   => $simbolosPalabra
                         ]);

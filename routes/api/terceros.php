@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
         Route::get('bloqueados-cartera/ots/pendientes'       , $localController.'bloqueadosPorCarteraOtsPendientes') ;
         Route::get('bitacora/disenadores'                    , $localController.'bitacoraOtsPorDisenador') ;
         Route::get('solicitud/orden-compra'                  , $localController.'solicitudOrdenesCompraGenerarFactura') ;
-        Route::get('primeros/registros'                      , $localController.'primerosVeinteClientes') ;
+        Route::post('primeros/registros'                      , $localController.'primerosVeinteClientes') ;
         Route::post('busqueda/texto'                         , $localController.'clienteBusqueda') ;
         Route::post('busqueda/codigo'                        , $localController.'buscarClientePorCodigo') ;
         Route::post('busqueda/idtercero'                     , $localController.'buscarClientePorIdTercero') ;

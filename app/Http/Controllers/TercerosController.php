@@ -43,15 +43,20 @@ class TercerosController extends Controller
   }
 
   public function buscarClientePorCodigo ( request $FormData  ){
-     return Terceros::buscarClientePorCodigo ( $FormData->codigo_tercero);
+     $Cliente = Terceros::buscarClientePorCodigo ( $FormData->codigo_tercero, $FormData->idtercero_vendedor);
+     if ( empty ( $Cliente )) {
+       return 'NoOk';
+     }else {
+       return $Cliente;
+     }
   }
 
-  public function primerosVeinteClientes (){
-    return Terceros::primerosVeinteClientes(); 
+  public function primerosVeinteClientes ( request $FormData ){
+    return Terceros::primerosVeinteClientes( $FormData->idtercero_vendedor); 
   }
 
   public function clienteBusqueda ( request $FormData ) {
-      return Terceros::clienteBusqueda($FormData->filtroBusqueda );
+      return Terceros::clienteBusqueda($FormData->filtroBusqueda, $FormData->idtercero_vendedor );
   }
 
 

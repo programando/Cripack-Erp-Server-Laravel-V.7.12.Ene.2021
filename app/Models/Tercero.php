@@ -226,8 +226,8 @@ class Tercero extends Model
 		}
 
 
-		public static function buscarClientePorCodigo ( $CodTercero  ){
-			return DB::select('call terceros_buscar_por_codigo(?)', array ("$CodTercero") );
+		public static function buscarClientePorCodigo ( $CodTercero, $IdTercero_Vendedor  ){
+			return DB::select('call terceros_buscar_por_codigo_cliente_id_vendedor(?, ?, ?)', array ("$CodTercero",  $IdTercero_Vendedor, -1 ) );
 		}
 		
 		public static function clienteUltimasVeinteVisitas ( $IdTercero   ){
@@ -239,15 +239,18 @@ class Tercero extends Model
 		}
 
 
-		public function scopeprimerosVeinteClientes($query ){
-				return $query->where('cliente','1')->orderBy('nomtercero')
+		public function scopeprimerosVeinteClientes($query, $IdTerceroVendedor ){
+				return $query->where('cliente','1')
+						->where('idvendedor', $IdTerceroVendedor)
+						->orderBy('nomtercero')
 						->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias')
 						->take(10)->get();
 		}
 
-		public function scopeclienteBusqueda( $query, $Filtro){
+		public function scopeclienteBusqueda( $query, $Filtro, $IdTerceroVendedor){
 			return $query
 					 ->where('cliente','1')
+					 ->where('idvendedor', $IdTerceroVendedor)
 					 ->where ( function ($query) use ( $Filtro) {
 							$query->where('identificacion'         ,'LIKE'   , "%$Filtro%")		 
 							->orWhere('codigo_tercero'       ,'LIKE'   , "%$Filtro%")
