@@ -29,4 +29,10 @@ use Illuminate\Support\Facades\Route;
     Route::group(['prefix' => 'terceros/clientes'], function () {
         Route::post('visitas/grabar/nuevo-registro'           , 'TercerosVisitasController@grabarNuevaVisita') ;
     });
+
+    Route::group(['prefix' => 'terceros/empleados'], function () {
+        Route::get('/evaluacion/desepenio/email'           , 'TercerosEvaluacionDesepenioController@enviarComunicaciones') ;
+    });
+
+
 ?>

@@ -11,7 +11,7 @@ Consultas mas eficientes
    https://programacionymas.com/blog/consultas-laravel-eficientes-usando-eloquent
 
 
-https://www.google.com/drive/download/
+ 
 
 
 DEPURAR CONSULTAS SQL
