@@ -160,19 +160,19 @@ class TercerosController extends Controller
     }
     
     public function OrdenesTrabajoCliente ( Request $FormData) { 
-        $FormData  = $this->isUserCripack ( $FormData );
-        $CacheName = HelperUtilites::getUrlUniqueName();                                                                     // obtiene nombre a partir de la URL
-        $DataOts   = Cache::tags( $CacheName )->remember( $CacheName, now()->addMinutes(30), function () use ($FormData)  {
+        //$CacheName = HelperUtilites::getUrlUniqueName();  // obtiene nombre a partir de la URL  
+       /* $DataOts   = Cache::tags( $CacheName )->remember( $CacheName, now()->addMinutes(30), function () use ($FormData)  {
             return Terceros::getOrdenesTrabajoCliente( $FormData  );
-        });  
+        });
+        */
+        return Terceros::getOrdenesTrabajoCliente( $FormData  );  
         TercerosActividades::saveActivity( $FormData->idTercero , 2, 'CONSULTA HISTORIAL' );         
          return Arrays::arrayPaginator ($DataOts, $FormData );  // Incluir paginación de un array
     }
 
 
     public function OrdenesTrabajoEstadoProduccion ( Request $FormData ) {
-       $FormData = $this->isUserCripack ( $FormData );       
-       $OtsProduccion = Terceros::otsEstadoProduccion( $FormData->idTercero );
+       $OtsProduccion = Terceros::otsEstadoProduccion( $FormData->idTercero, $FormData->vendedor  );  
        $DatosTablero = array( array('numero_ot'=>0,'referencia'=>'', 'nomestilotrabajo'=>'','nomtipotrabajo'=>'',
                             'labor1'=>'', 'labor2'=>'', 'labor3'=>'', 'labor4'=>'', 'labor5'=>'',
                             'labor6'=>'', 'labor7'=>'', 'labor8'=>'', 'labor9'=>'', 'labor10'=>'',

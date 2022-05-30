@@ -14,12 +14,13 @@ class BrailleTextosAnalisisController extends Controller
 
      public function transcripcionTextos ( Request $FormData ) {
 
-          $idtercero = $FormData->idTercero;
-          $texto     =  Strings::FixAccents (strtoupper(trim($FormData->texto)));
+          $idtercero  = $FormData->idTercero;
+          $texto      = Strings::FixAccents (strtoupper(trim($FormData->texto)));
+          $largo      = (int)$FormData->largo;
+          $alto       = (int)$FormData->alto;
+          $ancho      = (int)$FormData->ancho;
+          $imprimirEn = (string)$FormData->imprimirEn;   // largo   o   ancho
 
-          $largo     = (int)$FormData->largo;
-          $alto      = (int)$FormData->alto;
-          $ancho     = (int)$FormData->ancho; 
     
           $this->setParameters ();
           $this->reservarSimbolos () ;
@@ -90,7 +91,7 @@ class BrailleTextosAnalisisController extends Controller
              $op4ncarm   = $this->NCarM ( $caracteres , $op4mcm);
              //-----------------------------------------------------------------------------   
              
-             Braile::textSave( $idtercero, $texto, $caja_largo, $caja_ancho, $caja_alto, $caracteres, $espacios, $palabras, $op1nfe, $op1nfm , $op1nc, $op1mce, $op1mcm, $op1fmax,$op1fdef,      $op1ncare, $op1ncarm,  $op2nfe, $op2nfm , $op2nc, $op2mce, $op2mcm, $op2fmax,$op2fdef, $op2ncare, $op2ncarm,   $op3nfe, $op3nfm , $op3nc, $op3mce, $op3mcm, $op3fmax,$op3fdef, $op3ncare, $op3ncarm, $op4nfe, $op4nfm , $op4nc, $op4mce, $op4mcm, $op4fmax,$op4fdef, $op4ncare, $op4ncarm, $op3nc, $op3nfm  );
+             Braile::textSave( $idtercero, $texto, $caja_largo, $caja_ancho, $caja_alto, $caracteres, $espacios, $palabras, $op1nfe, $op1nfm , $op1nc, $op1mce, $op1mcm, $op1fmax,$op1fdef,  $op1ncare, $op1ncarm,  $op2nfe, $op2nfm , $op2nc, $op2mce, $op2mcm, $op2fmax,$op2fdef, $op2ncare, $op2ncarm,   $op3nfe, $op3nfm , $op3nc, $op3mce, $op3mcm, $op3fmax,$op3fdef, $op3ncare, $op3ncarm, $op4nfe, $op4nfm , $op4nc, $op4mce, $op4mcm, $op4fmax,$op4fdef, $op4ncare, $op4ncarm, $op3nc, $op3nfm  );
       }
 
     private function distibuirImpresionTextos ( $IdTercero )     {
@@ -215,7 +216,8 @@ class BrailleTextosAnalisisController extends Controller
                                    'idregistro' => $value->id_impresion,
                                    'MC'         => $value->MC,
                                    'MF'         => $value->max_filas,
-                                   'simbolos'   => $simbolosPalabra
+                                   'simbolos'   => $simbolosPalabra,
+                                   'long_texto' => $value->long_texto,
                         ]);
                 }
         }
@@ -280,7 +282,7 @@ class BrailleTextosAnalisisController extends Controller
     }
 
     private function caracterEsLlaveCierre ( $caraterBusqueda ) {
-        if ( $caraterBusqueda == '{') {
+        if ( $caraterBusqueda == '}') {
             $this->imgBraile_1 = 'corcheteIzq1.png';
             $this->imgBraile_2 = 'corcheteIzq2.png';
             $this->SimboloExcepcion = true;

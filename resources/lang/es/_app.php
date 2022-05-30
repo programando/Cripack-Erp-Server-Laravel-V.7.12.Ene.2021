@@ -10,10 +10,10 @@ return [
 -   |---------------------------------------------------------------------------
     |
     */
-         'EMPRESA'                   => 'Balquimia',
-         'APP_NAME'                   => 'Balquimia ERP',
-         'TEXT_SOPORTE'               => 'Soporte Balquimia',
-         'EMAIL_SOPORTE'              => 'jhonjamesmg@hotmail.com',
+         'EMPRESA'                   => 'Cripack',
+         'APP_NAME'                   => 'WebCross',
+         'TEXT_SOPORTE'               => 'Soporte Cripack',
+         'EMAIL_SOPORTE'              => 'croscut@cripack.com',
 
 
          /*

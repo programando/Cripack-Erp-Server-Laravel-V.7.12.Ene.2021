@@ -266,12 +266,12 @@ class Tercero extends Model
 
 		// Historial de cliente
 		public static function getOrdenesTrabajoCliente( $Data ) {
-					return DB::select('call api_terceros_consulta_trabajos_x_tercero( ?, ?, ?)', array ($Data->idTercero,$Data->fechaIni, $Data->fechaFin) );
+			return DB::select('call api_terceros_consulta_trabajos_x_tercero(?, ?, ?, ? )', array ($Data->idTercero, $Data->vendedor,  $Data->fechaIni , $Data->fechaFin) );
 			}
 
 			// Datos únicos de ls ots del cliente en produccion
-		public static function otsEstadoProduccion ( $idTercero ) {	
-			 	return DB::select('call api_ots_estado_produccion_por_idtercero_01( ?)', array ( $idTercero ) );
+		public static function otsEstadoProduccion ( $idTercero, $vendedor ) {	
+			 	return DB::select('call api_ots_estado_produccion_por_idtercero_01( ?,?)', array ( $idTercero, $vendedor ) );
 		 }
 	
 		// Labores por cada una de las OTS

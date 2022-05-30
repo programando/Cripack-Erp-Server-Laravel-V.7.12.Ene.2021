@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Route;
 //Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'clientes'], function () {
     Route::group(['prefix' => 'clientes/'], function () {
         $localController = 'TercerosController@'; 
-        Route::get('ots/historial'                           , $localController.'OrdenesTrabajoCliente') ;
-        Route::get('ots/estado'                              , $localController.'OrdenesTrabajoEstadoProduccion') ;
+        Route::post('ots/historial'                           , $localController.'OrdenesTrabajoCliente') ;
+        Route::post('ots/estado'                              , $localController.'OrdenesTrabajoEstadoProduccion') ;
         Route::get('ots/en-aprobacion'                       , $localController.'otsBloqueadasDibEnAprobacion') ;
         Route::get('cotizaciones'                            , $localController.'cotizacionGenerarDesdeOT')->name('get-cotizacion-from-ot') ;
         Route::get('bloqueados-cartera'                      , $localController.'bloqueadosPorCartera') ;
