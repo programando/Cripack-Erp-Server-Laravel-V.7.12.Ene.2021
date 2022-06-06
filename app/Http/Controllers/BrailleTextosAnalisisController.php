@@ -13,7 +13,7 @@ class BrailleTextosAnalisisController extends Controller
     private $Simbolos, $imgBraile_1, $imgBraile_2, $SimboloExcepcion;
 
      public function transcripcionTextos ( Request $FormData ) {
-
+        
           $idtercero  = $FormData->idTercero;
           $texto      = Strings::FixAccents (strtoupper(trim($FormData->texto)));
           $largo      = (int)$FormData->largo;
@@ -21,6 +21,10 @@ class BrailleTextosAnalisisController extends Controller
           $ancho      = (int)$FormData->ancho;
           $imprimirEn = (string)$FormData->imprimirEn;   // largo   o   ancho
 
+          if ($imprimirEn=='ancho' ) {
+            $largo =  (int)$FormData->ancho;
+            $ancho =  (int)$FormData->alto;
+          }
     
           $this->setParameters ();
           $this->reservarSimbolos () ;
@@ -28,7 +32,7 @@ class BrailleTextosAnalisisController extends Controller
           $this->saveText (  $idtercero, $texto , $largo, $ancho, $alto );
           $this->distibuirImpresionTextos ( $idtercero) ;
           $result = $this->showTranscription ( $idtercero, $texto  );
-
+          
          return $result;
      }
 
@@ -96,7 +100,7 @@ class BrailleTextosAnalisisController extends Controller
 
     private function distibuirImpresionTextos ( $IdTercero )     {
         $Textos = Braile::getTextsToAnalysis ( $IdTercero );
-       
+        
          foreach ($Textos  as $Texto ) {
             $Filas = $this->distribuirPalabra ( $Texto->texto, $Texto->max_cara );  
             $this->grabarCaras ($IdTercero,$Texto->texto, $Filas , $Texto->max_cara , $Texto->max_filas );
@@ -143,7 +147,7 @@ class BrailleTextosAnalisisController extends Controller
     }
 
 
-    private function grabarCaras ($idtercero, $texto,    $Filas , $MaxCara=5, $MaxFilas=8) {  
+    private function grabarCaras ($idtercero, $texto,    $Filas , $MaxCara, $MaxFilas) {  
         $FilasOcupadas = 1;
          $texto = trim( $texto); 
 
@@ -346,8 +350,7 @@ class BrailleTextosAnalisisController extends Controller
             }              
           }
           if  ( $resultado === '') { 
-              $resultado = end( $this->Estandar); 
-            
+              $resultado = end( $this->Estandar);  
               $resultado = $resultado['value'];
               };
           
@@ -402,7 +405,8 @@ class BrailleTextosAnalisisController extends Controller
 
      private function setParameters () {
         $this->Estandar = array(
-                  ['key-ini' =>  0, 'key-fin' => 32,  'value' => 1 ],
+                  ['key-ini' =>  0, 'key-fin' => 22,  'value' => 0 ],
+                  ['key-ini' => 23, 'key-fin' => 32,  'value' => 1 ],
                   ['key-ini' => 33, 'key-fin' => 42,  'value' => 2 ],
                   ['key-ini' => 43, 'key-fin' => 52,  'value' => 3 ],
                   ['key-ini' => 53, 'key-fin' => 62,  'value' => 4 ],
@@ -410,7 +414,8 @@ class BrailleTextosAnalisisController extends Controller
                 );
 
         $this->Minimo = array(
-                  ['key-ini' =>  0, 'key-fin' => 25,  'value' => 1 ],
+                  ['key-ini' =>  0, 'key-fin' => 19,  'value' => 0 ],
+                  ['key-ini' => 20, 'key-fin' => 25,  'value' => 1 ],
                   ['key-ini' => 26, 'key-fin' => 35,  'value' => 2 ],
                   ['key-ini' => 36, 'key-fin' => 45,  'value' => 3 ],
                   ['key-ini' => 46, 'key-fin' => 55,  'value' => 4 ],
