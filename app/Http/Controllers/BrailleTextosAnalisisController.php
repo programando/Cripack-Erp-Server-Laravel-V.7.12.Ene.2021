@@ -21,23 +21,22 @@ class BrailleTextosAnalisisController extends Controller
           $ancho      = (int)$FormData->ancho;
           $imprimirEn = (string)$FormData->imprimirEn;   // largo   o   ancho
 
-          if ($imprimirEn=='ancho' ) {
-            $largo =  (int)$FormData->ancho;
-            $ancho =  (int)$FormData->alto;
-          }
-    
+   
           $this->setParameters ();
           $this->reservarSimbolos () ;
           Braile::deleteTranscriptedTexts (  $idtercero );
-          $this->saveText (  $idtercero, $texto , $largo, $ancho, $alto );
+          $isPrinterPosible = $this->saveText (  $idtercero, $texto , $largo, $ancho, $alto, $imprimirEn );
+
+          if ( $isPrinterPosible === false )  return response()->json(['result' => 'braileNoImprimible', 'data' => []]); ;
+          
           $this->distibuirImpresionTextos ( $idtercero) ;
           $result = $this->showTranscription ( $idtercero, $texto  );
+          return response()->json(['result' => 'Ok', 'data' => $result]);
           
-         return $result;
      }
 
 
-      public function saveText( $idtercero, $texto , $caja_largo, $caja_ancho, $caja_alto ) {          
+      public function saveText( $idtercero, $texto , $caja_largo, $caja_ancho, $caja_alto, $imprimirEn ) {          
             //, $max_cara, $max_filas
              $caracteres = strlen ( $texto );
              $espacios   = substr_count ($texto, ' ' );
@@ -94,8 +93,23 @@ class BrailleTextosAnalisisController extends Controller
              $op4ncare   = $this->NcarE ( $caracteres, $op4mce ) ;
              $op4ncarm   = $this->NCarM ( $caracteres , $op4mcm);
              //-----------------------------------------------------------------------------   
-             
-             Braile::textSave( $idtercero, $texto, $caja_largo, $caja_ancho, $caja_alto, $caracteres, $espacios, $palabras, $op1nfe, $op1nfm , $op1nc, $op1mce, $op1mcm, $op1fmax,$op1fdef,  $op1ncare, $op1ncarm,  $op2nfe, $op2nfm , $op2nc, $op2mce, $op2mcm, $op2fmax,$op2fdef, $op2ncare, $op2ncarm,   $op3nfe, $op3nfm , $op3nc, $op3mce, $op3mcm, $op3fmax,$op3fdef, $op3ncare, $op3ncarm, $op4nfe, $op4nfm , $op4nc, $op4mce, $op4mcm, $op4fmax,$op4fdef, $op4ncare, $op4ncarm, $op3nc, $op3nfm  );
+             $_max_cara  = $op3nc;
+             $_max_filas = $op3nfm ;
+             $_estandar  = $op3nfe;
+             $_minimo    = $op3nfm ;
+             if ( $imprimirEn =='ancho'  ) {
+                $_max_cara  = $op4nc;
+                $_max_filas = $op4nfm;
+                $_estandar  = $op4nfe ;
+                $_minimo    = $op4nfm ;
+              }
+             Braile::textSave( $idtercero, $texto, $caja_largo, $caja_ancho, $caja_alto, $caracteres, $espacios, $palabras, $op1nfe, $op1nfm , $op1nc, $op1mce, $op1mcm, $op1fmax,$op1fdef,  $op1ncare, $op1ncarm,  $op2nfe, $op2nfm , $op2nc, $op2mce, $op2mcm, $op2fmax,$op2fdef, $op2ncare, $op2ncarm,   $op3nfe, $op3nfm , $op3nc, $op3mce, $op3mcm, $op3fmax,$op3fdef, $op3ncare, $op3ncarm, $op4nfe, $op4nfm , $op4nc, $op4mce, $op4mcm, $op4fmax,$op4fdef, $op4ncare, $op4ncarm, $_max_cara,  $_max_filas );
+            
+            if ( (int)$_estandar === 0 || (int)$_minimo  === 0 ) {
+                return false; // Datos de la caja no pueden usarse para impresión
+            } else {
+                return true;
+            }   
       }
 
     private function distibuirImpresionTextos ( $IdTercero )     {

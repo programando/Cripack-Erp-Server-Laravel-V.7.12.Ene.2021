@@ -217,7 +217,9 @@ class Tercero extends Model
 		'entrega_niks',
 		'exig_vr_gra_oc',
 		'comis_vta',
-		'comis_rcudo'
+		'comis_rcudo',
+		'rbo_prdcto_exg_oc',
+		'rbo_prdcto_exg_fac','rbo_prdcto_exg_rem','rbo_prdcto_exg_cert_cldad'
 	];
 		
  

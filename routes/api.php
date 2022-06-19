@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
+Route::group(['prefix' => 'SqlServer/'], function () {
+    Route::get('cartera'            , 'SqlServerBiableCarteraClientesController@carterNitTercero') ;
+
+});
+
+
 Route::group(['prefix' => 'motivos/visitas/'], function () {
     Route::get('listado'            , 'MotivosVisitasController@getMotivosVistas') ;
 
