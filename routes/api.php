@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => 'SqlServer/'], function () {
-    Route::get('cartera'            , 'SqlServerBiableCarteraClientesController@carterNitTercero') ;
+    Route::post('cartera'            , 'SqlServerBiableCarteraClientesController@carterNitTercero') ;
 
 });
 
