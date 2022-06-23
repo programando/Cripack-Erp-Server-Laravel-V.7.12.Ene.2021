@@ -44,7 +44,22 @@ class SqlSrvBiableCarteraCliente extends Model
 	];
 
 	public function scopeFacturasNitTercero ( $query, $NitTercero ) {
-	 
 		return $query->whereNitCliente("$NitTercero")->orderBy('dias_vencida','DESC')->get();
 	}
+
+
+	public function  getFchaDocAttribute( $value ) {	
+			return Carbon::parse($value)->format('Y-m-d');
+	}
+
+	public function  getFchaVenceAttribute( $value ) {	
+		return Carbon::parse($value)->format('Y-m-d');
+	}
+
+	public function  getUpdateAtAttribute( $value ) {	
+		return Carbon::parse($value)->format('d-m-Y h:m:s');
+	}
+
+
+
 }
