@@ -5,7 +5,7 @@ php artisan queue:work
 
  Crear Modelos
  --------------
-    php artisan code:models --table=braille_textos_analisis
+    php artisan code:models --table=agenda_asstncia_mqunas
 
 Consultas mas eficientes
    https://programacionymas.com/blog/consultas-laravel-eficientes-usando-eloquent

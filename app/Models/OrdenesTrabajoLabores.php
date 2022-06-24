@@ -9,39 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class OrdenesTrabajoLabore
- * 
- * @property int $idregistro_labores
- * @property int|null $idregistro_ot
- * @property int|null $idlabor
- * @property int|null $idtercero
- * @property Carbon|null $fecha_hora_inicio
- * @property Carbon|null $fecha_hora_final
- * @property int|null $idtercero_inicia
- * @property int|null $idtercero_finaliza
- * @property int|null $id_motivo_inactiva_ot
- * @property bool $inicio_trazo_manual
- * @property Carbon|null $ini_lab_simult
- * @property Carbon|null $fin_lab_simult
- * @property bool|null $lab_acomp
- * @property int|null $idtercero_acomp
- * @property float|null $duracion
- * @property float|null $minutos_lab_simult
- * @property float|null $tot_minutos
- * @property int|null $idmaquina
- * @property Carbon|null $fecha_hora_inicio_manual
- * @property Carbon|null $fecha_hora_final_manual
- * @property int|null $idtercero_operario_manual
- * @property Carbon|null $fecha_hora_dscga_labor
- * 
- * @property OrdenesTrabajoMotivosInactivar|null $ordenes_trabajo_motivos_inactivar
- * @property OrdenesTrabajo|null $ordenes_trabajo
- * @property Labore|null $labore
- * @property Tercero|null $tercero
- *
- * @package App\Models
- */
+ 
 class OrdenesTrabajoLabores extends Model
 {
 	protected $table = 'ordenes_trabajo_labores';
