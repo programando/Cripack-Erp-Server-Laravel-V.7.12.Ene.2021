@@ -44,7 +44,8 @@ class SqlSrvBiableCarteraCliente extends Model
 	];
 
 	public function scopeFacturasNitTercero ( $query, $NitTercero ) {
-		return $query->whereNitCliente("$NitTercero")->orderBy('dias_vencida','DESC')->get();
+		return $query->whereNitCliente("$NitTercero")
+					->where('valor_cartera','>','0')->orderBy('dias_vencida','DESC')->get();
 	}
 
 

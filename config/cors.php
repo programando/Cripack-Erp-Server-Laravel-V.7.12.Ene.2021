@@ -17,7 +17,7 @@ return [
 
     'paths'                    => ['*','login','logout','reset/password','update/password','sanctum/csrf-cookie', 'user'],
     'allowed_methods'          => ['*'],
-    'allowed_origins'          => ['http://localhost:3000','https://webcross.cripack.com', 'http://localhost:8000' ],
+    'allowed_origins'          => ['http://localhost:3000','https://webcross.cripack.com', 'http://localhost:8000','https://braille.cripack.com' ],
     'allowed_origins_patterns' => [],
     'allowed_headers'          => ['*'],
     'exposed_headers'          => false,
