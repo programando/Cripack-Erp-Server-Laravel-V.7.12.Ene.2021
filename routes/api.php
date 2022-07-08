@@ -6,15 +6,13 @@ echo "<pre>{$query->sql} - {$query->time}</pre>";
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-
+ 
 Route::group(['prefix' => 'agendamiento/'], function () {
     Route::post('asistencia'            , 'AgendaAsstnciaMqunasController@consultaAgendaMesAnio') ;
-
+    Route::get('aprobados-enviar-email', 'AgendaAsstnciaMqunasController@aprobadasEnviarEmail');
 });
 
-
-
+ 
 Route::group(['prefix' => 'SqlServer/'], function () {
     Route::post('cartera'            , 'SqlServerBiableCarteraClientesController@carterNitTercero') ;
 
