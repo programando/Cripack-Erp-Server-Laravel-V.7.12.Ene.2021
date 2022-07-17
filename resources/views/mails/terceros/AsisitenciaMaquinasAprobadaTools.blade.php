@@ -20,8 +20,7 @@
   <div role="article"  lang="en">
     <header style="display: flex; margin: 0 40px;">
       <div style="font-size: 12px;">
-        <h4>Señores:</h4>
-        <h4 style="margin-top: 20px; margin-bottom: 0px; font-size:12px;"> {{ $Cliente }}</h4>
+
         <br><br> 
       </div>
     </header> 
@@ -30,16 +29,18 @@
         <h4 style="font-weight: 300;">Cordial saludo,</h4>
         <br><br>
         <h4 style="font-weight: 300;">
-        Nos complace informales que los servicios descritos en la presente comunicación han sido aprobados según las condiciones acordadas. <br><br><br>
+        Se informa sobre agendamiento de servicios que serán prestados por <strong>Cripack S.A.S.</strong> Se solicita tener en cuenta las fechas para el envío oportuno de los elementos y herramientas
+        necesarias para llevar a cabo la actividad. <br><br><br>
         
         </h4>
       </div>
  
-       <table   width="100%">
+       <table  width="100%">
       <thead  style="text-align: center; color: #fff; background-color: #272C6B; height:25px;">
         <tr>
           <th>&nbsp;#&nbsp;</th>
           <th style="text-align: center;">Fecha</th>
+          <th>&nbsp;Cliente&nbsp;</th>
           <th>&nbsp;Técnico&nbsp;</th>
           <th>Servicio</th>
         </tr>

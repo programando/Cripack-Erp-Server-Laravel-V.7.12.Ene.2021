@@ -18,20 +18,21 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\OrdenesTrabajoExteriorEvent'                  => [ 'App\Listeners\OrdenesTrabajoExteriorListener',                        ],
-        'App\Events\Terceros\ClientesBloqueadosEvent'             => [ 'App\Listeners\Terceros\ClientesBloqueadosListener',                   ],         // Correo semanal. clientes bloqueados
-        'App\Events\Terceros\ClientesBloqueadosOtsEvent'          => [ 'App\Listeners\Terceros\ClientesBloqueadosOtsListener',                ],         // Correo diario. Clientes bloqueados
-        'App\Events\Terceros\CotizacionesAprobarEvent'            => [ 'App\Listeners\Terceros\CotizacionesAprobarListener',                  ],         // Aprobar cotizaciones
-        'App\Events\Terceros\CotizacionesEnEstudioEvent'          => [ 'App\Listeners\Terceros\CotizacionesEnEstudioListener',                ],         // Cotizaciones en estudio
-        'App\Events\Terceros\CotizacionesNtfcionesEvent'          => [ 'App\Listeners\Terceros\CotizacionesNtfcionesListener',                ],         // Notif.seguimiento de cotizaciones
-        'App\Events\Terceros\DespachoTccSendEmailEvent'           => [ 'App\Listeners\Terceros\DespachoTccSendEmailListener',                 ],         // Envío notificaciones despachos TCC
-        'App\Events\Terceros\DespachoCustomerSendEmailEvent'      => [ 'App\Listeners\Terceros\DespachoCustomerSendEmailListener',            ],         // Envío notificaciones despachos Clientes
-        'App\Events\Terceros\DespachoServiClientesSendEmailEvent' => [ 'App\Listeners\Terceros\DespachoServiClientesSendEmailListener',       ],         // Envío notificaciones despachos Servicio al cliente
-        'App\Events\Terceros\SolicitudOrdenCompraEvent'           => [ 'App\Listeners\Terceros\SolicitudOrdenCompraListener',                 ],         // Cotizaciones en estudio
-        'App\Events\Terceros\UsersContactUsEvent'                 => [ 'App\Listeners\Terceros\UsersContactUsListener',                       ],
-        'App\Events\Terceros\UsersWebEvent'                       => [ 'App\Listeners\Terceros\UsersWebListener',                             ],
-        'App\Events\Empleados\EvaluacionDesempenioEvent'          => [ 'App\Listeners\Empleados\EvaluacionDesempenioListener',                ],
-        'App\Events\Terceros\AsisitenciaMaquinasAprobadaEvent'    => [ 'App\Listeners\Terceros\AsisitenciaMaquinasAprobadaListener',                ],
+        'App\Events\OrdenesTrabajoExteriorEvent'                    => [ 'App\Listeners\OrdenesTrabajoExteriorListener',                        ],
+        'App\Events\Terceros\ClientesBloqueadosEvent'               => [ 'App\Listeners\Terceros\ClientesBloqueadosListener',                   ],              // Correo semanal. clientes bloqueados
+        'App\Events\Terceros\ClientesBloqueadosOtsEvent'            => [ 'App\Listeners\Terceros\ClientesBloqueadosOtsListener',                ],              // Correo diario. Clientes bloqueados
+        'App\Events\Terceros\CotizacionesAprobarEvent'              => [ 'App\Listeners\Terceros\CotizacionesAprobarListener',                  ],              // Aprobar cotizaciones
+        'App\Events\Terceros\CotizacionesEnEstudioEvent'            => [ 'App\Listeners\Terceros\CotizacionesEnEstudioListener',                ],              // Cotizaciones en estudio
+        'App\Events\Terceros\CotizacionesNtfcionesEvent'            => [ 'App\Listeners\Terceros\CotizacionesNtfcionesListener',                ],              // Notif.seguimiento de cotizaciones
+        'App\Events\Terceros\DespachoTccSendEmailEvent'             => [ 'App\Listeners\Terceros\DespachoTccSendEmailListener',                 ],              // Envío notificaciones despachos TCC
+        'App\Events\Terceros\DespachoCustomerSendEmailEvent'        => [ 'App\Listeners\Terceros\DespachoCustomerSendEmailListener',            ],              // Envío notificaciones despachos Clientes
+        'App\Events\Terceros\DespachoServiClientesSendEmailEvent'   => [ 'App\Listeners\Terceros\DespachoServiClientesSendEmailListener',       ],              // Envío notificaciones despachos Servicio al cliente
+        'App\Events\Terceros\SolicitudOrdenCompraEvent'             => [ 'App\Listeners\Terceros\SolicitudOrdenCompraListener',                 ],              // Cotizaciones en estudio
+        'App\Events\Terceros\UsersContactUsEvent'                   => [ 'App\Listeners\Terceros\UsersContactUsListener',                       ],
+        'App\Events\Terceros\UsersWebEvent'                         => [ 'App\Listeners\Terceros\UsersWebListener',                             ],
+        'App\Events\Empleados\EvaluacionDesempenioEvent'            => [ 'App\Listeners\Empleados\EvaluacionDesempenioListener',                ],
+        'App\Events\Terceros\AsisitenciaMaquinasAprobadaEvent'      => [ 'App\Listeners\Terceros\AsisitenciaMaquinasAprobadaListener',                ],
+        'App\Events\Terceros\AsisitenciaMaquinasAprobadaToolsEvent' => [ 'App\Listeners\Terceros\AsisitenciaMaquinasAprobadaToolsListener',                ],   // Herramientas necesarias
     ];
 
     /**

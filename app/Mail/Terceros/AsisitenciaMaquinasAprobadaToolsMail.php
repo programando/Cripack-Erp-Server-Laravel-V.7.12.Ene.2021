@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AsisitenciaMaquinasAprobadaMail extends Mailable
+class AsisitenciaMaquinasAprobadaToolsMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -23,7 +23,7 @@ class AsisitenciaMaquinasAprobadaMail extends Mailable
     public function build()
     {
         return 
-        $this->view('mails.terceros.AsisitenciaMaquinasAprobada')                  
+        $this->view('mails.terceros.AsisitenciaMaquinasAprobadaTools')                  
              ->subject('Servicios de asistencia aprobados - Cripack S.A.S.')  ; 
     }
 
@@ -35,6 +35,7 @@ class AsisitenciaMaquinasAprobadaMail extends Mailable
                     $Tabla      = $Tabla ."<tr>"  ;
                     $Tabla      = $Tabla . "<td>" . $Num       . "</td>" ;
                     $Tabla      = $Tabla . "<td>" . Carbon::parse($Servicio->fecha)->format('m-d-Y')          . "</td>" ;
+                    $Tabla      = $Tabla . "<td>" . trim($Servicio->cliente)   . "</td>" ;
                     $Tabla      = $Tabla . "<td>" . trim($Servicio->operario)   . "</td>" ;
                         $actvdad_am = is_null($Servicio->actvdad_am) ? '' : $Servicio->actvdad_am;
                         $actvdad_pm = is_null($Servicio->actvdad_pm) ? '' : $Servicio->actvdad_pm;

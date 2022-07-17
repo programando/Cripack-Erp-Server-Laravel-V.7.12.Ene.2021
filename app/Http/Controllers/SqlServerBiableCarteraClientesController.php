@@ -10,6 +10,11 @@ class SqlServerBiableCarteraClientesController extends Controller
     
     public function carterNitTercero ( request $FormData ) {
          
-            return Cartera::FacturasNitTercero($FormData->Nit_Tercero );
+        $Cartera = Cartera::FacturasNitTercero( trim($FormData->Nit_Tercero) );
+        if ( $Cartera ) {
+            return $Cartera;
+        }else {
+            return 'nada';
+        }
     }
 }
