@@ -10,21 +10,23 @@ use Illuminate\Support\Facades\Route;
 //Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'clientes'], function () {
     Route::group(['prefix' => 'clientes/'], function () {
         $localController = 'TercerosController@'; 
-        Route::post('ots/historial'                           , $localController.'OrdenesTrabajoCliente') ;
-        Route::post('ots/estado'                              , $localController.'OrdenesTrabajoEstadoProduccion') ;
+        Route::post('ots/historial'                          , $localController.'OrdenesTrabajoCliente') ;
+        Route::post('ots/estado'                             , $localController.'OrdenesTrabajoEstadoProduccion') ;
         Route::get('ots/en-aprobacion'                       , $localController.'otsBloqueadasDibEnAprobacion') ;
         Route::get('cotizaciones'                            , $localController.'cotizacionGenerarDesdeOT')->name('get-cotizacion-from-ot') ;
         Route::get('bloqueados-cartera'                      , $localController.'bloqueadosPorCartera') ;
         Route::get('bloqueados-cartera/ots/pendientes'       , $localController.'bloqueadosPorCarteraOtsPendientes') ;
         Route::get('bitacora/disenadores'                    , $localController.'bitacoraOtsPorDisenador') ;
         Route::get('solicitud/orden-compra'                  , $localController.'solicitudOrdenesCompraGenerarFactura') ;
-        Route::post('primeros/registros'                      , $localController.'primerosVeinteClientes') ;
+        Route::post('primeros/registros'                     , $localController.'primerosVeinteClientes') ;
         Route::post('busqueda/texto'                         , $localController.'clienteBusqueda') ;
         Route::post('busqueda/codigo'                        , $localController.'buscarClientePorCodigo') ;
         Route::post('busqueda/idtercero'                     , $localController.'buscarClientePorIdTercero') ;
         Route::post('ultimas/visitas'                        , $localController.'clienteUltimasVeinteVisitas') ;
         Route::post('ultimas/cinco/compras'                  , $localController.'clienteUltimasCincoCompras') ;
+        
     });
+
 
     Route::group(['prefix' => 'terceros/clientes'], function () {
         Route::post('visitas/grabar/nuevo-registro'           , 'TercerosVisitasController@grabarNuevaVisita') ;
@@ -32,6 +34,9 @@ use Illuminate\Support\Facades\Route;
 
     Route::group(['prefix' => 'terceros/empleados'], function () {
         Route::get('/evaluacion/desepenio/email'           , 'TercerosEvaluacionDesepenioController@enviarComunicaciones') ;
+    });
+    Route::group(['prefix' => 'terceros/asistencia'], function () {
+        Route::post('/enviar/email/aprobadas'                , 'AgendaAsstnciaMqunasController@aprobadasEnviarEmail') ;
     });
 
 
