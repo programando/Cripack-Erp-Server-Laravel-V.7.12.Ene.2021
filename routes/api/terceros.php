@@ -38,7 +38,6 @@ use Illuminate\Support\Facades\Route;
     Route::group(['prefix' => 'terceros/asistencia'], function () {
         Route::post('/enviar/email/aprobadas'                , 'AgendaAsstnciaMqunasController@aprobadasEnviarEmail') ;
     });
-
-    terceros/asistencias/enviar/email/aprobadas
+   
 
 ?>
