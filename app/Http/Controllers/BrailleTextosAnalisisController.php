@@ -23,10 +23,13 @@ class BrailleTextosAnalisisController extends Controller
 
    
           $this->setParameters ();
+          
           $this->reservarSimbolos () ;
+          
           Braile::deleteTranscriptedTexts (  $idtercero );
+          
           $isPrinterPosible = $this->saveText (  $idtercero, $texto , $largo, $ancho, $alto, $imprimirEn );
-
+          
           if ( $isPrinterPosible === false )  return response()->json(['result' => 'braileNoImprimible', 'data' => []]); ;
           
           $this->distibuirImpresionTextos ( $idtercero) ;
@@ -117,13 +120,16 @@ class BrailleTextosAnalisisController extends Controller
         
          foreach ($Textos  as $Texto ) {
             $Filas = $this->distribuirPalabra ( $Texto->texto, $Texto->max_cara );  
+            
             $this->grabarCaras ($IdTercero,$Texto->texto, $Filas , $Texto->max_cara , $Texto->max_filas );
         }
+      
     }
 
 
  private function distribuirPalabra ( $Frase, $MaxCara  ) {
         $Frase         = explode( ' ', $Frase );
+         
         $LongAcumulada = 0;
         $Fila          = '';
         $Filas         = array();  
@@ -163,20 +169,23 @@ class BrailleTextosAnalisisController extends Controller
 
     private function grabarCaras ($idtercero, $texto,    $Filas , $MaxCara, $MaxFilas) {  
         $FilasOcupadas = 1;
-         $texto = trim( $texto); 
-
+        $texto = trim( $texto); 
+        
         foreach ($Filas as $Fila ) {
-            $palabrasAtraducir = strtolower( $Fila);
+            $palabrasAtraducir = trim(mb_strtolower( $Fila, 'UTF-8'));        
             $palabraError      = substr( $palabrasAtraducir,0,4)== 'n/a-' ? 1 : 0;
             $palabrasAtraducir = $palabraError == 1 ? substr( $palabrasAtraducir,4,strlen($palabrasAtraducir )) : $palabrasAtraducir;
             $Long              = strlen( trim($palabrasAtraducir) ) ;
+            
+            
 
             if ( (int)$Long > 0 ) {
+                
                 if ( $FilasOcupadas <= $MaxFilas ) {
                         $FilasOcupadas=  $FilasOcupadas  + 1;
-                        $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, $palabrasAtraducir, $Long, 0, 0, $palabraError, '1');
-                        $this->grabarSimbolosBraile ( $idtercero, $id_impresion[0]->id_impresion, $palabrasAtraducir );
-                    }else {
+                        $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, $palabrasAtraducir, $Long, 0, 0, $palabraError, '1');      
+                        $this->grabarSimbolosBraile ( $idtercero, $id_impresion[0]->id_impresion, $palabrasAtraducir );             
+                    }else {             
                         $FilasOcupadas  =  $FilasOcupadas  + 1;
                         $id_impresion  = Braile::textSavePrinter ($idtercero, $texto, $MaxCara, $MaxFilas, 0, 0, $palabrasAtraducir, $Long, $palabraError,'2');
                         $this->grabarSimbolosBraile ($idtercero, $id_impresion[0]->id_impresion , $palabrasAtraducir );
@@ -188,14 +197,17 @@ class BrailleTextosAnalisisController extends Controller
 
 
     private function grabarSimbolosBraile ($idtercero, $id_impresion, $Palabra  ) {
-         $Palabra            = trim( $Palabra  );
+         $Palabra            = trim( $Palabra  );       
          $excepciones        = array ('$','%','{','}','€', '\\');
          $numeros            = array ('1','2','3','4','5','6','7','8','9','0');
-         $Letras             = preg_split('//',$Palabra ,-1, PREG_SPLIT_NO_EMPTY)  ;  /// Separa cada palabra en letras para encontrar su simbolo braile 
+         //$Letras             = preg_split('//',$Palabra ,-1, PREG_SPLIT_NO_EMPTY)  ;  /// Separa cada palabra en letras para encontrar su simbolo braile 
+         $Letras             = $this->lettersOfWord($Palabra)  ;  /// Separa cada palabra en letras para encontrar su simbolo braile 
          $complementoSimbolo = 0;
          $complementoNumero  = true;
+         
          foreach ( $Letras as $Letra) {
-             $letraToSave = strtolower( $Letra);
+             $letraToSave = mb_strtolower( $Letra,  'UTF-8');
+              
              $this->buscarSimbolo ( $letraToSave ) ;  
              if ( $this->imgBraile_1 == 'espacio.png' ){
                   $complementoNumero = true;    
@@ -208,12 +220,22 @@ class BrailleTextosAnalisisController extends Controller
              }
              if ( $complementoSimbolo > 0 && !in_array( $letraToSave,$excepciones ) && $complementoNumero == true )  {
                      $this->imgBraile_2=''; 
-             }     
+             }  
+                
              Braile::saveSimbols ( $idtercero, $id_impresion, $letraToSave, $this->imgBraile_1, $this->imgBraile_2) ;
             if ( strlen($this->imgBraile_2) > 0  )     $complementoSimbolo++;
          }
     }
 
+    private function lettersOfWord ( $Palabra ) {
+        //Separa cada palabra en letras para encontrar su simbolo braile 
+        $Palabra = mb_str_split(trim($Palabra) );
+        $Letras  = [];
+        foreach ( $Palabra  as $Letra) {
+            $Letras[] = $Letra;
+        }
+        return $Letras;
+    }
 
      private function showTranscription ( $IdTercero, $Texto ) {
             $jsonResponse  = [];  $ArrayPalabra;
@@ -226,7 +248,8 @@ class BrailleTextosAnalisisController extends Controller
 
         private function addDataToArray ( $PalabrasPorCara, &$jsonResponse, $nro_cara){
                 $ImagesPath    = str_replace('\\', '/', asset('/storage/images/braile\\/') ) ;
-                foreach ($PalabrasPorCara as $Palabra => $value ) {     
+                foreach ($PalabrasPorCara as $Palabra => $value ) {  
+ 
                     $simbolosPalabra = Braile::simbolosPorPalabra ( $value->id_impresion, $ImagesPath  );
                     array_push ($jsonResponse  ,  [
                                    'cara'       => 'cara'."$nro_cara",
