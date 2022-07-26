@@ -58,7 +58,7 @@ public static function FixAccents ( $cadena){
             //Reemplazamos la N, n, C y c
             $cadena = str_replace(
             array('Ñ', 'ñ', 'Ç', 'ç'),
-            array('N', 'ñ', 'C', 'c'),
+            array('N', 'n', 'C', 'c'),
             $cadena
             );
             
