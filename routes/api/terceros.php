@@ -39,5 +39,6 @@ use Illuminate\Support\Facades\Route;
         Route::post('/enviar/email/aprobadas'                , 'AgendaAsstnciaMqunasController@aprobadasEnviarEmail') ;
     });
 
+    terceros/asistencias/enviar/email/aprobadas
 
 ?>
