@@ -27,6 +27,7 @@ class TroquelPlanoRequest extends FormRequest
                'referencia'  => ['required'],
                'cabida'  => ['required'],
                'id_maquina'  => ['required'],
+               'id_frecuencia'  => 'required|numeric|min:0',
                 
           ];
     }
@@ -34,9 +35,11 @@ class TroquelPlanoRequest extends FormRequest
         public function messages()
     {
       return [
-        'referencia.required'       => 'referencia requerida',
-        'cabida.required'       => 'cabida requerida',
-        'id_maquina.required'       => 'Seleccione máquina',
+        'referencia.required'    => 'referencia requerida',
+        'cabida.required'        => 'cabida requerida',
+        'id_maquina.required'    => 'Seleccione máquina',
+        'id_frecuencia.required' => 'Frecuencia requerida',
+        'id_frecuencia.min'      => 'Frecuencia requerida',
         
         
       ];

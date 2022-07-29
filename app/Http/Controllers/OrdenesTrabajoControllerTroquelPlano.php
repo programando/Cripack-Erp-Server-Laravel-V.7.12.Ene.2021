@@ -12,15 +12,15 @@ use App\Http\Requests\TroquelPlanoRequest;
 
 class OrdenesTrabajoControllerTroquelPlano extends Controller
 {
- 
+    //TroquelPlanoRequest
 
-    public function troquelPlano( TroquelPlanoRequest $FormData ) {
+    public function troquelPlano( request $FormData ) {
 /*        $Madera  = $this->getMaderaWebOts ( $FormData );
        $NewOT   = $this->grabarOtTroquelPlano ($FormData );
        $this->grabarMaderas ( $NewOT, $Madera);
        $this->grabarLabores    ( $NewOT ); */
        \Log::info( $FormData);
-       return response()->json(['message'=>'error uploading file'], 503);
+       //return response()->json(['message'=>'error uploading file'], 503);
        return $FormData;
     }
 
@@ -38,7 +38,7 @@ class OrdenesTrabajoControllerTroquelPlano extends Controller
         $Ot->idtipotrabajo          = 1;
         $Ot->idgradodificultad      = 1;                              // ToDo
         $Ot->idtercero_vendedor     = $FormData->idtercero_vendedor;
-        $Ot->idtercero_realiza      = 3632;                           //ToDo
+        $Ot->idtercero_realiza      = $FormData->idtercero_realiza;
         $Ot->fecha_registro         = Fechas::getHoy();
         $Ot->fecha_solicitud        = Fechas::getHoy();
         $Ot->fecha_entrega          = Fechas::getHoy();

@@ -222,7 +222,10 @@ class Tercero extends Model
 		'rbo_prdcto_exg_fac','rbo_prdcto_exg_rem','rbo_prdcto_exg_cert_cldad'
 	];
 		
- 
+		public static function clientePorCodigo ( $query, $CodTercero) {
+			return $query->where('codigo_tercero',$CodTercero)->where('cliente','1')->get();
+		}
+
 		public static function clienteUltimasCincoCompras ( $IdTercero  ){
 			return DB::select('call terceros_clientes_ultima_compra ( ? )', array ( $IdTercero ) );
 		}
