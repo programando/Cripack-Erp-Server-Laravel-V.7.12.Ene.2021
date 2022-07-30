@@ -29,6 +29,34 @@ class TercerosController extends Controller
   use PdfsTrait;
 
 
+      public function ventasUltimos3Anios( request $FormData) {
+         $Ventas = Terceros::ventasUltimos3Anios($FormData->IdTercero);
+         $Response = [];
+         foreach ($Ventas as $Venta ) {
+            $meses[]= number_format($Venta->ene, 0, "" ,".")  ;
+            $meses[]= number_format($Venta->feb, 0, "" ,".")  ;
+            $meses[]= number_format($Venta->mar, 0, "" ,".")  ;
+            $meses[]= number_format($Venta->abr, 0, "" ,".")  ;
+            $meses[]= number_format($Venta->may, 0, "" ,".")  ;
+            $meses[]= number_format($Venta->jun, 0, "" ,".")  ;
+            $meses[]= number_format($Venta->jul, 0, "" ,".")  ;
+            $meses[]= number_format($Venta->ago, 0, "" ,".")  ;
+            $meses[]= number_format($Venta->sep, 0, "" ,".")  ;
+            $meses[]= number_format($Venta->oct, 0, "" ,".")  ;
+            $meses[]= number_format($Venta->nov, 0, "" ,".")  ;
+            $meses[]= number_format($Venta->dic, 0, "" ,".")  ;
+           
+
+            $jsonObject= ['name' => $Venta->anio,
+                          'data' => $meses
+            ] ;
+            $meses = [] ;
+            $Response[]=$jsonObject;
+         }
+         return $Response;
+      }
+
+
   public function clienteUltimasCincoCompras ( request $FormData  ){
     return Terceros::clienteUltimasCincoCompras ( $FormData->idtercero);
  }

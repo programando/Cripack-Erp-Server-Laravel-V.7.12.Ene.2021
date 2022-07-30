@@ -309,6 +309,9 @@ class Tercero extends Model
 					return DB::select('call api_terceros_contactos_sin_registro_web( ?)', array ( "$identificacion" ) );  
 			}
  
+
+
+
 	  public static function bloqueadosPorCartera() {
 				return DB::select('call api_terceros_bloqueados_cartera( )' );
 		}
@@ -328,6 +331,9 @@ class Tercero extends Model
 				return DB::select('call api_ordenes_trabajo_datos_cotizaciones_impresion(?)', array ( $idregistro_ot ) );
 		}
  
+		public static function ventasUltimos3Anios( $IdTercero) {
+			return DB::select('call produccion_informe_ventas_ultimos_3_anios_mes_a_mes_cliente(?,?,?,?,?)', array ( 2022,0,0,0,$IdTercero ) );
+	}
 
 		public function getNomterceroAttribute( $value ) {
 			return trim($value);
