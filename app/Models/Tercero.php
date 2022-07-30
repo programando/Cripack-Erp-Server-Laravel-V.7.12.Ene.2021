@@ -252,22 +252,37 @@ class Tercero extends Model
 						->take(10)->get();
 		}
 
-		public function scopeclienteBusqueda( $query, $Filtro, $IdTerceroVendedor){
+		public function scopeclienteBuscarPorVendedor( $query, $Filtro, $IdTerceroVendedor){
 			return $query
 					 ->where('cliente','1')
 					 ->where('idvendedor', $IdTerceroVendedor)
+					 ->where('inactivo','0')
 					 ->where ( function ($query) use ( $Filtro) {
-							$query->where('identificacion'         ,'LIKE'   , "%$Filtro%")		 
+							$query->where('identificacion'   ,'LIKE'   , "%$Filtro%")		 
 							->orWhere('codigo_tercero'       ,'LIKE'   , "%$Filtro%")
-							->orWhere('nom_sucursal'   ,'LIKE'   , "%$Filtro%")
-							->orWhere('nomtercero'     ,'LIKE'   , "%$Filtro%")
-							->orWhere('alias'     ,'LIKE'   , "%$Filtro%");
+							->orWhere('nom_sucursal'         ,'LIKE'   , "%$Filtro%")
+							->orWhere('nomtercero'           ,'LIKE'   , "%$Filtro%")
+							->orWhere('alias'                ,'LIKE'   , "%$Filtro%");
 					 })
-					 ->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias')
+					 ->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias','nom_sucursal')
 					 ->get();
 		}
 
- 
+		public function scopeclientesBuscar ( $query, $Filtro){
+			return $query
+					 ->where('cliente','1')
+					 ->where('inactivo','0')
+					 ->where ( function ($query) use ( $Filtro) {
+							$query->where('identificacion'   ,'LIKE'   , "%$Filtro%")		 
+							->orWhere('codigo_tercero'       ,'LIKE'   , "%$Filtro%")
+							->orWhere('nom_sucursal'         ,'LIKE'   , "%$Filtro%")
+							->orWhere('nomtercero'           ,'LIKE'   , "%$Filtro%")
+							->orWhere('alias'                ,'LIKE'   , "%$Filtro%");
+					 })
+					 ->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias','nom_sucursal')
+					 ->get();
+		}
+
 
 		// Historial de cliente
 		public static function getOrdenesTrabajoCliente( $Data ) {
