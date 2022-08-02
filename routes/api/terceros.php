@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('ultimas/cinco/compras'                  , $localController.'clienteUltimasCincoCompras') ;
         Route::post('ultimas/visitas'                        , $localController.'clienteUltimasVeinteVisitas') ;
         Route::post('ventas/ultimos/3/anios'                 , $localController.'ventasUltimos3Anios') ;
+        Route::post('productos/ultimos/3/anios'              , $localController.'productosUltimos3Anios') ;
         
     });
 

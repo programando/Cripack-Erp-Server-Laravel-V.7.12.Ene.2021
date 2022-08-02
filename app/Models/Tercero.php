@@ -333,7 +333,11 @@ class Tercero extends Model
  
 		public static function ventasUltimos3Anios( $IdTercero) {
 			return DB::select('call produccion_informe_ventas_ultimos_3_anios_mes_a_mes_cliente(?,?,?,?,?)', array ( 2022,0,0,0,$IdTercero ) );
-	}
+	    }
+
+		public static function productosUltimos3Anios( $IdTercero) {
+			return DB::select('call informes_ventas_productos_por_cliente_ult_3_anios(?)', array ($IdTercero ) );
+	    }
 
 		public function getNomterceroAttribute( $value ) {
 			return trim($value);

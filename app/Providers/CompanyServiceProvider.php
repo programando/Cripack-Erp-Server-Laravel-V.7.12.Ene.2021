@@ -20,6 +20,7 @@ class CompanyServiceProvider extends ServiceProvider
         require_once app_path() . '/Helpers/Strings.php';
         require_once app_path() . '/Helpers/Users.php';
         require_once app_path() . '/Helpers/Utilities.php';
+        require_once app_path() . '/Helpers/NumbersHelper.php';
     }
 
     /**

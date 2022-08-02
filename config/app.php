@@ -240,6 +240,7 @@ return [
         'Strings'   => App\Helpers\Strings::class,
         'Users'     => App\Helpers\Users::class,
         'Utilities' => App\Helpers\Utilities::class,
+        'Numbers' => App\Helpers\NumbersHelper::class,
 
     ],
 

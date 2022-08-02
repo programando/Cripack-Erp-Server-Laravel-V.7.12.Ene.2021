@@ -24,10 +24,26 @@ use App\Events\Terceros\ClientesBloqueadosOtsEvent;
 use App\Models\TercerosWebActividades as TercerosActividades;
 use Illuminate\Support\Facades\Response;
 
+use Numbers;
+
 class TercerosController extends Controller
 {
   use PdfsTrait;
 
+
+    public function productosUltimos3Anios ( request $FormData){
+      $Productos  = Terceros::productosUltimos3Anios ( $FormData->IdTercero);
+      $Response   = [];
+      $jsonObject = [];
+      foreach($Productos as $Producto) {
+          $data      []   = Numbers::jsonFormat( $Producto->precio_venta);
+          $categories[]   = $Producto->nomestilotrabajo;
+           
+      }
+      $Response[]=['data' => $data, 'categories' => $categories] ;
+      return $Response;
+    }
+//nomestilotrabajo, estilo_abrev
 
       public function ventasUltimos3Anios( request $FormData) {
          $Ventas = Terceros::ventasUltimos3Anios($FormData->IdTercero);
@@ -45,8 +61,6 @@ class TercerosController extends Controller
             $meses[]= number_format($Venta->oct, 0, "" ,".")  ;
             $meses[]= number_format($Venta->nov, 0, "" ,".")  ;
             $meses[]= number_format($Venta->dic, 0, "" ,".")  ;
-           
-
             $jsonObject= ['name' => $Venta->anio,
                           'data' => $meses
             ] ;
