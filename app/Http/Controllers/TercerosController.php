@@ -35,32 +35,44 @@ class TercerosController extends Controller
       $Productos  = Terceros::productosUltimos3Anios ( $FormData->IdTercero);
       $Response   = [];
       $jsonObject = [];
-      foreach($Productos as $Producto) {
-          $data      []   = Numbers::jsonFormat( $Producto->precio_venta);
-          $categories[]   = $Producto->nomestilotrabajo;
-           
+      $Productos  = collect(  $Productos );
+    
+      $nomsGrupEstlo =  $Productos->unique('nom_grup_estlo');
+      $categories  = $Productos->unique('anio_costeada')->pluck('anio_costeada');
+      foreach($nomsGrupEstlo as $Grupo) {
+        
+        $grupoFiltrado = $Productos->filter(function ($value, $key) use ($Grupo) {
+          return $value->nom_grup_estlo == $Grupo->nom_grup_estlo;
+       });
+ 
+       $anios       = $grupoFiltrado->unique('anio_costeada')->pluck('anio_costeada');
+       $ventas       = $grupoFiltrado->unique('precio_venta')->pluck('precio_venta');
+       $jsonObject= ['name' => $Grupo->alias_grup_estlo,
+                     'data' => $ventas
+                    ] ;
+        $Response[]=$jsonObject;
+
       }
-      $Response[]=['data' => $data, 'categories' => $categories] ;
-      return $Response;
-    }
-//nomestilotrabajo, estilo_abrev
+      return  [ $Response, 'categories' => $categories] ;
+    } 
+  
 
       public function ventasUltimos3Anios( request $FormData) {
          $Ventas = Terceros::ventasUltimos3Anios($FormData->IdTercero);
          $Response = [];
          foreach ($Ventas as $Venta ) {
-            $meses[]= number_format($Venta->ene, 0, "" ,".")  ;
-            $meses[]= number_format($Venta->feb, 0, "" ,".")  ;
-            $meses[]= number_format($Venta->mar, 0, "" ,".")  ;
-            $meses[]= number_format($Venta->abr, 0, "" ,".")  ;
-            $meses[]= number_format($Venta->may, 0, "" ,".")  ;
-            $meses[]= number_format($Venta->jun, 0, "" ,".")  ;
-            $meses[]= number_format($Venta->jul, 0, "" ,".")  ;
-            $meses[]= number_format($Venta->ago, 0, "" ,".")  ;
-            $meses[]= number_format($Venta->sep, 0, "" ,".")  ;
-            $meses[]= number_format($Venta->oct, 0, "" ,".")  ;
-            $meses[]= number_format($Venta->nov, 0, "" ,".")  ;
-            $meses[]= number_format($Venta->dic, 0, "" ,".")  ;
+            $meses[]= Numbers::jsonFormat($Venta->ene)  ;
+            $meses[]= Numbers::jsonFormat($Venta->feb)  ;
+            $meses[]= Numbers::jsonFormat($Venta->mar)  ;
+            $meses[]= Numbers::jsonFormat($Venta->abr)  ;
+            $meses[]= Numbers::jsonFormat($Venta->may)  ;
+            $meses[]= Numbers::jsonFormat($Venta->jun)  ;
+            $meses[]= Numbers::jsonFormat($Venta->jul)  ;
+            $meses[]= Numbers::jsonFormat($Venta->ago)  ;
+            $meses[]= Numbers::jsonFormat($Venta->sep)  ;
+            $meses[]= Numbers::jsonFormat($Venta->oct)  ;
+            $meses[]= Numbers::jsonFormat($Venta->nov)  ;
+            $meses[]= Numbers::jsonFormat($Venta->dic)  ;
             $jsonObject= ['name' => $Venta->anio,
                           'data' => $meses
             ] ;
