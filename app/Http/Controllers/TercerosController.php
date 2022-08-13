@@ -115,6 +115,9 @@ class TercerosController extends Controller
   public function clientesBuscar ( request $FormData ) {
       return Terceros::clientesBuscar($FormData->filtroBusqueda );
   }
+  public function datosResumenDashBoard ( request $FormData ) {
+      return Terceros::datosResumenDashBoard($FormData->identificacion );
+  }
 
 
   // 13 nov 2021.     
