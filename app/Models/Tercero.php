@@ -292,6 +292,12 @@ class Tercero extends Model
 		public static function datosResumenDashBoard( $Identificacion ) {
 			return DB::select('call api_dashboard_data_resume(? )', array ( "$Identificacion") );
 			}
+		public static function dashBoardOrdenesTrabajo( $Identificacion ) {
+			return DB::select('call api_dashboard_ordenes_trabajo_x_nit(? )', array ( "$Identificacion") );
+			}
+		public static function dashBoardCotizaciones( $Identificacion ) {
+			return DB::select('call api_dashboard_cotizaciones_ultimos_6_meses_nit(? )', array ( "$Identificacion") );
+			}
 
 			// Datos únicos de ls ots del cliente en produccion
 		public static function otsEstadoProduccion ( $idTercero, $vendedor ) {	

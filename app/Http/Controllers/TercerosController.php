@@ -119,6 +119,14 @@ class TercerosController extends Controller
       return Terceros::datosResumenDashBoard($FormData->identificacion );
   }
 
+  public function dashBoardCotizacionesUltimos6Meses ( request $FormData ) {
+    return Terceros::dashBoardCotizaciones($FormData->identificacion );
+  }
+
+  public function dashBoardOrdenesTrabajo ( request $FormData ) {
+    return Terceros::dashBoardOrdenesTrabajo($FormData->identificacion );
+  }
+
 
   // 13 nov 2021.     
   // Genera documento pdf-cotización con base en datos de la orden de trabajo
