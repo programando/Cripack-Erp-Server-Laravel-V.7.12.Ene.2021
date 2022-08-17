@@ -40,7 +40,7 @@ class TercerosVisita extends Model
 		'codcripack',
 		'fecha_proxvisita',
 		'contacto',
-		'tipo_visita'
+		'tipo_visita','idtercero_usuario'
 	];
 
 	public function motivos_visita()
