@@ -347,11 +347,16 @@ class Tercero extends Model
 		}
  
 		public static function ventasUltimos3Anios( $IdTercero) {
-			return DB::select('call produccion_informe_ventas_ultimos_3_anios_mes_a_mes_cliente(?,?,?,?,?)', array ( 2022,0,0,0,$IdTercero ) );
+			return DB::select('call api_dashboard_ventas_ultimos_3_anios_valores(?)', array ( $IdTercero ) );
 	    }
 
+		public static function productosVendidosUltimos3Anios( $Identificacion) {
+			return DB::select('call api_dashboard_productos_vendidos_ult_3_anios_nit(?)', array ($Identificacion ) );
+	    }
+
+
 		public static function productosUltimos3Anios( $IdTercero) {
-			return DB::select('call informes_ventas_productos_por_cliente_ult_3_anios(?)', array ($IdTercero ) );
+			return DB::select('call api_dashboard_ventas_ultimos_3_anios_productos(?)', array ($IdTercero ) );
 	    }
 
 		public function getNomterceroAttribute( $value ) {

@@ -31,6 +31,18 @@ class TercerosController extends Controller
   use PdfsTrait;
 
 
+
+   public function productosVendidosUltimos3Anios ( request $FormData) {
+      return Terceros::productosVendidosUltimos3Anios ($FormData->identificacion );
+   }
+
+
+   //AGOSTO. 30 2022.   RECIBE UN ARRAY DE IDGRUPOS ESTILOS PARA REVISAR LAS VENTAS
+   public function ventasPorGruposDeProducto ( request $FormData) {
+     $Grupos = implode( ',',$FormData->gruposEstilos );
+     return $Grupos ;
+   }
+
     public function productosUltimos3Anios ( request $FormData){
       $Productos  = Terceros::productosUltimos3Anios ( $FormData->IdTercero);
       $Response   = [];

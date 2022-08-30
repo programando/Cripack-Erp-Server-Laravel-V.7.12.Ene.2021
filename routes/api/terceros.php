@@ -32,6 +32,8 @@ use Illuminate\Support\Facades\Route;
         Route::post('cotizaciones'                           , $localController.'dashBoardCotizacionesUltimos6Meses') ;
         Route::post('ordenes/trabajo'                        , $localController.'dashBoardOrdenesTrabajo') ;
         Route::post('pqrs'                                   , $localController.'dashBoardPqrs') ;
+        Route::post('productos/vedidos/ultimos/3/anios'      , $localController.'productosVendidosUltimos3Anios') ;
+        Route::post('ventas/grupos/productos'                , $localController.'ventasPorGruposDeProducto') ;
         
     });
 
