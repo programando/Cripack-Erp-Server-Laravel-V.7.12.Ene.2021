@@ -29,70 +29,86 @@ use Numbers;
 class TercerosController extends Controller
 {
   use PdfsTrait;
-
+  private $AniosVentas ;
 
 
    public function productosVendidosUltimos3Anios ( request $FormData) {
-      return Terceros::productosVendidosUltimos3Anios ($FormData->identificacion );
+      return Terceros::productosVendidosUltimos3Anios ($FormData->identificacion ); // TABLA PARA LA SELECCION DE PRODUCTOS
    }
 
 
    //AGOSTO. 30 2022.   RECIBE UN ARRAY DE IDGRUPOS ESTILOS PARA REVISAR LAS VENTAS
-   public function ventasPorGruposDeProducto ( request $FormData) {
-     $Grupos = implode( ',',$FormData->gruposEstilos );
-     return $Grupos ;
+   public function ventasUltimos3AniosGruposSeleccionados ( request $FormData) {
+     $Grupos   = implode( ',',$FormData->gruposEstilos );
+     $Ventas   = Terceros::ventasProductosUltimos3AniosGruposSeleccionados( $FormData->IdTercero,$Grupos );
+     $Response = $this->productsResponseConfig ( $Ventas);
+     return  [ $Response, 'categories' => $this->AniosVentas] ;
    }
 
     public function productosUltimos3Anios ( request $FormData){
       $Productos  = Terceros::productosUltimos3Anios ( $FormData->IdTercero);
-      $Response   = [];
-      $jsonObject = [];
-      $Productos  = collect(  $Productos );
-    
-      $nomsGrupEstlo =  $Productos->unique('nom_grup_estlo');
-      $categories  = $Productos->unique('anio_costeada')->pluck('anio_costeada');
-      foreach($nomsGrupEstlo as $Grupo) {
-        
-        $grupoFiltrado = $Productos->filter(function ($value, $key) use ($Grupo) {
-          return $value->nom_grup_estlo == $Grupo->nom_grup_estlo;
-       });
- 
-       $anios       = $grupoFiltrado->unique('anio_costeada')->pluck('anio_costeada');
-       $ventas       = $grupoFiltrado->unique('precio_venta')->pluck('precio_venta');
-       $jsonObject= ['name' => $Grupo->alias_grup_estlo,
-                     'data' => $ventas
-                    ] ;
-        $Response[]=$jsonObject;
-
-      }
-      return  [ $Response, 'categories' => $categories] ;
+      $Response   = $this->productsResponseConfig (  $Productos);
+      return  [ $Response, 'categories' => $this->AniosVentas] ;
     } 
   
 
+    private function productsResponseConfig( $Productos ){
+      $Response          = [];
+      $jsonObject        = [];
+      $Productos         = collect(  $Productos );
+      $nomsGrupEstlo     = $Productos->unique('nom_grup_estlo');
+      $this->AniosVentas = $Productos->unique('anio_costeada')->pluck('anio_costeada');
+      
+      foreach($nomsGrupEstlo as $Grupo) {
+        $grupoFiltrado = $Productos->filter(function ($value, $key) use ($Grupo) {
+          return $value->nom_grup_estlo == $Grupo->nom_grup_estlo;
+       });
+       $ventas      = $grupoFiltrado->unique('precio_venta')->pluck('precio_venta');
+       $jsonObject  = ['name' => $Grupo->alias_grup_estlo,
+                        'data' => $ventas ] ;
+        $Response[]=$jsonObject;
+      }
+      return   $Response  ;
+    }
+
+    public function ventasValoresUltimos3AniosGruposSeleccionados ( request $FormData) {
+      $Grupos   = implode( ',',$FormData->gruposEstilos );
+      $Ventas   = Terceros::ventasValoresUltimos3AniosGruposSeleccionados( $FormData->IdTercero,$Grupos );
+      $Response = $this->ventasResponseConfig ( $Ventas );
+      return $Response;      
+    }
+
       public function ventasUltimos3Anios( request $FormData) {
          $Ventas = Terceros::ventasUltimos3Anios($FormData->IdTercero);
-         $Response = [];
-         foreach ($Ventas as $Venta ) {
-            $meses[]= Numbers::jsonFormat($Venta->ene)  ;
-            $meses[]= Numbers::jsonFormat($Venta->feb)  ;
-            $meses[]= Numbers::jsonFormat($Venta->mar)  ;
-            $meses[]= Numbers::jsonFormat($Venta->abr)  ;
-            $meses[]= Numbers::jsonFormat($Venta->may)  ;
-            $meses[]= Numbers::jsonFormat($Venta->jun)  ;
-            $meses[]= Numbers::jsonFormat($Venta->jul)  ;
-            $meses[]= Numbers::jsonFormat($Venta->ago)  ;
-            $meses[]= Numbers::jsonFormat($Venta->sep)  ;
-            $meses[]= Numbers::jsonFormat($Venta->oct)  ;
-            $meses[]= Numbers::jsonFormat($Venta->nov)  ;
-            $meses[]= Numbers::jsonFormat($Venta->dic)  ;
-            $jsonObject= ['name' => $Venta->anio,
-                          'data' => $meses
-            ] ;
-            $meses = [] ;
-            $Response[]=$jsonObject;
-         }
+         $Response = $this->ventasResponseConfig ( $Ventas );
          return $Response;
       }
+
+
+      private function ventasResponseConfig($Ventas ){
+        $Response = [];
+        foreach ($Ventas as $Venta ) {
+           $meses[]= Numbers::jsonFormat($Venta->ene)  ;
+           $meses[]= Numbers::jsonFormat($Venta->feb)  ;
+           $meses[]= Numbers::jsonFormat($Venta->mar)  ;
+           $meses[]= Numbers::jsonFormat($Venta->abr)  ;
+           $meses[]= Numbers::jsonFormat($Venta->may)  ;
+           $meses[]= Numbers::jsonFormat($Venta->jun)  ;
+           $meses[]= Numbers::jsonFormat($Venta->jul)  ;
+           $meses[]= Numbers::jsonFormat($Venta->ago)  ;
+           $meses[]= Numbers::jsonFormat($Venta->sep)  ;
+           $meses[]= Numbers::jsonFormat($Venta->oct)  ;
+           $meses[]= Numbers::jsonFormat($Venta->nov)  ;
+           $meses[]= Numbers::jsonFormat($Venta->dic)  ;
+           $jsonObject= ['name' => $Venta->anio,
+                         'data' => $meses
+           ] ;
+           $meses = [] ;
+           $Response[]=$jsonObject;
+        }
+        return $Response;
+      }
+
 
 
   public function clienteUltimasCincoCompras ( request $FormData  ){

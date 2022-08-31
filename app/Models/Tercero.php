@@ -359,6 +359,14 @@ class Tercero extends Model
 			return DB::select('call api_dashboard_ventas_ultimos_3_anios_productos(?)', array ($IdTercero ) );
 	    }
 
+		public static function ventasProductosUltimos3AniosGruposSeleccionados ( $IdTercero, $GrupoProductos) {
+			return DB::select('call api_dashboard_ventas_ultimos_3_anios_productos_seleccionados(?,?)', array ($IdTercero,$GrupoProductos ) );
+	    }
+
+		public static function ventasValoresUltimos3AniosGruposSeleccionados ( $IdTercero, $GrupoProductos) {
+			return DB::select('call api_dashboard_ventas_ultimos_3_anios_valores_prod_seleccionados(?,?)', array ($IdTercero,$GrupoProductos ) );
+	    }
+
 		public function getNomterceroAttribute( $value ) {
 			return trim($value);
 	}
