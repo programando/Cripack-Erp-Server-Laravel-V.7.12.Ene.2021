@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class Tercero extends Model
 {
+	 
+
 	protected $table = 'terceros';
 	protected $primaryKey = 'idtercero';
 	public $incrementing = false;
@@ -232,7 +234,12 @@ class Tercero extends Model
 
 
 		public static function buscarClientePorCodigo ( $CodTercero, $IdTercero_Vendedor  ){
-			return DB::select('call terceros_buscar_por_codigo_cliente_id_vendedor(?, ?, ?)', array ("$CodTercero",  $IdTercero_Vendedor, -1 ) );
+			$Autorizados = array(3005,3923,3810);
+			if ( in_array($IdTercero_Vendedor , $Autorizados  )){
+				return DB::select('call terceros_buscar_por_codigo_cliente_id_vendedor(?, ?, ?)', array ("$CodTercero",  $IdTercero_Vendedor, -1 ) );
+			}else {
+				return DB::select('call terceros_buscar_por_codigo_cliente(?)', array ("$CodTercero" ) );
+			}
 		}
 		
 		public static function clienteUltimasVeinteVisitas ( $IdTercero   ){
@@ -245,27 +252,52 @@ class Tercero extends Model
 
 
 		public function scopeprimerosVeinteClientes($query, $IdTerceroVendedor ){
+			$Autorizados = array(3005,3923,3810);
+			if (in_array($IdTerceroVendedor, Autorizados)) {
 				return $query->where('cliente','1')
 						->where('idvendedor', $IdTerceroVendedor)
 						->orderBy('nomtercero')
 						->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias')
 						->take(10)->get();
+			}else {
+				return $query->where('cliente','1')
+						->orderBy('nomtercero')
+						->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias')
+						->take(10)->get();
+			}
 		}
+		
 
 		public function scopeclienteBuscarPorVendedor( $query, $Filtro, $IdTerceroVendedor){
-			return $query
-					 ->where('cliente','1')
-					 ->where('idvendedor', $IdTerceroVendedor)
-					 ->where('inactivo','0')
-					 ->where ( function ($query) use ( $Filtro) {
-							$query->where('identificacion'   ,'LIKE'   , "%$Filtro%")		 
-							->orWhere('codigo_tercero'       ,'LIKE'   , "%$Filtro%")
-							->orWhere('nom_sucursal'         ,'LIKE'   , "%$Filtro%")
-							->orWhere('nomtercero'           ,'LIKE'   , "%$Filtro%")
-							->orWhere('alias'                ,'LIKE'   , "%$Filtro%");
-					 })
-					 ->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias','nom_sucursal')
-					 ->get();
+			$Autorizados = array(3005,3923,3810);
+			if (in_array($IdTerceroVendedor, $Autorizados)) {
+				return $query
+						->where('cliente','1')
+						->where('idvendedor', $IdTerceroVendedor)
+						->where('inactivo','0')
+						->where ( function ($query) use ( $Filtro) {
+								$query->where('identificacion'   ,'LIKE'   , "%$Filtro%")		 
+								->orWhere('codigo_tercero'       ,'LIKE'   , "%$Filtro%")
+								->orWhere('nom_sucursal'         ,'LIKE'   , "%$Filtro%")
+								->orWhere('nomtercero'           ,'LIKE'   , "%$Filtro%")
+								->orWhere('alias'                ,'LIKE'   , "%$Filtro%");
+						})
+						->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias','nom_sucursal')
+						->get();
+					}else{
+						return $query
+						->where('cliente','1')
+						->where('inactivo','0')
+						->where ( function ($query) use ( $Filtro) {
+							   $query->where('identificacion'   ,'LIKE'   , "%$Filtro%")		 
+							   ->orWhere('codigo_tercero'       ,'LIKE'   , "%$Filtro%")
+							   ->orWhere('nom_sucursal'         ,'LIKE'   , "%$Filtro%")
+							   ->orWhere('nomtercero'           ,'LIKE'   , "%$Filtro%")
+							   ->orWhere('alias'                ,'LIKE'   , "%$Filtro%");
+						})
+						->select('idtercero','identificacion','codigo_tercero','nomtercero', 'alias','nom_sucursal')
+						->get();
+					}
 		}
 
 		public function scopeclientesBuscar ( $query, $Filtro){
