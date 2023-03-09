@@ -32,6 +32,20 @@ class TercerosController extends Controller
   private $AniosVentas ;
 
 
+  public function carteraDownloadPdfPorNit (  request $FormData) {
+    $PdfName ='CARTERA-'.trim($FormData->identificacion) .'.pdf';
+     
+     $PdfContent       = $this->pdfCreateFileTrait('pdfs.cartera', compact('PdfName') );
+     Storage::disk('ClientFiles')->put( $PdfName  , $PdfContent);    
+    // $pdfFile  = Storage::disk('ClientFiles')->path( $PdfName);
+
+    return $PdfName;
+    return response()->download($pdfFile);
+
+     
+  }
+
+
    public function productosVendidosUltimos3Anios ( request $FormData) {
       return Terceros::productosVendidosUltimos3Anios ($FormData->identificacion ); // TABLA PARA LA SELECCION DE PRODUCTOS
    }
@@ -165,8 +179,10 @@ class TercerosController extends Controller
   // Genera documento pdf-cotización con base en datos de la orden de trabajo
 
   public function cotizacionGenerarDesdeOT ( request $FormData) {  
+ 
       $idOT             = $FormData->ID;
       $Cotizacion       = Terceros::cotizacionGenerarDesdeOT ($idOT  );
+
       $PdfContent       = $this->pdfCreateFileTrait('pdfs.cotizacion', compact('Cotizacion') );
       $pdfFile          = 'Cotizacion_'.$Cotizacion[0]->nro_cotizacion.'.pdf';
       Storage::disk('ClientFiles')->put($pdfFile  , $PdfContent);    

@@ -36,6 +36,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('productos/vedidos/ultimos/3/anios'                 , $localController.'productosVendidosUltimos3Anios') ;
         Route::post('ventas/grupos/productos'                           , $localController.'ventasPorGruposDeProducto') ;
         Route::post('ventas/grupos/productos/seleccionados'             , $localController.'ventasUltimos3AniosGruposSeleccionados') ;
+        Route::post('cartera/download/pdf'                              , $localController.'carteraDownloadPdfPorNit') ;
         
     });
 

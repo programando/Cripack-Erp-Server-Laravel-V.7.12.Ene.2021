@@ -33,6 +33,7 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Empleados\EvaluacionDesempenioEvent'            => [ 'App\Listeners\Empleados\EvaluacionDesempenioListener',                ],
         'App\Events\Terceros\AsisitenciaMaquinasAprobadaEvent'      => [ 'App\Listeners\Terceros\AsisitenciaMaquinasAprobadaListener',                ],
         'App\Events\Terceros\AsisitenciaMaquinasAprobadaToolsEvent' => [ 'App\Listeners\Terceros\AsisitenciaMaquinasAprobadaToolsListener',                ],   // Herramientas necesarias
+        
     ];
 
     /**
